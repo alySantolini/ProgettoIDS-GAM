@@ -8,6 +8,7 @@ public class Contributore {
     private String cognome;
     private String nomeUtente;
     private int idPrecedente=000;
+    private int eta;
 
     public Contributore(String nome, String cognome, String nomeUtente) {
         this.nome=nome;
@@ -16,6 +17,7 @@ public class Contributore {
     }
 
     public String getIdContributore() {
+        System.out.println("ciao");
         return idContributore;
     }
 
