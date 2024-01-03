@@ -6,11 +6,12 @@ public class Animatore {
     private String idAnimatore;
     private String nome;
     private String cognome;
-    private int idPrecedente=000;
+    private static int idPrecedente;
 
     public Animatore(String nome, String cognome) {
         this.nome = nome;
         this.cognome = cognome;
+        setIdAnimatore();
     }
 
     public String getIdAnimatore() {
@@ -42,11 +43,7 @@ public class Animatore {
         return idPrecedente;
     }
 
-
-
-
-
-    public Contest creaContest(List<PI> lista, String tipologia, String titolo, String descrizione){
-        return null;
+    public Contest creaContest(List<PI> lista, String tipologia, String titolo, String descrizione, String idAnimatore){
+        return new Contest (lista, tipologia, titolo, descrizione,idAnimatore);
     }
 }

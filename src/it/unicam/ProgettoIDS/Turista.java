@@ -4,17 +4,19 @@ public class Turista {
 
     private String idTurista;
     private String nickname;
-    private int idPrecedente =000;
+    private static int idPrecedente;
 
     public Turista(String nickname) {
         this.nickname = nickname;
+        setIdTurista();
     }
+
 
     public String getIdTurista() {
         return idTurista;
     }
 
-    public void setIdTurista(String idTurista) {
+    public void setIdTurista() {
         this.idTurista = "T"+idPrecedente;
         idPrecedente +=1;
     }

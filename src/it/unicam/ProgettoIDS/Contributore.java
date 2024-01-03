@@ -7,17 +7,16 @@ public class Contributore {
     private String nome;
     private String cognome;
     private String nomeUtente;
-    private int idPrecedente=000;
+    private static  int idPrecedente;
 
 
     public Contributore(String nome, String cognome, String nomeUtente) {
         this.nome=nome;
         this.cognome=cognome;
         this.nomeUtente=nomeUtente;
+        setIdContributore();
     }
-
     public String getIdContributore() {
-        System.out.println("ciao");
         return idContributore;
     }
 

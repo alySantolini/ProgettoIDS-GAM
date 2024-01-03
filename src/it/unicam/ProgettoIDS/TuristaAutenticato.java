@@ -3,17 +3,18 @@ package it.unicam.ProgettoIDS;
 public class TuristaAutenticato {
     private String idTuristaAutenticato;
     private String nickname;
-    private int idPrecedente=000;
+    private static int idPrecedente;
 
     public TuristaAutenticato(String nickname) {
         this.nickname = nickname;
+        setIdTuristaAutenticato();
     }
 
     public String getIdTuristaAutenticato() {
         return idTuristaAutenticato;
     }
 
-    public void setIdTuristaAutenticato(String idTuristaAutenticato) {
+    public void setIdTuristaAutenticato() {
         this.idTuristaAutenticato = "TA"+idPrecedente;
         idPrecedente +=1;
     }

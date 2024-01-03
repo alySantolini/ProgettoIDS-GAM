@@ -6,24 +6,23 @@ public class ContributoreAutorizzato {
     private String nome;
     private String cognome;
     private String nomeUtente;
-    private int idPrecedente=000;
+    private static int idPrecedente;
 
-    public ContributoreAutorizzato(String idContributore, String nome, String cognome, String nomeUtente) {
-        this.idContributore = idContributore;
+    public ContributoreAutorizzato(String nome, String cognome, String nomeUtente) {
         this.nome = nome;
         this.cognome = cognome;
         this.nomeUtente = nomeUtente;
+        setIdContributore();
     }
 
     public String getIdContributore() {
         return idContributore;
     }
 
-    public void setIdContributore(String idContributore) {
+    public void setIdContributore() {
         this.idContributore = "CA" + idPrecedente;
         idPrecedente +=1;
     }
-
     public String getNome() {
         return nome;
     }
