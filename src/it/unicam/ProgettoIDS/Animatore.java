@@ -42,6 +42,11 @@ public class Animatore {
         return idPrecedente;
     }
 
+
+    public int ciaociao () { int aiuto = 0;
+        return aiuto}
+
+
     public Contest creaContest(List<PI> lista, String tipologia, String titolo, String descrizione){
         return null;
     }
