@@ -8,7 +8,7 @@ public class Contributore {
     private String cognome;
     private String nomeUtente;
     private int idPrecedente=000;
-    private int eta;
+    private int eta1;
 
     public Contributore(String nome, String cognome, String nomeUtente) {
         this.nome=nome;
