@@ -9,22 +9,22 @@ public class Contest {
     private String descrizione;
     private static int idCONPrecedente ;
     private String idCreatore;
-    private List<PI> punti = new ArrayList<PI>();
+    private PI punti ;
     private String idContest;
 
-    public Contest(List<PI> lista, String tipologia, String titolo, String descrizione, String idAnimatore) {
-        this.punti = lista;
+    public Contest(PI pi, String tipologia, String titolo, String descrizione, String idAnimatore) {
+        this.punti = pi;
         this.tipologia = tipologia;
         this.titolo = titolo;
         this.descrizione = descrizione;
         setIdContest();
         this.idCreatore = idAnimatore;
     }
-    public List<PI> getPunti() {
+    public PI getPunti() {
         return punti;
     }
 
-    public void setPunti(List<PI> punti) {
+    public void setPunti(PI punti) {
         this.punti = punti;
     }
 

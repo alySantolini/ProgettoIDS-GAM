@@ -4,7 +4,7 @@ public class Turista {
 
     private String idTurista;
     private String nickname;
-    private static int idPrecedente;
+    private static int idTUPrecedente;
 
     public Turista(String nickname) {
         this.nickname = nickname;
@@ -16,9 +16,9 @@ public class Turista {
         return idTurista;
     }
 
-    public void setIdTurista() {
-        this.idTurista = "T"+idPrecedente;
-        idPrecedente +=1;
+    private void setIdTurista() {
+        this.idTurista = "T"+idTUPrecedente;
+        idTUPrecedente +=1;
     }
 
     public String getNickname() {
@@ -30,10 +30,11 @@ public class Turista {
     }
 
     public int getIdPrecedente() {
-        return idPrecedente;
+        return idTUPrecedente;
     }
 
-    public Segnalazione creaSegnalazione(Elemento e){
+    public Segnalazione creaSegnalazione(Elemento e)
+    {
         return null;
     }
 

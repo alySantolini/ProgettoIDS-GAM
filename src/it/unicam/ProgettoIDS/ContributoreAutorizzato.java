@@ -6,7 +6,7 @@ public class ContributoreAutorizzato {
     private String nome;
     private String cognome;
     private String nomeUtente;
-    private static int idPrecedente;
+    private static int idCAPrecedente;
 
     public ContributoreAutorizzato(String nome, String cognome, String nomeUtente) {
         this.nome = nome;
@@ -19,9 +19,9 @@ public class ContributoreAutorizzato {
         return idContributore;
     }
 
-    public void setIdContributore() {
-        this.idContributore = "CA" + idPrecedente;
-        idPrecedente +=1;
+    private void setIdContributore() {
+        this.idContributore = "CA" + idCAPrecedente;
+        idCAPrecedente +=1;
     }
     public String getNome() {
         return nome;

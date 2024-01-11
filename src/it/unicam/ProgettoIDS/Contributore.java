@@ -1,5 +1,6 @@
 package it.unicam.ProgettoIDS;
 
+import java.io.File;
 import java.util.List;
 
 public class Contributore {
@@ -7,7 +8,7 @@ public class Contributore {
     private String nome;
     private String cognome;
     private String nomeUtente;
-    private static  int idPrecedente;
+    private static  int idCPrecedente;
 
 
     public Contributore(String nome, String cognome, String nomeUtente) {
@@ -17,32 +18,37 @@ public class Contributore {
         setIdContributore();
     }
     public String getIdContributore() {
+
         return idContributore;
     }
 
     public int getIdPrecedente() {
-        return idPrecedente;
+        return idCPrecedente;
     }
 
 
-    public void setIdContributore() {
-        this.idContributore = "C"+idPrecedente;
-        idPrecedente +=1;
+    private void setIdContributore() {
+        this.idContributore = "C"+idCPrecedente;
+        idCPrecedente +=1;
     }
 
     public String getNome() {
+
         return nome;
     }
 
     public void setNome(String nome) {
+
         this.nome = nome;
     }
 
     public String getCognome() {
+
         return cognome;
     }
 
     public void setCognome(String cognome) {
+
         this.cognome = cognome;
     }
 
@@ -54,26 +60,22 @@ public class Contributore {
         this.nomeUtente = nomeUtente;
     }
 
-    public Contenuto creaContenuto(String tipologia, String titolo, String descrizione){
-
+    public Contenuto creaContenuto( File file,String titolo, String descrizione){
         return null;
 
     }
     public Esperienza creaEsperienza(String tipologia, String titolo, String descrizione, List<PI> listaPI){
-
         return null;
     }
     public PI creaPI(String titolo, String descrizione){
-
         return null;
     }
-    public Segnalazione creaSegnalazione(Elemento e){
-
-        return null;
-    }
-
-    public void richiestaAutorizzazione(Elemento e){
+    public void creaSegnalazione(Elemento e,String descrizione){
 
     }
+
+   public void richiestaAutorizzazione(Elemento e){
+
+   }
 
 }

@@ -1,10 +1,13 @@
 package it.unicam.ProgettoIDS;
 
+
+
 public class Curatore {
     private String idCuratore;
     private String nome;
     private String cognome;
     private String nomeUtente;
+
 
     public Curatore(String nome, String cognome, String nomeUtente) {
         this.idCuratore = "CU001";
@@ -63,4 +66,5 @@ public class Curatore {
     public void notificaAutorizzazione(String idRichiesta){
 
     }
+
 }

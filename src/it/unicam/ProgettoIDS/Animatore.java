@@ -6,7 +6,7 @@ public class Animatore {
     private String idAnimatore;
     private String nome;
     private String cognome;
-    private static int idPrecedente;
+    private static int idAPrecedente;
 
     public Animatore(String nome, String cognome) {
         this.nome = nome;
@@ -18,9 +18,9 @@ public class Animatore {
         return idAnimatore;
     }
 
-    public void setIdAnimatore() {
-        this.idAnimatore = "A"+idPrecedente;
-        idPrecedente +=1;
+    private void setIdAnimatore() {
+        this.idAnimatore = "A"+idAPrecedente;
+        idAPrecedente +=1;
     }
 
     public String getNome() {
@@ -40,10 +40,10 @@ public class Animatore {
     }
 
     public int getIdPrecedente() {
-        return idPrecedente;
+        return idAPrecedente;
     }
 
-    public Contest creaContest(List<PI> lista, String tipologia, String titolo, String descrizione, String idAnimatore){
-        return new Contest (lista, tipologia, titolo, descrizione,idAnimatore);
+    public Contest creaContest(PI pi, String tipologia, String titolo, String descrizione, String idAnimatore){
+        return new Contest (pi, tipologia, titolo, descrizione,idAnimatore);
     }
 }
