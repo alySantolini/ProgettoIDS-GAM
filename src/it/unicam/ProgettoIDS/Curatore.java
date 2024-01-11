@@ -44,8 +44,10 @@ public class Curatore {
         this.nomeUtente = nomeUtente;
     }
 
-    public void autorizzazione(String idRichiesta){
-
+    public void autorizzazione(ListaCondivisaElemento listaCondivisa,Elemento e){
+        List<Elemento> lista = listaCondivisa.getLista();
+        System.out.println("elementi della lista : " +lista);
+        listaCondivisa.rimuoviElemento(e,this);
     }
     public void gestioneSegnalazione(String idSegnalazione){
 
