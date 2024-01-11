@@ -61,21 +61,25 @@ public class Contributore {
     }
 
     public Contenuto creaContenuto( File file,String titolo, String descrizione){
-        return null;
-
+        if(file!=null) {
+            return new Contenuto(file, titolo, descrizione, "immagine");
+        }
+        return new Contenuto(titolo,descrizione,"commento");
     }
     public Esperienza creaEsperienza(String tipologia, String titolo, String descrizione, List<PI> listaPI){
-        return null;
+        //TODO
+        return new Esperienza;
     }
-    public PI creaPI(String titolo, String descrizione){
-        return null;
+    public PI creaPI(String titolo, String descrizione, String longitudine,String latitudine){
+        return new PI(descrizione, titolo, longitudine, latitudine);
     }
-    public void creaSegnalazione(Elemento e,String descrizione){
-
+    public void creaSegnalazione(ListaCondivisaSegnalazioni listaCondivisa, Contenuto e,String descrizione){
+        Segnalazione segnalazione= new Segnalazione(e.getIdContenuto(),descrizione);
+        listaCondivisa.aggiungiSegnalazione(segnalazione, this, null);
     }
 
-   public void richiestaAutorizzazione(Elemento e){
-
+   public void richiestaAutorizzazione(ListaCondivisaElemento listaCondivisa, Elemento e){
+        listaCondivisa.aggiungiElemento(e, this, null);
    }
 
 }
