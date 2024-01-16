@@ -67,8 +67,7 @@ public class Contributore {
         return new Contenuto(titolo,descrizione,"commento");
     }
     public Esperienza creaEsperienza(String tipologia, String titolo, String descrizione, List<PI> listaPI){
-        //TODO
-        return new Esperienza;
+        return new Esperienza(tipologia, titolo, descrizione, listaPI);
     }
     public PI creaPI(String titolo, String descrizione, String longitudine,String latitudine){
         return new PI(descrizione, titolo, longitudine, latitudine);

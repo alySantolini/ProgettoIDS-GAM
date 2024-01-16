@@ -1,6 +1,7 @@
 package it.unicam.ProgettoIDS;
 
 
+import java.util.List;
 
 public class Curatore {
     private String idCuratore;

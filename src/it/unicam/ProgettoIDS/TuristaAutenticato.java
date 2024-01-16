@@ -1,5 +1,7 @@
 package it.unicam.ProgettoIDS;
 
+import java.io.File;
+
 public class TuristaAutenticato {
     private String idTuristaAutenticato;
     private String nickname;
@@ -27,10 +29,19 @@ public class TuristaAutenticato {
         this.nickname = nickname;
     }
 
-    public Segnalazione creaSegnalazione(Elemento e){
-        return null;
+    public void creaSegnalazione(ListaCondivisaSegnalazioni listaCondivisa, Contenuto e,String descrizione){
+        Segnalazione segnalazione= new Segnalazione(e.getIdContenuto(),descrizione);
+        listaCondivisa.aggiungiSegnalazione(segnalazione, null, this);
+    }
+    public void creaCommento(File file, String titolo){
+        if(file!=null) {
+            Commento commento=new Commento(file, titolo, "immagine");
+            pubblicazioneCommento(commento);
+        }
+        Commento commento=new Commento(titolo,"commento");
+        pubblicazioneCommento(commento);
     }
     public void pubblicazioneCommento(Commento commento){
-
+        System.out.println("Il commento "+commento.getTitolo()+" è stato pubblicato");
     }
 }

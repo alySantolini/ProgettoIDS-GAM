@@ -39,5 +39,13 @@ public class PI {
     public void setTitolo(String titolo) {
         this.titolo = titolo;
     }
+
+    public void visualizza(){
+        if (idPI!=null){
+            System.out.println(this.titolo+this.descrizione+this.longitudine+this.latitudine);
+        }else{
+            System.out.println("Il PI non esiste");
+        }
+    }
 }
 

@@ -63,4 +63,12 @@ public class Contest {
     public String getId(){
         return idContest;
     }
+
+    public void visualizza(){
+        if (idContest!=null){
+            System.out.println(this.titolo+this.descrizione);
+        }else{
+            System.out.println("Il contest non esiste");
+        }
+    }
 }

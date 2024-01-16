@@ -38,4 +38,12 @@ public class Segnalazione {
         this.idElemento=idElemento;
     }
 
+    public void visualizza(){
+        if (idSegnalazione!=null){
+            System.out.println(this.descrizione);
+        }else{
+            System.out.println("La segnalazione non esiste");
+        }
+    }
+
 }
