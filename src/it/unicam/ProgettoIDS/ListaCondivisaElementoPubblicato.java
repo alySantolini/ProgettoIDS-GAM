@@ -1,11 +1,11 @@
-package it.unicam.ProgettoIDS;
-
 import java.util.ArrayList;
 import java.util.List;
-public class ListaCondivisaElemento {
-    private List<Elemento> lista = new ArrayList<>();
-    public void aggiungiElemento(Elemento elemento,Contributore contributore,TuristaAutenticato turista){
-        if(contributore ==null && turista == null){
+import java.util.Objects;
+
+public class ListaCondivisaElementoPubblicato { //uguale alla LCE, mi serviva un posto dove indicare la presenza degli elementi pubblicati
+    private List<Elemento> lista = new ArrayList<>(); // per buttarli giù dopouna eventuale segnalazione
+    public void aggiungiElemento(Elemento elemento,ContributoreAutorizzato contributoreA, Curatore curatore){
+        if(contributoreA ==null && curatore == null){
             return;
         }
         lista.add(elemento);

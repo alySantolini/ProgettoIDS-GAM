@@ -7,7 +7,7 @@ public class ListaCondivisaSegnalazioni {
     private List<Segnalazione> lista=new ArrayList<>();
 
     public void aggiungiSegnalazione(Segnalazione segnalazione, Contributore contributore, TuristaAutenticato turista){
-        if(contributore==null && turista==null){
+        if(contributoreA==null && contributore==null && turistaA==null && turista==null){
             return;
         }
         lista.add(segnalazione);
@@ -22,4 +22,12 @@ public class ListaCondivisaSegnalazioni {
             lista.remove(segnalazione);
         }
     }
+    public int size(){
+        return lista.size();
+    }
+
+    public Segnalazione get(int i){
+        return lista.get(i);
+    }
+}
 }

@@ -74,9 +74,8 @@ public class Contributore {
     }
     public void creaSegnalazione(ListaCondivisaSegnalazioni listaCondivisa, Contenuto e,String descrizione){
         Segnalazione segnalazione= new Segnalazione(e.getIdContenuto(),descrizione);
-        listaCondivisa.aggiungiSegnalazione(segnalazione, this, null);
+        listaCondivisa.aggiungiSegnalazione(segnalazione, null,this, null, null);
     }
-
    public void richiestaAutorizzazione(ListaCondivisaElemento listaCondivisa, Elemento e){
         listaCondivisa.aggiungiElemento(e, this, null);
    }
