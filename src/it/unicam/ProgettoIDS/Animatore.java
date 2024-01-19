@@ -44,6 +44,6 @@ public class Animatore {
     }
 
     public Contest creaContest(PI pi, String tipologia, String titolo, String descrizione, String idAnimatore){
-        return new Contest (pi, tipologia, titolo, descrizione,idAnimatore);
+        return new Contest (descrizione, titolo, tipologia, pi, idAnimatore);
     }
 }

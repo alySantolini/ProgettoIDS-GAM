@@ -68,7 +68,7 @@ public class ContributoreAutorizzato {
         System.out.println("Il contenuto"+ c.getTitolo()+"è stato pubblicato");
     }
 
-    public Esperienza creaEsperienza(String tipologia, String titolo, String descrizione, List<PI> listaPI){
+   /* public Esperienza creaEsperienza(String tipologia, String titolo, String descrizione, List<PI> listaPI){
         return new Esperienza(tipologia, titolo, descrizione, listaPI);
 
     }
@@ -88,7 +88,7 @@ public class ContributoreAutorizzato {
         PI pi = creaPI(titolo, descrizione, longitudine,latitudine);
         lCeP.aggiungiElemento(pi,this,null);
         System.out.println("Il PI"+pi.getTitolo()+"è stato pubblicato");
-    }
+    }*/
 
     public Segnalazione creaSegnalazione(ListaCondivisaSegnalazioni listaCondivisa, Contenuto e,String descrizione){
         Segnalazione segnalazione= new Segnalazione(e.getIdContenuto(),descrizione);

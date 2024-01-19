@@ -51,7 +51,7 @@ public class Curatore {
     }
 
     public void autorizzazione(ListaCondivisaElementoPubblicato lCeP,ListaCondivisaElemento listaCondivisa,String idRichiesta /*controlla commento notifica autorizzazione*/){
-        Contenuto e = listaCondivisa.getElementoFromId(idRichiesta);
+        Elemento e = listaCondivisa.getElementoFromId(idRichiesta);
         listaCondivisa.rimuoviElemento(e,this);
         lCeP.aggiungiElemento(e,null,this); //"pubblico" l'elemento
         notificaAutorizzazione(idRichiesta);
@@ -59,7 +59,7 @@ public class Curatore {
     public void gestioneSegnalazione(ListaCondivisaSegnalazioni listaSegnalazione, ListaCondivisaElementoPubblicato lCeP,String idSegnalazione){
         Segnalazione s = listaSegnalazione.getSegnalazioneFromId(idSegnalazione);
         String idEl = s.getIdElemento();// da mettere poi nella classi ListaCondivisaA (LCA) e LCEP
-        Contenuto e = lCeP.getElementoFromId(idEl); // per il momento do per scontato che ogni segnalazione sia veritiera, quando/se  implementeremo la possibilità
+        Elemento e = lCeP.getElementoFromId(idEl); // per il momento do per scontato che ogni segnalazione sia veritiera, quando/se  implementeremo la possibilità
         lCeP.rimuoviElemento(e,this); //di avere imput da tastiera il curatore potrà scegliere se eliminare o no l'elemento
         listaSegnalazione.rimuoviSegnalazione(s, this);
         notificaSegnalazione(s.getIdSegnalazione());
@@ -90,7 +90,7 @@ public class Curatore {
         System.out.println("Il contenuto"+ c.getTitolo()+"è stato pubblicato");
     }
 
-    public Esperienza creaEsperienza(String tipologia, String titolo, String descrizione, List<PI> listaPI){
+    /*public Esperienza creaEsperienza(String tipologia, String titolo, String descrizione, List<PI> listaPI){
         return new Esperienza(tipologia, titolo, descrizione, listaPI);
 
     }
@@ -110,7 +110,7 @@ public class Curatore {
         PI pi = creaPI(titolo, descrizione, longitudine,latitudine);
         lCeP.aggiungiElemento(pi,null,this);
         System.out.println("Il PI"+pi.getTitolo()+"è stato pubblicato");
-    }
+    }*/
     public void notificaSegnalazione(String idSegnalazione){ //dovrebbe mandare il messaggio all'utente che ha generato la segnalazione
         System.out.println("resoconto segnalazione: l'elemento da lei segnalato è stato eliminato");//non ho la minima idea di come si faccia scusate
     }

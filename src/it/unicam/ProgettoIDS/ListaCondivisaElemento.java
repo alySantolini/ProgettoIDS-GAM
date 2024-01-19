@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 public class ListaCondivisaElemento {
-    private List<Contenuto> lista = new ArrayList<>();
-    public void aggiungiElemento(Contenuto elemento,Contributore contributore,TuristaAutenticato turista){
+    private List<Elemento> lista = new ArrayList<>();
+    public void aggiungiElemento(Elemento elemento,Contributore contributore,TuristaAutenticato turista){
         if(contributore ==null && turista == null){
             return;
         }
@@ -15,12 +15,12 @@ public class ListaCondivisaElemento {
         if(lista.isEmpty()){
             System.out.println("è vuota");
         }else {
-            for (Contenuto c : lista) {
+            for (Elemento c : lista) {
                 c.visualizza();
             }
         }
     }
-    public void rimuoviElemento(Contenuto elemento,Curatore curatore){
+    public void rimuoviElemento(Elemento elemento,Curatore curatore){
         if (curatore != null){
             lista.remove(elemento);
         }
@@ -33,9 +33,9 @@ public class ListaCondivisaElemento {
         return lista.get(i);
     }
 */
-    public Contenuto getElementoFromId(String idElemento){
-        for(Contenuto e : lista){
-            if(e.getIdContenuto().equals(idElemento)){
+    public Elemento getElementoFromId(String idElemento){
+        for(Elemento e : lista){
+            if(e.getIdElemento().equals(idElemento)){
                 return e;
             }
         }

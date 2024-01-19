@@ -6,7 +6,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.List;
 
-public class Esperienza {
+public class Esperienza extends Elemento {
     private String idEsperienza;
     private String tipologia;
     private String titolo;
@@ -15,27 +15,13 @@ public class Esperienza {
     private List<PI> listaPI;
 
     public Esperienza(String tipologia, String titolo, String descrizione, List<PI> listaPI) {
-        this.tipologia=tipologia;
-        this.titolo = titolo;
-        this.descrizione = descrizione;
+        super(descrizione,titolo,tipologia);
         this.listaPI = listaPI;
         setIdEsperienza();
     }
     public void setIdEsperienza() {
-        this.idEsperienza = "E"+idEPrecedente;
+        super.setIdElemento("E",idEPrecedente);
         idEPrecedente+=1;
-    }
-
-    public void setTipologia(String tipologia) {
-        this.tipologia = tipologia;
-    }
-
-    public void setTitolo(String titolo) {
-        this.titolo = titolo;
-    }
-
-    public void setDescrizione(String descrizione) {
-        this.descrizione = descrizione;
     }
 
     public void setListaPI(List<PI> listaPI) {
@@ -44,18 +30,6 @@ public class Esperienza {
 
     public String getIdEsperienza() {
         return idEsperienza;
-    }
-
-    public String getTipologia() {
-        return tipologia;
-    }
-
-    public String getTitolo() {
-        return titolo;
-    }
-
-    public String getDescrizione() {
-        return descrizione;
     }
 
     public static int getIdEPrecedente() {

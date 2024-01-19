@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class ListaCondivisaElementoPubblicato { //uguale alla LCE, mi serviva un posto dove indicare la presenza degli elementi pubblicati
-    private List<Contenuto> lista = new ArrayList<>(); // per buttarli giù dopouna eventuale segnalazione
-    public void aggiungiElemento(Contenuto elemento,ContributoreAutorizzato contributoreA, Curatore curatore){
+    private List<Elemento> lista = new ArrayList<>(); // per buttarli giù dopouna eventuale segnalazione
+    public void aggiungiElemento(Elemento elemento,ContributoreAutorizzato contributoreA, Curatore curatore){
         if(contributoreA ==null && curatore == null){
             return;
         }
@@ -16,12 +16,12 @@ public class ListaCondivisaElementoPubblicato { //uguale alla LCE, mi serviva un
         if(lista.isEmpty()){
             System.out.println("è vuota");
         }else {
-            for (Contenuto c : lista) {
+            for (Elemento c : lista) {
                 c.visualizza();
             }
         }
     }
-    public void rimuoviElemento(Contenuto elemento,Curatore curatore){
+    public void rimuoviElemento(Elemento elemento,Curatore curatore){
         if (curatore != null){
             lista.remove(elemento);
         }
@@ -30,9 +30,9 @@ public class ListaCondivisaElementoPubblicato { //uguale alla LCE, mi serviva un
         return lista.size();
     }
 
-    public Contenuto getElementoFromId(String idElemento){
-        for(Contenuto e : lista){
-            if(e.getIdContenuto().equals(idElemento)){
+    public Elemento getElementoFromId(String idElemento){
+        for(Elemento e : lista){
+            if(e.getIdElemento().equals(idElemento)){
                 return e;
             }
         }

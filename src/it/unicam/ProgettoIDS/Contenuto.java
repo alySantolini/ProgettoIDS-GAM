@@ -5,7 +5,7 @@ import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 
-public class Contenuto {
+public class Contenuto extends Elemento{
     private String tipologia;
     private String descrizione;
     private String titolo;
@@ -13,53 +13,25 @@ public class Contenuto {
     private String idContenuto;
     private static int idCOPrecedente;
 
-    public String getIdContenuto() {
-        return idContenuto;
-    }
 
-    private void setIdContenuto() {
-        this.idContenuto = "CO"+idCOPrecedente;
-        idCOPrecedente +=1;
-    }
 
     public Contenuto(File immagine, String titolo, String descrizione, String tipologia) {
+        super(descrizione,titolo,tipologia);
         this.immagine=immagine;
-        this.titolo=titolo;
-        this.descrizione=descrizione;
-        this.tipologia=tipologia;
         setIdContenuto();
     }
     public Contenuto(String titolo, String descrizione,String tipologia) {
-        this.titolo=titolo;
-        this.descrizione=descrizione;
+        super(descrizione,titolo,tipologia);
         this.tipologia=tipologia;
         setIdContenuto();
     }
-
-    public String getTipologia() {
-        return tipologia;
+    public String getIdContenuto() {
+        return idContenuto;
     }
-
-    public void setTipologia(String tipologia) {
-        this.tipologia = tipologia;
+    private void setIdContenuto() {
+        super.setIdElemento("CO" , idCOPrecedente);
+        idCOPrecedente +=1;
     }
-
-    public String getDescrizione() {
-        return descrizione;
-    }
-
-    public void setDescrizione(String descrizione) {
-        this.descrizione = descrizione;
-    }
-
-    public String getTitolo() {
-        return titolo;
-    }
-
-    public void setTitolo(String titolo) {
-        this.titolo = titolo;
-    }
-
     public void visualizza() throws IOException {
         if (this.immagine != null) {
             System.out.println(this.getIdContenuto() + this.getTitolo() + this.getDescrizione() + this.getTipologia());

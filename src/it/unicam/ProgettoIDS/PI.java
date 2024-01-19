@@ -1,22 +1,22 @@
 package it.unicam.ProgettoIDS;
 
-public class PI {
+public class PI extends Elemento{
     private String idPI;
     private String descrizione;
     private String titolo;
+    private String tipologia;
     private String longitudine;
     private String latitudine;
     private static int idPIPrecedente;
 
-    public PI(String descrizione, String titolo,String longitudine,String latitudine) {
-        this.descrizione = descrizione;
-        this.titolo = titolo;
+    public PI(String descrizione, String titolo, String tipologia, String longitudine, String latitudine) {
+        super(descrizione,titolo,tipologia);
         this.longitudine=longitudine;
         this.latitudine=latitudine;
 
     }
     private void setIdPI(){
-        this.idPI = "PI" + idPIPrecedente;
+        super.setIdElemento("PI", idPIPrecedente);
         idPIPrecedente+=1;
     }
 
@@ -24,21 +24,6 @@ public class PI {
         return idPI;
     }
 
-    public String getDescrizione() {
-        return descrizione;
-    }
-
-    public void setDescrizione(String descrizione) {
-        this.descrizione = descrizione;
-    }
-
-    public String getTitolo() {
-        return titolo;
-    }
-
-    public void setTitolo(String titolo) {
-        this.titolo = titolo;
-    }
 
     public void visualizza(){
         if (idPI!=null){

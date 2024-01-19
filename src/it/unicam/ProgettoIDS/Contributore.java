@@ -70,15 +70,15 @@ public class Contributore {
     public Esperienza creaEsperienza(String tipologia, String titolo, String descrizione, List<PI> listaPI){
         return new Esperienza(tipologia, titolo, descrizione, listaPI);
     }
-    public PI creaPI(String titolo, String descrizione, String longitudine,String latitudine){
-        return new PI(descrizione, titolo, longitudine, latitudine);
+    public PI creaPI(String titolo, String descrizione, String tipologia, String longitudine,String latitudine){
+        return new PI(descrizione, titolo, tipologia, longitudine, latitudine);
     }
-    public Segnalazione creaSegnalazione(ListaCondivisaSegnalazioni listaSegnalazione,Contenuto e,String descrizione){
-        Segnalazione segnalazione= new Segnalazione(e.getIdContenuto(),descrizione);
+    public Segnalazione creaSegnalazione(ListaCondivisaSegnalazioni listaSegnalazione,Elemento e,String descrizione){
+        Segnalazione segnalazione= new Segnalazione(e.getIdElemento(),descrizione);
         listaSegnalazione.aggiungiSegnalazione(segnalazione, this,null, null, null);
         return segnalazione;
     }
-   public void richiestaAutorizzazione(ListaCondivisaElemento listaCondivisa,Contenuto e){
+   public void richiestaAutorizzazione(ListaCondivisaElemento listaCondivisa,Elemento e){
         listaCondivisa.aggiungiElemento(e, this, null);
    }
 }
