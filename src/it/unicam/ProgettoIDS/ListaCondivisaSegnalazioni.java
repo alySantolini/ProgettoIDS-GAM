@@ -1,20 +1,27 @@
 package it.unicam.ProgettoIDS;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ListaCondivisaSegnalazioni {
     private List<Segnalazione> lista=new ArrayList<>();
 
-    public void aggiungiSegnalazione(Segnalazione segnalazione, Contributore contributore, TuristaAutenticato turista){
+    public void aggiungiSegnalazione(Segnalazione segnalazione, Contributore contributore,ContributoreAutorizzato contributoreA, Turista turista, TuristaAutenticato turistaA){
         if(contributoreA==null && contributore==null && turistaA==null && turista==null){
             return;
         }
         lista.add(segnalazione);
     }
 
-    public List<Segnalazione> getLista(){
-        return new ArrayList<>(lista);
+    public void getLista() throws IOException {
+        if(lista.isEmpty()){
+            System.out.println("è vuota");
+        }else {
+            for (Segnalazione s : lista) {
+                s.visualizza();
+            }
+        }
     }
 
     public void rimuoviSegnalazione(Segnalazione segnalazione, Curatore curatore){
@@ -25,9 +32,14 @@ public class ListaCondivisaSegnalazioni {
     public int size(){
         return lista.size();
     }
-
-    public Segnalazione get(int i){
-        return lista.get(i);
+    public Segnalazione getSegnalazioneFromId(String idSegnalazione){
+        for(Segnalazione s : lista){
+            if (s.getIdSegnalazione().equals(idSegnalazione)) {
+                return s;
+            }
+        }
+        return null;
     }
+
 }
-}
+

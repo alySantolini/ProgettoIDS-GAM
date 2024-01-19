@@ -33,9 +33,10 @@ public class Turista {
         return idTUPrecedente;
     }
 
-    public void creaSegnalazione(ListaCondivisaSegnalazioni listaCondivisa, Contenuto e,String descrizione){
+    public Segnalazione creaSegnalazione(ListaCondivisaSegnalazioni listaCondivisa, Contenuto e,String descrizione){
         Segnalazione segnalazione= new Segnalazione(e.getIdContenuto(),descrizione);
-        listaCondivisa.aggiungiSegnalazione(segnalazione, null, this);
+        listaCondivisa.aggiungiSegnalazione(segnalazione, null, null, this,null);
+        return segnalazione;
     }
 
 }

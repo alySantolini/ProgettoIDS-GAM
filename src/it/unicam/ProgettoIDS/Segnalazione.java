@@ -11,6 +11,7 @@ public class Segnalazione {
 
         this.descrizione = descrizione;
         this.idElemento=idElemento;
+        setIdSegnalazione();
     }
 
     public String getIdSegnalazione() {

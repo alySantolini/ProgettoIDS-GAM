@@ -29,19 +29,20 @@ public class TuristaAutenticato {
         this.nickname = nickname;
     }
 
-    public void creaSegnalazione(ListaCondivisaSegnalazioni listaCondivisa, Contenuto e,String descrizione){
+    public Segnalazione creaSegnalazione(ListaCondivisaSegnalazioni listaCondivisa, Contenuto e,String descrizione){
         Segnalazione segnalazione= new Segnalazione(e.getIdContenuto(),descrizione);
-        listaCondivisa.aggiungiSegnalazione(segnalazione, null, this);
+        listaCondivisa.aggiungiSegnalazione(segnalazione, null, null,null,this);
+        return segnalazione;
     }
-    public void creaCommento(File file, String titolo){
+    public Commento creaCommento(File file, String titolo, String tipologia){
         if(file!=null) {
-            Commento commento=new Commento(file, titolo, "immagine");
-            pubblicazioneCommento(commento);
+            return new Commento(file, titolo,"immagine");
         }
-        Commento commento=new Commento(titolo,"commento");
-        pubblicazioneCommento(commento);
+        return new Commento(titolo,"commento");
+
     }
-    public void pubblicazioneCommento(Commento commento){
-        System.out.println("Il commento "+commento.getTitolo()+" è stato pubblicato");
+    public void richiestaAutorizzazione(ListaCondivisaElemento listaCondivisa,Commento e){
+        listaCondivisa.aggiungiElemento(e, null, this);
     }
+
 }

@@ -54,40 +54,46 @@ public class ContributoreAutorizzato {
     public boolean getAutorizzato(){
         return autorizzato;
     }
-    public void creaContenuto(File file, String titolo, String descrizione){
+    public Contenuto creaContenuto(File file, String titolo, String descrizione){
         if(file!=null) {
-            Contenuto contenuto=new Contenuto(file, titolo, descrizione, "immagine");
-            pubblicazioneContenuto(contenuto);
+            return new Contenuto(file, titolo, descrizione, "immagine");
         }
-        Contenuto contenuto=new Contenuto(titolo,descrizione,"commento");
-        pubblicazioneContenuto(contenuto);
+        return new Contenuto(titolo,descrizione,"commento");
+
     }
 
-    public void pubblicazioneContenuto(Contenuto contenuto){
-       System.out.println("Il contenuto"+ contenuto.getTitolo()+"è stato pubblicato");
+    public void pubblicazioneContenuto(ListaCondivisaElementoPubblicato lCeP,File file,String titolo,String descrizione){
+        Contenuto c= creaContenuto(file,titolo,descrizione);
+        lCeP.aggiungiElemento(c,this,null);
+        System.out.println("Il contenuto"+ c.getTitolo()+"è stato pubblicato");
     }
 
-    public void creaEsperienza(String tipologia, String titolo, String descrizione, List<PI> listaPI){
-        Esperienza esperienza=new Esperienza(tipologia, titolo, descrizione, listaPI);
-        pubblicazioneEsperienza(esperienza);
+    public Esperienza creaEsperienza(String tipologia, String titolo, String descrizione, List<PI> listaPI){
+        return new Esperienza(tipologia, titolo, descrizione, listaPI);
+
     }
 
-    public void pubblicazioneEsperienza(Esperienza esperienza){
-        System.out.println("l'esperienza"+esperienza.getTitolo()+"è stata pubblicata");
+    public void pubblicazioneEsperienza(ListaCondivisaElementoPubblicato lCeP,String tipologia,String titolo,String descrizione, List<PI> listaPI){
+        Esperienza e= creaEsperienza(tipologia,titolo,descrizione,listaPI);
+        lCeP.aggiungiElemento(e,this,null);
+        System.out.println("l'esperienza"+e.getTitolo()+"è stata pubblicata");
     }
 
-    public void creaPI(String titolo, String descrizione, String longitudine,String latitudine){
-        PI pi= new PI(descrizione, titolo, longitudine, latitudine);
-        pubblicazionePI(pi);
+    public PI creaPI(String titolo, String descrizione, String longitudine,String latitudine){
+        return new PI(descrizione, titolo, longitudine, latitudine);
+
     }
 
-    public void pubblicazionePI(PI pi){
+    public void pubblicazionePI(ListaCondivisaElementoPubblicato lCeP,String titolo, String descrizione, String longitudine,String latitudine){
+        PI pi = creaPI(titolo, descrizione, longitudine,latitudine);
+        lCeP.aggiungiElemento(pi,this,null);
         System.out.println("Il PI"+pi.getTitolo()+"è stato pubblicato");
     }
 
-    public void creaSegnalazione(ListaCondivisaSegnalazioni listaCondivisa, Contenuto e,String descrizione){
+    public Segnalazione creaSegnalazione(ListaCondivisaSegnalazioni listaCondivisa, Contenuto e,String descrizione){
         Segnalazione segnalazione= new Segnalazione(e.getIdContenuto(),descrizione);
-        listaCondivisa.aggiungiSegnalazione(segnalazione, this, null);
+        listaCondivisa.aggiungiSegnalazione(segnalazione, null, this,null,null);
+        return segnalazione;
     }
 
 }

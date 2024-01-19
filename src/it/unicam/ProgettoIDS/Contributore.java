@@ -11,6 +11,7 @@ public class Contributore {
     private static  int idCPrecedente;
 
 
+
     public Contributore(String nome, String cognome, String nomeUtente) {
         this.nome=nome;
         this.cognome=cognome;
@@ -72,12 +73,12 @@ public class Contributore {
     public PI creaPI(String titolo, String descrizione, String longitudine,String latitudine){
         return new PI(descrizione, titolo, longitudine, latitudine);
     }
-    public void creaSegnalazione(ListaCondivisaSegnalazioni listaCondivisa, Contenuto e,String descrizione){
+    public Segnalazione creaSegnalazione(ListaCondivisaSegnalazioni listaSegnalazione,Contenuto e,String descrizione){
         Segnalazione segnalazione= new Segnalazione(e.getIdContenuto(),descrizione);
-        listaCondivisa.aggiungiSegnalazione(segnalazione, null,this, null, null);
+        listaSegnalazione.aggiungiSegnalazione(segnalazione, this,null, null, null);
+        return segnalazione;
     }
-   public void richiestaAutorizzazione(ListaCondivisaElemento listaCondivisa, Elemento e){
+   public void richiestaAutorizzazione(ListaCondivisaElemento listaCondivisa,Contenuto e){
         listaCondivisa.aggiungiElemento(e, this, null);
    }
-
 }
