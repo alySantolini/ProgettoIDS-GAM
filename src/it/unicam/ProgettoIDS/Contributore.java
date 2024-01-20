@@ -3,19 +3,19 @@ package it.unicam.ProgettoIDS;
 import java.io.File;
 import java.util.List;
 
-public class Contributore {
+public class Contributore extends Utente{
     private String idContributore;
     private String nome;
     private String cognome;
-    private String nomeUtente;
+    private String nickname;
     private static  int idCPrecedente;
 
 
 
-    public Contributore(String nome, String cognome, String nomeUtente) {
+    public Contributore(String nome, String cognome, String nickname) {
+        super(nickname);
         this.nome=nome;
         this.cognome=cognome;
-        this.nomeUtente=nomeUtente;
         setIdContributore();
     }
     public String getIdContributore() {
@@ -29,7 +29,7 @@ public class Contributore {
 
 
     private void setIdContributore() {
-        this.idContributore = "C"+idCPrecedente;
+        super.setIdUtente("C",idCPrecedente);
         idCPrecedente +=1;
     }
 
@@ -52,33 +52,20 @@ public class Contributore {
 
         this.cognome = cognome;
     }
-
-    public String getNomeUtente() {
-        return nomeUtente;
-    }
-
-    public void setNomeUtente(String nomeUtente) {
-        this.nomeUtente = nomeUtente;
-    }
-
-    public Contenuto creaContenuto( File file,String titolo, String descrizione){
+    public Contenuto creaContenuto( File file,String titolo, String descrizione,PI piRiferimento){
         if(file!=null) {
-            return new Contenuto(file, titolo, descrizione, "immagine");
+            return new Contenuto(file, titolo, descrizione, "immagine",piRiferimento);
         }
-        return new Contenuto(titolo,descrizione,"commento");
+        return new Contenuto(titolo,descrizione,"commento",piRiferimento);
     }
     public Esperienza creaEsperienza(String tipologia, String titolo, String descrizione, List<PI> listaPI){
         return new Esperienza(tipologia, titolo, descrizione, listaPI);
     }
-    public PI creaPI(String titolo, String descrizione, String tipologia, String longitudine,String latitudine){
-        return new PI(descrizione, titolo, tipologia, longitudine, latitudine);
+    public PI creaPI(String titolo, String descrizione, String tipologia,String longitudine,String latitudine){
+        return new PI(descrizione, titolo,tipologia, longitudine, latitudine);
     }
-    public Segnalazione creaSegnalazione(ListaCondivisaSegnalazioni listaSegnalazione,Elemento e,String descrizione){
-        Segnalazione segnalazione= new Segnalazione(e.getIdElemento(),descrizione);
-        listaSegnalazione.aggiungiSegnalazione(segnalazione, this,null, null, null);
-        return segnalazione;
-    }
-   public void richiestaAutorizzazione(ListaCondivisaElemento listaCondivisa,Elemento e){
+
+   public void richiestaAutorizzazione(ListaCondivisaElemento listaCondivisa,Contenuto e){
         listaCondivisa.aggiungiElemento(e, this, null);
    }
 }

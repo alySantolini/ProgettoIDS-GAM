@@ -2,13 +2,13 @@ package it.unicam.ProgettoIDS;
 
 import java.io.File;
 
-public class TuristaAutenticato {
+public class TuristaAutenticato extends Utente{
     private String idTuristaAutenticato;
     private String nickname;
     private static int idTAPrecedente;
 
     public TuristaAutenticato(String nickname) {
-        this.nickname = nickname;
+       super(nickname);
         setIdTuristaAutenticato();
     }
 
@@ -17,31 +17,17 @@ public class TuristaAutenticato {
     }
 
     private void setIdTuristaAutenticato() {
-        this.idTuristaAutenticato = "TA"+idTAPrecedente;
+       super.setIdUtente("TA",idTAPrecedente);
         idTAPrecedente +=1;
     }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
-    public Segnalazione creaSegnalazione(ListaCondivisaSegnalazioni listaCondivisa, Contenuto e,String descrizione){
-        Segnalazione segnalazione= new Segnalazione(e.getIdContenuto(),descrizione);
-        listaCondivisa.aggiungiSegnalazione(segnalazione, null, null,null,this);
-        return segnalazione;
-    }
-    public Commento creaCommento(File file, String titolo, String tipologia){
+    public Commento creaCommento(File file,String descrizione, String titolo, String tipologia,PI piRiferimento){
         if(file!=null) {
-            return new Commento(file, titolo,"immagine");
+            return new Commento(file,descrizione, titolo,"immagine",piRiferimento);
         }
-        return new Commento(titolo,"commento");
+        return new Commento(titolo,descrizione,"commento",piRiferimento);
 
     }
-    public void richiestaAutorizzazione(ListaCondivisaElemento listaCondivisa,Commento e){
+   public void richiestaAutorizzazione(ListaCondivisaElemento listaCondivisa,Commento e){
         listaCondivisa.aggiungiElemento(e, null, this);
     }
 

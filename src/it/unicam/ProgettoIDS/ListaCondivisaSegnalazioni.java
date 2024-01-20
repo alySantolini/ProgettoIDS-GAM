@@ -7,8 +7,8 @@ import java.util.List;
 public class ListaCondivisaSegnalazioni {
     private List<Segnalazione> lista=new ArrayList<>();
 
-    public void aggiungiSegnalazione(Segnalazione segnalazione, Contributore contributore,ContributoreAutorizzato contributoreA, Turista turista, TuristaAutenticato turistaA){
-        if(contributoreA==null && contributore==null && turistaA==null && turista==null){
+    public void aggiungiSegnalazione(Segnalazione segnalazione, Utente utente){
+        if(utente==null){
             return;
         }
         lista.add(segnalazione);

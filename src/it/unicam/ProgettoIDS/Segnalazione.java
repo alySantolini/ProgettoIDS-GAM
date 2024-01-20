@@ -6,7 +6,6 @@ public class Segnalazione {
     private static int idSPrecedente;
     private String idElemento;
 
-    public Segnalazione (){}
     public Segnalazione( String idElemento,String descrizione) {
 
         this.descrizione = descrizione;

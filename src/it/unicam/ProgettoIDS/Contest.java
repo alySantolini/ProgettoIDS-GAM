@@ -8,33 +8,29 @@ public class Contest extends Elemento{
     private String titolo;
     private String descrizione;
     private String idCreatore;
-    private PI punti ;
     private String idContest;
     private static int idCONPrecedente ;
 
-    public Contest(String descrizione,String titolo, String tipologia, PI pi,  String idAnimatore){
-        super(descrizione,titolo,tipologia);
-        this.punti = pi;
-        setIdContest();
+    public Contest(String descrizione,String titolo, String tipologia, PI piRiferimento,  String idAnimatore){
+        super(descrizione,titolo,piRiferimento);
         this.idCreatore = idAnimatore;
+        this.tipologia=tipologia;
+        setIdContest();
     }
-    public PI getPunti() {
-        return punti;
+    public String getTipologia() {
+        return tipologia;
     }
 
-    public void setPunti(PI punti) {
-        this.punti = punti;
+    public void setTipologia(String tipologia) {
+        this.tipologia = tipologia;
     }
+
 
     private void setIdContest (){
         super.setIdElemento("CON" , idCONPrecedente);
         idCONPrecedente = idCONPrecedente + 1;
 
     }
-    public String getId(){
-        return idContest;
-    }
-
     public void visualizza(){
         if (idContest!=null){
             System.out.println(this.titolo+this.descrizione);

@@ -1,13 +1,13 @@
 package it.unicam.ProgettoIDS;
 
-public class Turista {
+public class Turista extends Utente{
 
     private String idTurista;
     private String nickname;
     private static int idTUPrecedente;
 
     public Turista(String nickname) {
-        this.nickname = nickname;
+        super(nickname);
         setIdTurista();
     }
 
@@ -17,26 +17,13 @@ public class Turista {
     }
 
     private void setIdTurista() {
-        this.idTurista = "T"+idTUPrecedente;
+       super.setIdUtente("T",idTUPrecedente);
         idTUPrecedente +=1;
     }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
     public int getIdPrecedente() {
         return idTUPrecedente;
     }
 
-    public Segnalazione creaSegnalazione(ListaCondivisaSegnalazioni listaCondivisa, Contenuto e,String descrizione){
-        Segnalazione segnalazione= new Segnalazione(e.getIdContenuto(),descrizione);
-        listaCondivisa.aggiungiSegnalazione(segnalazione, null, null, this,null);
-        return segnalazione;
-    }
+
 
 }

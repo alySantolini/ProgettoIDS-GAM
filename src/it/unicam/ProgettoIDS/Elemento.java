@@ -6,14 +6,21 @@ public abstract class Elemento {
     private String idElemento;
     private String descrizione;
     private String titolo;
-    private String Tipologia;
-    private static int idPrecedente;
-    private String prefix;
 
+    private PI piRiferimento;
 
-    public Elemento(String descrizione, String titolo,String tipologia) {
+    public Elemento(String descrizione, String titolo,PI piRiferimento) {
         this.descrizione = descrizione;
+        this.piRiferimento=piRiferimento;
         this.titolo = titolo;
+    }
+
+    public PI getPiRiferimento() {
+        return piRiferimento;
+    }
+
+    public void setPiRiferimento(PI piRiferimento) {
+        this.piRiferimento = piRiferimento;
     }
 
     public String getDescrizione() {
@@ -36,16 +43,7 @@ public abstract class Elemento {
         return idElemento;
     }
 
-    public String getTipologia() {
-        return Tipologia;
-    }
-
-    public void setTipologia(String tipologia) {
-        Tipologia = tipologia;
-    }
-
     public void setIdElemento(String prefix , int idPrecedente) {
-
         this.idElemento = prefix+idPrecedente;
     }
     public abstract void visualizza() throws IOException;

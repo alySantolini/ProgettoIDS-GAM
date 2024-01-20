@@ -13,28 +13,37 @@ public class Contenuto extends Elemento{
     private String idContenuto;
     private static int idCOPrecedente;
 
-
-
-    public Contenuto(File immagine, String titolo, String descrizione, String tipologia) {
-        super(descrizione,titolo,tipologia);
+    public Contenuto(File immagine, String titolo, String descrizione, String tipologia,PI piRiferimento) {
+        super(descrizione,titolo,piRiferimento);
         this.immagine=immagine;
-        setIdContenuto();
-    }
-    public Contenuto(String titolo, String descrizione,String tipologia) {
-        super(descrizione,titolo,tipologia);
         this.tipologia=tipologia;
         setIdContenuto();
     }
-    public String getIdContenuto() {
-        return idContenuto;
+    public Contenuto(String titolo, String descrizione,String tipologia,PI piRiferimento) {
+        super(descrizione,titolo,piRiferimento);
+        this.tipologia=tipologia;
+        setIdContenuto();
     }
+   // public String getIdContenuto() {
+       // return idContenuto;
+  //  }
+
+    public String getTipologia() {
+        return tipologia;
+    }
+
+    public void setTipologia(String tipologia) {
+        this.tipologia = tipologia;
+    }
+
     private void setIdContenuto() {
-        super.setIdElemento("CO" , idCOPrecedente);
+        super.setIdElemento("CO",idCOPrecedente);
         idCOPrecedente +=1;
     }
+
     public void visualizza() throws IOException {
         if (this.immagine != null) {
-            System.out.println(this.getIdContenuto() + this.getTitolo() + this.getDescrizione() + this.getTipologia());
+            System.out.println(this.getIdElemento() + this.getTitolo() + this.getDescrizione() + this.getTipologia());
             Image image = ImageIO.read(this.immagine);
             // Creazione di un frame e di un label per visualizzare l'immagine
             JFrame frame = new JFrame("Display Image Example");
@@ -48,8 +57,9 @@ public class Contenuto extends Elemento{
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setVisible(true);
         }
-        System.out.println(this.getIdContenuto() + this.getTitolo() + this.getDescrizione() + this.getTipologia());
+        System.out.println(this.getIdElemento() + this.getTitolo() + this.getDescrizione() + this.getTipologia());
         }
-    }
+
+}
 
 

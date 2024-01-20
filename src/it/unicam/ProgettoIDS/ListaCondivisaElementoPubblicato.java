@@ -12,7 +12,7 @@ public class ListaCondivisaElementoPubblicato { //uguale alla LCE, mi serviva un
         }
         lista.add(elemento);
     }
-    public void getLista() throws IOException {
+    public void visualizza() throws IOException {
         if(lista.isEmpty()){
             System.out.println("è vuota");
         }else {
@@ -20,6 +20,10 @@ public class ListaCondivisaElementoPubblicato { //uguale alla LCE, mi serviva un
                 c.visualizza();
             }
         }
+    }
+
+    public List<Elemento> getLista(){
+       return this.lista;
     }
     public void rimuoviElemento(Elemento elemento,Curatore curatore){
         if (curatore != null){

@@ -7,7 +7,7 @@ import java.awt.Image;
 
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
-//DA FARE UTENTE, ELEMENTO, ITINERARIO, OSM,INVITO, NOTIFICA,TIPOLOGIA PI,CONTRIBUTORE E CONTRIBUTORE AUTORIZZATO EREDITARE
+//DA FARE ITINERARIO, OSM,INVITO, NOTIFICA,TIPOLOGIA PI,CONTRIBUTORE E CONTRIBUTORE AUTORIZZATO EREDITARE,EVENTO
 public class Main {
     public static void main(String[] args) throws IOException {
         // Press Alt+Invio with your caret at the highlighted text to see how
@@ -20,14 +20,19 @@ public class Main {
         Image image = ImageIO.read(file);
         Curatore curatore =new Curatore("gino","paoli","ginoP01");
         Contributore contributore = new Contributore("alberto","ciao","albiCiao");
-        Contenuto c =contributore.creaContenuto(null,"perlana","lavatoCon");
+        PI pi= curatore.creaPI("piazza","piazza cavour","storico","10","11");
+        curatore.pubblicazionePI(lCeP,pi);
+        Contenuto c =contributore.creaContenuto(null,"perlana","lavatoCon",pi);
         contributore.richiestaAutorizzazione(listaCondivisa,c);
         curatore.controlloLista(listaCondivisa);
-        curatore.autorizzazione(lCeP,listaCondivisa,c.getIdContenuto());
+        curatore.autorizzazione(lCeP,listaCondivisa,c.getIdElemento());
         curatore.controlloLista(listaCondivisa);
-        Segnalazione s=contributore.creaSegnalazione(listaSegnalazione,c,"contenuto errato");
-        curatore.gestioneSegnalazione(listaSegnalazione,lCeP,s.getIdSegnalazione());
+        //Segnalazione s=contributore.creaSegnalazione(listaSegnalazione,c,"contenuto errato");
+        //curatore.gestioneSegnalazione(listaSegnalazione,lCeP,s.getIdSegnalazione());
        // contributore.creaContenuto(file,"perlana","lavatoCon").visualizza();
        // contributore.creaContenuto(null,"perlana","lavatoCon").visualizza();
+        curatore.pubblicazioneContenuto(lCeP,null,"mammaCiao" ,"saluti",pi);
+        contributore.ricercaPI(pi,lCeP);
+
     }
 }
