@@ -10,7 +10,7 @@ public abstract class Elemento {
     private static int idPrecedente;
     private String prefix;
 
-
+//culoculoculoculo
     public Elemento(String descrizione, String titolo,String tipologia) {
         this.descrizione = descrizione;
         this.titolo = titolo;
