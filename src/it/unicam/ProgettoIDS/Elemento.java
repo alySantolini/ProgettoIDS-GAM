@@ -2,6 +2,7 @@ package it.unicam.ProgettoIDS;
 
 import java.io.IOException;
 
+//DA SISTEMARE
 public abstract class Elemento {
     private String idElemento;
     private String descrizione;

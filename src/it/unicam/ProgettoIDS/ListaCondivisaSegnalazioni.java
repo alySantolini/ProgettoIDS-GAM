@@ -3,7 +3,7 @@ package it.unicam.ProgettoIDS;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
+//DA SISTEMARE
 public class ListaCondivisaSegnalazioni {
     private List<Segnalazione> lista=new ArrayList<>();
 

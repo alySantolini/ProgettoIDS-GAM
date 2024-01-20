@@ -3,6 +3,7 @@ package it.unicam.ProgettoIDS;
 import java.io.File;
 import java.util.List;
 
+//DA SISTEMARE
 public class ContributoreAutorizzato extends Utente{
 
     private String idContributore;

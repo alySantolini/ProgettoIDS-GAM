@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
+//DA SISTEMARE
 public class ListaCondivisaElementoPubblicato { //uguale alla LCE, mi serviva un posto dove indicare la presenza degli elementi pubblicati
     private List<Elemento> lista = new ArrayList<>(); // per buttarli giù dopouna eventuale segnalazione
     public void aggiungiElemento(Elemento elemento,ContributoreAutorizzato contributoreA, Curatore curatore){

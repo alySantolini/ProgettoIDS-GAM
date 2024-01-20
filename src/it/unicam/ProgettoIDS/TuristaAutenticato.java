@@ -2,6 +2,7 @@ package it.unicam.ProgettoIDS;
 
 import java.io.File;
 
+//DA SISTEMARE
 public class TuristaAutenticato extends Utente{
     private String idTuristaAutenticato;
     private String nickname;

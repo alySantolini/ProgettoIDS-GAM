@@ -1,5 +1,6 @@
 package it.unicam.ProgettoIDS;
 
+//DA SISTEMARE
 public class Turista extends Utente{
 
     private String idTurista;

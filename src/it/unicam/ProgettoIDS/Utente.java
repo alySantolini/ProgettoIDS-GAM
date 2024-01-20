@@ -2,7 +2,7 @@ package it.unicam.ProgettoIDS;
 
 import java.io.IOException;
 import java.util.List;
-
+//DA SISTEMARE
 public abstract class Utente {
 
     private String nickname;

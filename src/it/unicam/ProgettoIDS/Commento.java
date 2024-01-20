@@ -6,6 +6,7 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
+//DA SISTEMARE
 public class Commento extends Elemento{
 
     private String idCommento;

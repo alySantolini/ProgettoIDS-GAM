@@ -3,6 +3,7 @@ package it.unicam.ProgettoIDS;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+//DA SISTEMARE
 public class ListaCondivisaElemento {
     private List<Elemento> lista = new ArrayList<>();
     public void aggiungiElemento(Elemento elemento,Contributore contributore,TuristaAutenticato turista){

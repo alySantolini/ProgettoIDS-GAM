@@ -3,6 +3,7 @@ package it.unicam.ProgettoIDS;
 import java.util.ArrayList;
 import java.util.List;
 
+//DA SISTEMARE
 public class Contest extends Elemento{
     private String tipologia;
     private String titolo;

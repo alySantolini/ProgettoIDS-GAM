@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+//DA SISTEMARE
 public class Esperienza extends Elemento {
     private String idEsperienza;
     private String tipologia;

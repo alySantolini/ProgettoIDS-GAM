@@ -5,6 +5,7 @@ import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 
+//DA SISTEMARE
 public class Contenuto extends Elemento{
     private String tipologia;
     private String descrizione;

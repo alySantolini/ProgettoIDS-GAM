@@ -1,4 +1,5 @@
 package it.unicam.ProgettoIDS;
+//DA SISTEMARE
 public class Segnalazione {
 
     private String idSegnalazione;

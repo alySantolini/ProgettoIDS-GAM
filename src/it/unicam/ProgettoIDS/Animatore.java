@@ -2,6 +2,7 @@ package it.unicam.ProgettoIDS;
 
 import java.util.List;
 
+//DA SISTEMARE
 public class Animatore {
     private String idAnimatore;
     private String nome;

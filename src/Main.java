@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.awt.Image;
 
+//DA SISTEMARE
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
 //DA FARE ITINERARIO, OSM,INVITO, NOTIFICA,TIPOLOGIA PI,CONTRIBUTORE E CONTRIBUTORE AUTORIZZATO EREDITARE,EVENTO

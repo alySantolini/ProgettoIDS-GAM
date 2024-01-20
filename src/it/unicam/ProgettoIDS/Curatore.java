@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+//DA SISTEMARE
 public class Curatore extends Utente{
     private String idCuratore;
     private String nome;
