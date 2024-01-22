@@ -7,8 +7,9 @@ public class Turista extends Utente{
     private String nickname;
     private static int idTUPrecedente;
 
-    public Turista(String nickname) {
-        super(nickname);
+
+    public Turista(String nickname,ListaCondivisaNotifiche listaPersonale) {
+        super(nickname,listaPersonale);
         setIdTurista();
     }
 

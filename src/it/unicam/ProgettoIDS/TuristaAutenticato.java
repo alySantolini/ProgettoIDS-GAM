@@ -8,8 +8,8 @@ public class TuristaAutenticato extends Utente{
     private String nickname;
     private static int idTAPrecedente;
 
-    public TuristaAutenticato(String nickname) {
-       super(nickname);
+    public TuristaAutenticato(String nickname,ListaCondivisaNotifiche listaPersonale) {
+       super(nickname,listaPersonale);
         setIdTuristaAutenticato();
     }
 

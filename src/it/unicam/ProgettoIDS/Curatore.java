@@ -16,8 +16,8 @@ public class Curatore extends Utente{
 
 
 
-    public Curatore(String nome, String cognome, String nickname) {
-        super(nickname);
+    public Curatore(String nome, String cognome, String nickname,ListaCondivisaNotifiche listaPersonale) {
+        super(nickname, listaPersonale);
         this.idCuratore = "CU001";
         this.nome = nome;
         this.cognome = cognome;
@@ -49,19 +49,19 @@ public class Curatore extends Utente{
         e.getPiRiferimento().aggiungi(e);
         notificaAutorizzazione(idRichiesta);
     }
-    public void gestioneSegnalazione(ListaCondivisaSegnalazioni listaSegnalazione, ListaCondivisaElementoPubblicato lCeP,String idSegnalazione){
-        Segnalazione s = listaSegnalazione.getSegnalazioneFromId(idSegnalazione);
+    public void gestioneSegnalazione(ListaCondivisaElementoPubblicato lCeP,String idSegnalazione){
+        Notifica s = this.getListaNotifiche().getNotificaFromId(idSegnalazione);
         String idEl = s.getIdElemento();// da mettere poi nella classi ListaCondivisaA (LCA) e LCEP
         Elemento e = lCeP.getElementoFromId(idEl); // per il momento do per scontato che ogni segnalazione sia veritiera, quando/se  implementeremo la possibilità
         lCeP.rimuoviElemento(e,this); //di avere imput da tastiera il curatore potrà scegliere se eliminare o no l'elemento
-        listaSegnalazione.rimuoviSegnalazione(s, this);
-        notificaSegnalazione(s.getIdSegnalazione());
+        this.getListaNotifiche().rimuoviNotifica(s, this);
+        notificaSegnalazione(s.getIdNotifica());
     }
     public void controlloLista(ListaCondivisaElemento listaCondivisa) throws IOException {
 
         listaCondivisa.getLista();
     }
-    public void controlloLista(ListaCondivisaSegnalazioni listaCondivisa) throws IOException {
+    public void controlloLista(ListaCondivisaNotifiche listaCondivisa) throws IOException {
 
         listaCondivisa.getLista();
     }

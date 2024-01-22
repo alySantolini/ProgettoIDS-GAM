@@ -3,15 +3,15 @@ package it.unicam.ProgettoIDS;
 import java.util.List;
 
 //DA SISTEMARE
-public class Animatore {
+public class Animatore extends Utente {
     private String idAnimatore;
     private String nome;
     private String cognome;
-    private String nickname;
     private static int idAPrecedente;
 
-    public Animatore(String nome, String cognome,String nickname) {
-        this.nickname=nickname;
+
+    public Animatore(String nome, String cognome,String nickname,ListaCondivisaNotifiche listaPersonale) {
+        super (nickname,listaPersonale);
         this.nome = nome;
         this.cognome = cognome;
         setIdAnimatore();
@@ -22,7 +22,7 @@ public class Animatore {
     }
 
     private void setIdAnimatore() {
-        this.idAnimatore = "A"+idAPrecedente;
+        super.setIdUtente("A",idAPrecedente);
         idAPrecedente +=1;
     }
 
@@ -46,8 +46,33 @@ public class Animatore {
         return idAPrecedente;
     }
 
-    public Contest creaContest(PI pi, String tipologia, String titolo, String descrizione, String idAnimatore){
-        return new Contest (descrizione, titolo, tipologia, pi, idAnimatore);
+    public Contest creaContest(PI pi, String tipologia, String titolo, String descrizione, Animatore animatore){
+        return new Contest (descrizione, titolo, tipologia, pi, this);
     }
+    public List<Contributore> creaLista(/*DU*/){
 
+        /*ipotetico database utenti chiamato DU
+        List<Contributore> destinatari = new ArrayList<>;
+        for(Utente u: DU){
+            if(u.instanceOf(Contributore)){
+                if(u.getAutorizzato){
+                destinatari.add(u);
+                }
+            }
+        }
+        if(destinatari.isEmpty()){
+            System.out.println("la lista è vuota");
+            return null;
+        }else{
+        return destinatari;
+         */
+
+        return null;
+    }
+    public Invito creaInvito(String descrizione, List<Contributore> destinatari, String idContest){
+        return new Invito(descrizione, destinatari, idContest);
+    }
+    public Contest creaContestconInvito(PI pi, String tipologia, String titolo, String descrizione, Animatore animatore, Invito invito,ListaCondivisaNotifiche lcN){
+        return new Contest (descrizione, titolo, tipologia, pi, this, invito);
+    }
 }

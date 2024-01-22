@@ -8,14 +8,23 @@ public class Contest extends Elemento{
     private String tipologia;
     private String titolo;
     private String descrizione;
-    private String idCreatore;
+    private Animatore creatore;
     private String idContest;
     private static int idCONPrecedente ;
 
-    public Contest(String descrizione,String titolo, String tipologia, PI piRiferimento,  String idAnimatore){
+    private Invito invito;
+
+    public Contest(String descrizione,String titolo, String tipologia, PI piRiferimento,  Animatore creatore){
         super(descrizione,titolo,piRiferimento);
-        this.idCreatore = idAnimatore;
+        this.creatore = creatore;
         this.tipologia=tipologia;
+        setIdContest();
+    }
+    public Contest(String descrizione,String titolo, String tipologia, PI piRiferimento,  Animatore creatore, Invito invito){
+        super(descrizione,titolo,piRiferimento);
+        this.creatore = creatore;
+        this.tipologia=tipologia;
+        this.invito = invito;
         setIdContest();
     }
     public String getTipologia() {
@@ -31,6 +40,9 @@ public class Contest extends Elemento{
         super.setIdElemento("CON" , idCONPrecedente);
         idCONPrecedente = idCONPrecedente + 1;
 
+    }
+    public Animatore getCreatore() {
+        return creatore;
     }
     public void visualizza(){
         if (idContest!=null){

@@ -4,27 +4,27 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 //DA SISTEMARE
-public class ListaCondivisaSegnalazioni {
-    private List<Segnalazione> lista=new ArrayList<>();
+public class ListaCondivisaNotifiche {
+    private List<Notifica> lista=new ArrayList<>();
 
-    public void aggiungiSegnalazione(Segnalazione segnalazione, Utente utente){
+    public void aggiungiNotifica(Notifica notifica, Utente utente){
         if(utente==null){
             return;
         }
-        lista.add(segnalazione);
+        lista.add(notifica);
     }
 
     public void getLista() throws IOException {
         if(lista.isEmpty()){
             System.out.println("è vuota");
         }else {
-            for (Segnalazione s : lista) {
+            for (Notifica s : lista) {
                 s.visualizza();
             }
         }
     }
 
-    public void rimuoviSegnalazione(Segnalazione segnalazione, Curatore curatore){
+    public void rimuoviNotifica(Notifica segnalazione, Curatore curatore){
         if(curatore!= null){
             lista.remove(segnalazione);
         }
@@ -32,9 +32,9 @@ public class ListaCondivisaSegnalazioni {
     public int size(){
         return lista.size();
     }
-    public Segnalazione getSegnalazioneFromId(String idSegnalazione){
-        for(Segnalazione s : lista){
-            if (s.getIdSegnalazione().equals(idSegnalazione)) {
+    public Notifica getNotificaFromId(String idNotifica){
+        for(Notifica s : lista){
+            if (s.getIdNotifica().equals(idNotifica)) {
                 return s;
             }
         }

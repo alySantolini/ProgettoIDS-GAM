@@ -7,9 +7,11 @@ public abstract class Utente {
 
     private String nickname;
     private String idUtente;
+    private static ListaCondivisaNotifiche listaPersonale;
 
-    public Utente(String nickname) {
+    public Utente(String nickname,ListaCondivisaNotifiche listaPersonale) {
         this.nickname = nickname;
+        this.listaPersonale = listaPersonale;
     }
 
     public String getNickname() {
@@ -28,9 +30,9 @@ public abstract class Utente {
         this.idUtente = prefix+idPrecedente;
     }
 
-    public Segnalazione creaSegnalazione(ListaCondivisaSegnalazioni listaSegnalazione,Contenuto e,String descrizione){
-        Segnalazione segnalazione= new Segnalazione(e.getIdElemento(),descrizione);
-        listaSegnalazione.aggiungiSegnalazione(segnalazione, this);
+    public Segnalazione creaSegnalazione(Contenuto e,String descrizione,Curatore curatore){
+        Segnalazione segnalazione= new Segnalazione(e.getIdElemento(), descrizione,curatore);
+        this.getListaNotifiche().aggiungiNotifica(segnalazione, curatore);
         return segnalazione;
     }
     public void ricercaPI(PI pi, ListaCondivisaElementoPubblicato lCeP) throws IOException {
@@ -43,5 +45,9 @@ public abstract class Utente {
         }
         System.out.println("pi non esiste");
         //return null;
+    }
+
+    public ListaCondivisaNotifiche getListaNotifiche(){
+            return this.listaPersonale;
     }
 }
