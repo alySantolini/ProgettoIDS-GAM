@@ -1,7 +1,11 @@
 package it.unicam.ProgettoIDS;
 
+import java.io.IOException;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 //DA SISTEMARE
 public class Contest extends Elemento{
@@ -11,22 +15,34 @@ public class Contest extends Elemento{
     private Animatore creatore;
     private String idContest;
     private static int idCONPrecedente ;
+    private Duration durata;
 
     private Invito invito;
 
-    public Contest(String descrizione,String titolo, String tipologia, PI piRiferimento,  Animatore creatore){
+    public Contest(String descrizione,String titolo, String tipologia, PI piRiferimento,  Animatore creatore,Duration durata){
         super(descrizione,titolo,piRiferimento);
         this.creatore = creatore;
         this.tipologia=tipologia;
+        this.durata=durata;
         setIdContest();
     }
-    public Contest(String descrizione,String titolo, String tipologia, PI piRiferimento,  Animatore creatore, Invito invito){
+    public Contest(String descrizione,String titolo, String tipologia, PI piRiferimento,  Animatore creatore, Invito invito,Duration durata){
         super(descrizione,titolo,piRiferimento);
         this.creatore = creatore;
         this.tipologia=tipologia;
         this.invito = invito;
+        this.durata = durata;
         setIdContest();
     }
+
+    public Duration getDurata() {
+        return durata;
+    }
+
+    public void setDurata(Duration durata) {
+        this.durata = durata;
+    }
+
     public String getTipologia() {
         return tipologia;
     }
@@ -43,6 +59,21 @@ public class Contest extends Elemento{
     }
     public Animatore getCreatore() {
         return creatore;
+    }
+    public void terminaEvento(ListaCondivisaElementoPubblicato lista,Contest c){
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                lista.rimuoviEC(c);
+                try {
+                    lista.visualizza();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+                timer.cancel();
+            }
+        },this.getDurata().toMillis());
     }
     public void visualizza(){
         if (idContest!=null){

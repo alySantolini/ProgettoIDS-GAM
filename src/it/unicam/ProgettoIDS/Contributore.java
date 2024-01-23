@@ -1,6 +1,7 @@
 package it.unicam.ProgettoIDS;
 
 import java.io.File;
+import java.time.Duration;
 import java.util.List;
 
 //DA SISTEMARE
@@ -70,7 +71,7 @@ public class Contributore extends Utente{
     public void pubblicazioneContenuto(ListaCondivisaElemento lcE,ListaCondivisaElementoPubblicato lCeP,File file,String titolo,String descrizione,PI piRiferimento) {
         Contenuto c = creaContenuto(file, titolo, descrizione, piRiferimento);
         if (autorizzato) {
-            lCeP.aggiungiElemento(c, this, null);
+            lCeP.aggiungiElemento(c, this, null,null);
             piRiferimento.aggiungi(c);
             System.out.println("Il contenuto" + c.getTitolo() + "è stato pubblicato");
         }else{this.richiestaAutorizzazione( lcE, c);
@@ -83,7 +84,7 @@ public class Contributore extends Utente{
     public void pubblicazioneEsperienza(ListaCondivisaElemento lcE, ListaCondivisaElementoPubblicato lCeP,String tipologia,String titolo,String descrizione, List<PI> listaPI){
         Esperienza e= creaEsperienza(tipologia,titolo,descrizione,listaPI);
         if (autorizzato) {
-        lCeP.aggiungiElemento(e,this,null);
+        lCeP.aggiungiElemento(e,this,null,null);
         listaPI.get(0).aggiungi(e);
         System.out.println("l'esperienza"+e.getTitolo()+"è stata pubblicata");
         }else{
@@ -96,12 +97,28 @@ public class Contributore extends Utente{
     public void pubblicazionePI(ListaCondivisaElemento lcE, ListaCondivisaElementoPubblicato lCeP,String titolo, String descrizione, String longitudine,String latitudine,String tipologia){
         PI pi = creaPI(descrizione, titolo,tipologia, longitudine,latitudine);
         if(autorizzato){
-        lCeP.aggiungiElemento(pi,this,null);
+        lCeP.aggiungiElemento(pi,this,null,null);
         System.out.println("Il PI"+pi.getTitolo()+"è stato pubblicato");
     }else{
             richiestaAutorizzazione(lcE,pi);
         }
-}
+    }
+
+    public Evento creaEvento(String titolo, String descrizione, PI piRiferimento, Duration durata){
+        return new Evento(descrizione,titolo,piRiferimento,durata);
+    }
+
+    public void pubblicazioneEvento(ListaCondivisaElemento lcE, ListaCondivisaElementoPubblicato lCeP,String titolo, String descrizione, PI piRiferimento, Duration durata){
+        Evento evento = creaEvento(titolo,descrizione,piRiferimento,durata);
+        if(autorizzato){
+            lCeP.aggiungiElemento(evento,this,null,null);
+            System.out.println("L'evento "+evento.getTitolo()+"è stato pubblicato");
+        }
+        else{
+            richiestaAutorizzazione(lcE,evento);
+        }
+    }
+
    public void richiestaAutorizzazione(ListaCondivisaElemento listaCondivisa,Elemento e){
         listaCondivisa.aggiungiElemento(e, this, null);
    }

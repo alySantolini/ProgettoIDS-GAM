@@ -4,11 +4,12 @@ import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 import java.awt.Image;
+import java.time.Duration;
 
 //DA SISTEMARE
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
-//DA FARE ITINERARIO, OSM,TIPOLOGIA PI,EVENTO, database utenti, lista personale notifiche
+//DA FARE ITINERARIO, OSM,TIPOLOGIA PI, database utenti, lista personale notifiche, sistemare tutti i visualizza, aggiungicontest
 public class Main {
     public static void main(String[] args) throws IOException {
         // Press Alt+Invio with your caret at the highlighted text to see how
@@ -29,12 +30,14 @@ public class Main {
         curatore.controlloLista(listaCondivisa);
         curatore.autorizzazione(lCeP,listaCondivisa,c.getIdElemento());
         curatore.controlloLista(listaCondivisa);
-        Segnalazione s=contributore.creaSegnalazione(c,"contenuto errato",curatore);
-        curatore.gestioneSegnalazione(lCeP,s.getIdNotifica());
+      /*  Segnalazione s=contributore.creaSegnalazione(c,"contenuto errato",curatore);
+        curatore.gestioneSegnalazione(lCeP,s.getIdNotifica());*/
        // contributore.creaContenuto(file,"perlana","lavatoCon").visualizza();
        // contributore.creaContenuto(null,"perlana","lavatoCon").visualizza();
         curatore.pubblicazioneContenuto(lCeP,null,"mammaCiao" ,"saluti",pi);
         contributore.ricercaPI(pi,lCeP);
+       // Evento e= new Evento ("sagra del leone","leone",pi,Duration.ofSeconds(60) );
+        curatore.pubblicazioneEvento(lCeP,"sagra del leone","leone",pi,Duration.ofSeconds(10));
 
     }
 }

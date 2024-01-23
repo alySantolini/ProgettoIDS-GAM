@@ -7,9 +7,7 @@ import java.util.List;
 //DA SISTEMARE
 public class PI extends Elemento{
     private String idPI;
-    private String titolo;
-    private String descrizione;
-    private List<Elemento> lCPI=new ArrayList<>();
+    private static List<Elemento> lCPI=new ArrayList<>();
     private String tipologia;
     private String longitudine;
     private String latitudine;
@@ -67,9 +65,8 @@ public class PI extends Elemento{
         }
     }
     public void visualizza() throws IOException {
-        if (idPI!=null){
-            System.out.println(this.titolo+this.descrizione+this.longitudine+this.latitudine);
-            this.visualizzaLista();
+        if (super.getIdElemento()!=null){
+            System.out.println(this.getTitolo()+this.getDescrizione()+this.longitudine+this.latitudine);
         }else{
             System.out.println("Il PI non esiste");
         }

@@ -6,8 +6,8 @@ import java.util.Objects;
 //DA SISTEMARE
 public class ListaCondivisaElementoPubblicato { //uguale alla LCE, mi serviva un posto dove indicare la presenza degli elementi pubblicati
     private List<Elemento> lista = new ArrayList<>(); // per buttarli giù dopouna eventuale segnalazione
-    public void aggiungiElemento(Elemento elemento,Contributore contributoreA, Curatore curatore){
-        if(contributoreA ==null && curatore == null){
+    public void aggiungiElemento(Elemento elemento,Contributore contributore, Animatore animatore,Curatore curatore){
+        if(contributore ==null && curatore == null && animatore==null){
             return;
         }
         lista.add(elemento);
@@ -30,6 +30,11 @@ public class ListaCondivisaElementoPubblicato { //uguale alla LCE, mi serviva un
             lista.remove(elemento);
         }
     }
+
+    public void rimuoviEC(Elemento e){
+        lista.remove(e);
+    }
+
     public int size(){
         return lista.size();
     }
