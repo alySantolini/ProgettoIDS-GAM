@@ -1,16 +1,19 @@
 package it.unicam.ProgettoIDS;
-public class Segnalazione {
+
+import java.util.List;
+
+//DA SISTEMARE
+public class Segnalazione extends Notifica{
 
     private String idSegnalazione;
     private String descrizione;
     private static int idSPrecedente;
     private String idElemento;
 
-    public Segnalazione (){}
-    public Segnalazione( String idElemento,String descrizione) {
 
-        this.descrizione = descrizione;
-        this.idElemento=idElemento;
+    public Segnalazione( String idElemento,String descrizione,Curatore destinatario) {
+        super(descrizione,destinatario, idElemento);
+        setIdSegnalazione();
     }
 
     public String getIdSegnalazione() {
@@ -18,32 +21,8 @@ public class Segnalazione {
     }
 
     public void setIdSegnalazione(){
-        this.idSegnalazione = "S"+idSPrecedente;
+        super.setIdNotifica("S",idSPrecedente);
         idSPrecedente+=1;
-    }
-
-    public String getDescrizione() {
-        return descrizione;
-    }
-
-    public void setDescrizione(String descrizione) {
-        this.descrizione = descrizione;
-    }
-
-    public String getIdElemento(){
-        return idElemento;
-    }
-
-    public void setIdElemento(String idElemento){
-        this.idElemento=idElemento;
-    }
-
-    public void visualizza(){
-        if (idSegnalazione!=null){
-            System.out.println(this.descrizione);
-        }else{
-            System.out.println("La segnalazione non esiste");
-        }
     }
 
 }

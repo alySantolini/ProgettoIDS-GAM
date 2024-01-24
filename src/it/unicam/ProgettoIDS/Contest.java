@@ -1,31 +1,46 @@
 package it.unicam.ProgettoIDS;
 
+import java.io.IOException;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
-public class Contest {
+//DA SISTEMARE
+public class Contest extends Elemento{
     private String tipologia;
     private String titolo;
     private String descrizione;
-    private static int idCONPrecedente ;
-    private String idCreatore;
-    private PI punti ;
+    private Animatore creatore;
     private String idContest;
+    private static int idCONPrecedente ;
+    private Duration durata;
 
-    public Contest(PI pi, String tipologia, String titolo, String descrizione, String idAnimatore) {
-        this.punti = pi;
-        this.tipologia = tipologia;
-        this.titolo = titolo;
-        this.descrizione = descrizione;
+    private Invito invito;
+
+    public Contest(String descrizione,String titolo, String tipologia, PI piRiferimento,  Animatore creatore,Duration durata){
+        super(descrizione,titolo,piRiferimento);
+        this.creatore = creatore;
+        this.tipologia=tipologia;
+        this.durata=durata;
         setIdContest();
-        this.idCreatore = idAnimatore;
     }
-    public PI getPunti() {
-        return punti;
+    public Contest(String descrizione,String titolo, String tipologia, PI piRiferimento,  Animatore creatore, Invito invito,Duration durata){
+        super(descrizione,titolo,piRiferimento);
+        this.creatore = creatore;
+        this.tipologia=tipologia;
+        this.invito = invito;
+        this.durata = durata;
+        setIdContest();
     }
 
-    public void setPunti(PI punti) {
-        this.punti = punti;
+    public Duration getDurata() {
+        return durata;
+    }
+
+    public void setDurata(Duration durata) {
+        this.durata = durata;
     }
 
     public String getTipologia() {
@@ -36,34 +51,30 @@ public class Contest {
         this.tipologia = tipologia;
     }
 
-    public String getTitolo() {
-        return titolo;
-    }
-
-    public void setTitolo(String titolo) {
-        this.titolo = titolo;
-    }
-
-    public String getDescrizione() {
-        return descrizione;
-    }
-
-    public void setDescrizione(String descrizione) {
-        this.descrizione = descrizione;
-    }
-
-
-
 
     private void setIdContest (){
-        idContest = "CON"+idCONPrecedente;
+        super.setIdElemento("CON" , idCONPrecedente);
         idCONPrecedente = idCONPrecedente + 1;
 
     }
-    public String getId(){
-        return idContest;
+    public Animatore getCreatore() {
+        return creatore;
     }
-
+    public void terminaEvento(ListaCondivisaElementoPubblicato lista,Contest c){
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                lista.rimuoviEC(c);
+                try {
+                    lista.visualizza();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+                timer.cancel();
+            }
+        },this.getDurata().toMillis());
+    }
     public void visualizza(){
         if (idContest!=null){
             System.out.println(this.titolo+this.descrizione);

@@ -5,7 +5,8 @@ import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 
-public class Contenuto {
+//DA SISTEMARE
+public class Contenuto extends Elemento{
     private String tipologia;
     private String descrizione;
     private String titolo;
@@ -13,28 +14,20 @@ public class Contenuto {
     private String idContenuto;
     private static int idCOPrecedente;
 
-    public String getIdContenuto() {
-        return idContenuto;
-    }
-
-    private void setIdContenuto() {
-        this.idContenuto = "CO"+idCOPrecedente;
-        idCOPrecedente +=1;
-    }
-
-    public Contenuto(File immagine, String titolo, String descrizione, String tipologia) {
+    public Contenuto(File immagine, String titolo, String descrizione, String tipologia,PI piRiferimento) {
+        super(descrizione,titolo,piRiferimento);
         this.immagine=immagine;
-        this.titolo=titolo;
-        this.descrizione=descrizione;
         this.tipologia=tipologia;
         setIdContenuto();
     }
-    public Contenuto(String titolo, String descrizione,String tipologia) {
-        this.titolo=titolo;
-        this.descrizione=descrizione;
+    public Contenuto(String titolo, String descrizione,String tipologia,PI piRiferimento) {
+        super(descrizione,titolo,piRiferimento);
         this.tipologia=tipologia;
         setIdContenuto();
     }
+   // public String getIdContenuto() {
+       // return idContenuto;
+  //  }
 
     public String getTipologia() {
         return tipologia;
@@ -44,25 +37,14 @@ public class Contenuto {
         this.tipologia = tipologia;
     }
 
-    public String getDescrizione() {
-        return descrizione;
-    }
-
-    public void setDescrizione(String descrizione) {
-        this.descrizione = descrizione;
-    }
-
-    public String getTitolo() {
-        return titolo;
-    }
-
-    public void setTitolo(String titolo) {
-        this.titolo = titolo;
+    private void setIdContenuto() {
+        super.setIdElemento("CO",idCOPrecedente);
+        idCOPrecedente +=1;
     }
 
     public void visualizza() throws IOException {
         if (this.immagine != null) {
-            System.out.println(this.getIdContenuto() + this.getTitolo() + this.getDescrizione() + this.getTipologia());
+            System.out.println(this.getIdElemento() + this.getTitolo() + this.getDescrizione() + this.getTipologia());
             Image image = ImageIO.read(this.immagine);
             // Creazione di un frame e di un label per visualizzare l'immagine
             JFrame frame = new JFrame("Display Image Example");
@@ -76,8 +58,9 @@ public class Contenuto {
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setVisible(true);
         }
-        System.out.println(this.getIdContenuto() + this.getTitolo() + this.getDescrizione() + this.getTipologia());
+        System.out.println(this.getIdElemento() + this.getTitolo() + this.getDescrizione() + this.getTipologia());
         }
-    }
+
+}
 
 

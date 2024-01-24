@@ -1,20 +1,27 @@
 package it.unicam.ProgettoIDS;
 
 
+import java.io.File;
+import java.io.IOException;
+import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-public class Curatore {
+//DA SISTEMARE
+public class Curatore extends Utente{
     private String idCuratore;
     private String nome;
     private String cognome;
-    private String nomeUtente;
+    private String nickname;
 
 
-    public Curatore(String nome, String cognome, String nomeUtente) {
+
+    public Curatore(String nome, String cognome, String nickname,ListaCondivisaNotifiche listaPersonale) {
+        super(nickname, listaPersonale);
         this.idCuratore = "CU001";
         this.nome = nome;
         this.cognome = cognome;
-        this.nomeUtente = nomeUtente;
     }
 
     public String getIdCuratore() {
@@ -36,47 +43,79 @@ public class Curatore {
     public void setCognome(String cognome) {
         this.cognome = cognome;
     }
-
-    public String getNomeUtente() {
-        return nomeUtente;
-    }
-
-    public void setNomeUtente(String nomeUtente) {
-        this.nomeUtente = nomeUtente;
-    }
-
-    public void autorizzazione(ListaCondivisaElemento listaCondivisa,String idRichiesta /*controlla commento notifica autorizzazione*/
-            , ListaCondivisaElementoPubblicato lCeP){
-        Elemento e;
-        e = listaCondivisa.getElementoFromId(idRichiesta);
+    public void autorizzazione(ListaCondivisaElementoPubblicato lCeP,ListaCondivisaElemento listaCondivisa,String idRichiesta /*controlla commento notifica autorizzazione*/){
+        Elemento e = listaCondivisa.getElementoFromId(idRichiesta);
         listaCondivisa.rimuoviElemento(e,this);
-        lCeP.aggiungiElemento(e,null,this); //"pubblico" l'elemento
+        lCeP.aggiungiElemento(e,null,null,this); //"pubblico" l'elemento
+        e.getPiRiferimento().aggiungi(e);
         notificaAutorizzazione(idRichiesta);
     }
-    public void gestioneSegnalazione(String idSegnalazione, ListaCondivisaSegnalazioni lista, ListaCondivisaElementoPubblicato lista1){
-        Segnalazione s = new Segnalazione();//probabilmente si può scindere in metodi più piccoli
-        String idEl = "";// da mettere poi nella classi ListaCondivisaA (LCA) e LCEP
-        Elemento e;
-        for(int i = 0; i < lista.size(); i++){
-            if (Objects.equals(idSegnalazione, lista.get(i).getIdSegnalazione())){
-                s = lista.get(i);
-                idEl = s.getIdElemento();
-            }
+    public void gestioneSegnalazione(ListaCondivisaElementoPubblicato lCeP,String idSegnalazione){
+        Notifica s = this.getListaNotifiche().getNotificaFromId(idSegnalazione);
+        String idEl = s.getIdElemento();// da mettere poi nella classi ListaCondivisaA (LCA) e LCEP
+        Elemento e = lCeP.getElementoFromId(idEl); // per il momento do per scontato che ogni segnalazione sia veritiera, quando/se  implementeremo la possibilità
+        lCeP.rimuoviElemento(e,this); //di avere imput da tastiera il curatore potrà scegliere se eliminare o no l'elemento
+        this.getListaNotifiche().rimuoviNotifica(s, this);
+        notificaSegnalazione(s.getIdNotifica());
+    }
+    public void controlloLista(ListaCondivisaElemento listaCondivisa) throws IOException {
+
+        listaCondivisa.getLista();
+    }
+    public void controlloLista(ListaCondivisaNotifiche listaCondivisa) throws IOException {
+
+        listaCondivisa.getLista();
+    }
+    public void controlloLista(ListaCondivisaElementoPubblicato listaCondivisa) throws IOException {
+
+        listaCondivisa.getLista();
+    }
+    public Contenuto creaContenuto(File file, String titolo, String descrizione,PI piRiferimento){
+        if(file!=null) {
+            return new Contenuto(file, titolo, descrizione, "immagine",piRiferimento);
         }
-        e = lista1.getElementoFromId(idEl); // per il momento do per scontato che ogni segnalazione sia veritiera, quando/se  implementeremo la possibilità
-        lista1.rimuoviElemento(e,this); //di avere imput da tastiera il curatore potrà scegliere se eliminare o no l'elemento
-        lista.rimuoviSegnalazione(s, this);
-        notificaSegnalazione(s.getIdSegnalazione());
-    }
-    public void pubblicazioneContenuto(Contenuto contenuto){
+        return new Contenuto(titolo,descrizione,"commento",piRiferimento);
 
     }
 
-    public void pubblicazioneEsperienza(Esperienza esperienza){
+    public void pubblicazioneContenuto(ListaCondivisaElementoPubblicato lCeP,File file,String titolo,String descrizione,PI piRiferimento){
+        Contenuto c= creaContenuto(file,titolo,descrizione,piRiferimento);
+        lCeP.aggiungiElemento(c,null,null,this);
+        piRiferimento.aggiungi(c);
+        System.out.println("Il contenuto"+ c.getTitolo()+"è stato pubblicato");
+    }
+
+    public Esperienza creaEsperienza(String tipologia, String titolo, String descrizione, List<PI> listaPI){
+        return new Esperienza(tipologia, titolo, descrizione, listaPI);
 
     }
-    public void pubblicazionePI(PI pi){
 
+    public void pubblicazioneEsperienza(ListaCondivisaElementoPubblicato lCeP,String tipologia,String titolo,String descrizione, List<PI> listaPI){
+        Esperienza e= creaEsperienza(tipologia,titolo,descrizione,listaPI);
+        lCeP.aggiungiElemento(e,null,null,this);
+        listaPI.get(0).aggiungi(e);
+        System.out.println("l'esperienza"+e.getTitolo()+"è stata pubblicata");
+    }
+
+    public PI creaPI(String titolo, String descrizione,String tipologia, String longitudine,String latitudine){
+        return new PI(descrizione, titolo, tipologia,longitudine, latitudine);
+
+    }
+
+    public void pubblicazionePI(ListaCondivisaElementoPubblicato lCeP,PI pi){
+
+        lCeP.aggiungiElemento(pi,null,null,this);
+        System.out.println("Il PI"+pi.getTitolo()+"è stato pubblicato");
+    }
+    public Evento creaEvento(String titolo, String descrizione, PI piRiferimento, Duration durata){
+        return new Evento(descrizione,titolo,piRiferimento,durata);
+    }
+
+    public void pubblicazioneEvento( ListaCondivisaElementoPubblicato lCeP,String titolo, String descrizione, PI piRiferimento, Duration durata){
+        Evento evento = creaEvento(titolo,descrizione,piRiferimento,durata);
+            lCeP.aggiungiElemento(evento,null,null,this);
+            evento.terminaEvento(lCeP,evento);
+            System.out.println("L'evento "+evento.getTitolo()+"è stato pubblicato");
     }
     public void notificaSegnalazione(String idSegnalazione){ //dovrebbe mandare il messaggio all'utente che ha generato la segnalazione
         System.out.println("resoconto segnalazione: l'elemento da lei segnalato è stato eliminato");//non ho la minima idea di come si faccia scusate
@@ -84,5 +123,6 @@ public class Curatore {
     public void notificaAutorizzazione(String idRichiesta){ //stessa cosa di sopra :< ++ per comodità idRichiesta è l'id dell'elemento creato ed aggiunto alla LCE
         System.out.println("il post è stato pubblicato con successo");
     }
+
 
 }

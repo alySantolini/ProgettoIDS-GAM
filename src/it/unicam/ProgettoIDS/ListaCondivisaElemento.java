@@ -1,7 +1,9 @@
 package it.unicam.ProgettoIDS;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+//DA SISTEMARE
 public class ListaCondivisaElemento {
     private List<Elemento> lista = new ArrayList<>();
     public void aggiungiElemento(Elemento elemento,Contributore contributore,TuristaAutenticato turista){
@@ -10,8 +12,14 @@ public class ListaCondivisaElemento {
         }
         lista.add(elemento);
     }
-    public List<Elemento> getLista(){
-        return new ArrayList<>(lista);
+    public void getLista() throws IOException {
+        if(lista.isEmpty()){
+            System.out.println("è vuota");
+        }else {
+            for (Elemento c : lista) {
+                c.visualizza();
+            }
+        }
     }
     public void rimuoviElemento(Elemento elemento,Curatore curatore){
         if (curatore != null){
@@ -22,14 +30,14 @@ public class ListaCondivisaElemento {
         return lista.size();
     }
 
-    public Elemento get(int i){
+    /*public Elemento get(int i){
         return lista.get(i);
     }
-
+*/
     public Elemento getElementoFromId(String idElemento){
-        for(int i = 0; i < lista.size(); i++){
-            if(Objects.equals(idElemento, lista.get(i).getIdElemento())){
-                return lista.get(i);
+        for(Elemento e : lista){
+            if(e.getIdElemento().equals(idElemento)){
+                return e;
             }
         }
         return null;

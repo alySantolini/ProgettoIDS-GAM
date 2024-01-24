@@ -1,48 +1,72 @@
 package it.unicam.ProgettoIDS;
 
-public class PI {
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+//DA SISTEMARE
+public class PI extends Elemento{
     private String idPI;
-    private String descrizione;
-    private String titolo;
+    private static List<Elemento> lCPI=new ArrayList<>();
+    private String tipologia;
     private String longitudine;
     private String latitudine;
     private static int idPIPrecedente;
 
-    public PI(String descrizione, String titolo,String longitudine,String latitudine) {
-        this.descrizione = descrizione;
-        this.titolo = titolo;
+    public PI(String descrizione, String titolo,String tipologia, String longitudine, String latitudine) {
+        super(descrizione,titolo,null);
         this.longitudine=longitudine;
         this.latitudine=latitudine;
-
+        this.tipologia=tipologia;
+        setIdPI();
     }
     private void setIdPI(){
-        this.idPI = "PI" + idPIPrecedente;
+        super.setIdElemento("PI", idPIPrecedente);
         idPIPrecedente+=1;
+    }
+
+    public String getLongitudine() {
+        return longitudine;
+    }
+
+    public void setLongitudine(String longitudine) {
+        this.longitudine = longitudine;
+    }
+
+    public String getLatitudine() {
+        return latitudine;
+    }
+
+    public void setLatitudine(String latitudine) {
+        this.latitudine = latitudine;
+    }
+
+    public void setTipologia(String tipologia) {
+        this.tipologia = tipologia;
+    }
+
+    public String getTipologia() {
+        return tipologia;
     }
 
     public String getIdPI() {
         return idPI;
     }
 
-    public String getDescrizione() {
-        return descrizione;
+    public void aggiungi(Elemento e){
+        lCPI.add(e);
     }
-
-    public void setDescrizione(String descrizione) {
-        this.descrizione = descrizione;
+    public List<Elemento> getLista(){
+        return this.lCPI;
     }
-
-    public String getTitolo() {
-        return titolo;
+    public void visualizzaLista() throws IOException {
+        for(Elemento e : lCPI){
+            e.visualizza();
+        }
     }
-
-    public void setTitolo(String titolo) {
-        this.titolo = titolo;
-    }
-
-    public void visualizza(){
-        if (idPI!=null){
-            System.out.println(this.titolo+this.descrizione+this.longitudine+this.latitudine);
+    public void visualizza() throws IOException {
+        if (super.getIdElemento()!=null){
+            System.out.println(this.getTitolo()+this.getDescrizione()+this.longitudine+this.latitudine);
         }else{
             System.out.println("Il PI non esiste");
         }

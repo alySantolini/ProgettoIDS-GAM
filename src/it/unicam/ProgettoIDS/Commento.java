@@ -6,8 +6,8 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-public class Commento {
-
+//DA SISTEMARE
+public class Commento extends Elemento{
 
     private String idCommento;
     private String tipologia;
@@ -16,25 +16,24 @@ public class Commento {
     private File immagine;
     private static int idCOMPrecedente;
 
-    public Commento(File immagine, String titolo, String tipologia) {
+    public Commento(File immagine,String descrizione, String titolo, String tipologia,PI piRiferimento) {
+        super(descrizione,titolo,piRiferimento);
         this.immagine=immagine;
         this.titolo=titolo;
         this.tipologia=tipologia;
         setIdCommento();
     }
 
-    public Commento(String titolo,String tipologia) {
+    public Commento(String descrizione,String titolo,String tipologia,PI piRiferimento) {
+        super(descrizione,titolo,piRiferimento);
         this.titolo=titolo;
         this.tipologia=tipologia;
         setIdCommento();
     }
 
     private void setIdCommento(){
-        idCommento = "COM" + idCOMPrecedente;
+        super.setIdElemento("COM",idCOMPrecedente);
         idCOMPrecedente+=1;
-    }
-    public String getIdCommento(){
-        return idCommento;
     }
     public String getTipologia() {
         return tipologia;
@@ -44,25 +43,9 @@ public class Commento {
         this.tipologia = tipologia;
     }
 
-    public String getTitolo() {
-        return titolo;
-    }
-
-    public void setTitolo(String titolo) {
-        this.titolo = titolo;
-    }
-
-    public String getTesto() {
-        return testo;
-    }
-
-    public void setTesto(String testo) {
-        this.testo = testo;
-    }
-
     public void visualizza() throws IOException {
         if (this.immagine != null) {
-            System.out.println(this.getIdCommento() + this.getTitolo() + this.getTipologia());
+            System.out.println(this.getIdElemento() + this.getTitolo() + this.getTipologia());
             Image image = ImageIO.read(this.immagine);
             // Creazione di un frame e di un label per visualizzare l'immagine
             JFrame frame = new JFrame("Display Image Example");
@@ -76,7 +59,7 @@ public class Commento {
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setVisible(true);
         }
-        System.out.println(this.getIdCommento() + this.getTitolo() + this.getTipologia());
+        System.out.println(this.getIdElemento() + this.getTitolo() + this.getTipologia());
     }
 
 }

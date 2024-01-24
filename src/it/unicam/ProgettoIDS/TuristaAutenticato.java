@@ -2,13 +2,14 @@ package it.unicam.ProgettoIDS;
 
 import java.io.File;
 
-public class TuristaAutenticato {
+//DA SISTEMARE
+public class TuristaAutenticato extends Utente{
     private String idTuristaAutenticato;
     private String nickname;
     private static int idTAPrecedente;
 
-    public TuristaAutenticato(String nickname) {
-        this.nickname = nickname;
+    public TuristaAutenticato(String nickname,ListaCondivisaNotifiche listaPersonale) {
+       super(nickname,listaPersonale);
         setIdTuristaAutenticato();
     }
 
@@ -17,31 +18,18 @@ public class TuristaAutenticato {
     }
 
     private void setIdTuristaAutenticato() {
-        this.idTuristaAutenticato = "TA"+idTAPrecedente;
+       super.setIdUtente("TA",idTAPrecedente);
         idTAPrecedente +=1;
     }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
-    public void creaSegnalazione(ListaCondivisaSegnalazioni listaCondivisa, Contenuto e,String descrizione){
-        Segnalazione segnalazione= new Segnalazione(e.getIdContenuto(),descrizione);
-        listaCondivisa.aggiungiSegnalazione(segnalazione, null, this);
-    }
-    public void creaCommento(File file, String titolo){
+    public Commento creaCommento(File file,String descrizione, String titolo, String tipologia,PI piRiferimento){
         if(file!=null) {
-            Commento commento=new Commento(file, titolo, "immagine");
-            pubblicazioneCommento(commento);
+            return new Commento(file,descrizione, titolo,"immagine",piRiferimento);
         }
-        Commento commento=new Commento(titolo,"commento");
-        pubblicazioneCommento(commento);
+        return new Commento(titolo,descrizione,"commento",piRiferimento);
+
     }
-    public void pubblicazioneCommento(Commento commento){
-        System.out.println("Il commento "+commento.getTitolo()+" è stato pubblicato");
+   public void richiestaAutorizzazione(ListaCondivisaElemento listaCondivisa,Commento e){
+        listaCondivisa.aggiungiElemento(e, null, this);
     }
+
 }
