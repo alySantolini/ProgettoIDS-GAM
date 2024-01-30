@@ -1,0 +1,13 @@
+package it.unicam.progettoidsgam;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class DemoProgettoIdsGamApplicationTests {
+
+    @Test
+    void contextLoads() {
+    }
+
+}

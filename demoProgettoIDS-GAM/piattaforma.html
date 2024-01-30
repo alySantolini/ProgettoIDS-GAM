@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mappa di Fano</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+
+
+
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<div id="map"></div>
+
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+
+
+<h1>Ottieni PI</h1>
+<button onclick="getPI()">Get PI</button>
+<h2>PI List</h2>
+<ul id="piList"></ul>
+
+<h2>Create PI</h2>
+<form id="piForm">
+    <label for="piId" >PI id</label>
+    <input type="text" id="piId" name="piId" disabled><br><br>
+    <label for="piLongitudine">PI Longitudine:</label>
+    <input type="text" id="piLongitudine" name="piLongitudine" required><br><br>
+    <label for="piLatitudine">PI Latitudine:</label>
+    <input type="text" id="piLatitudine" name="piLatitudine" required><br><br>
+    <label for="piTipologia">PI tipologia:</label>
+    <input type="text" id="piTipologia" name="piTipologia" required><br><br>
+    <label for="piTitolo">PI Titolo:</label>
+    <input type="text" id="piTitolo" name="piTitolo" required><br><br>
+    <label for="piDescrizione">PI Descrizione:</label>
+    <input type="text" id="piDescrizione" name="piDescrizione" required><br><br>
+    <button type="button" onclick="createPI()">Create PI</button>
+</form>
+
+<h2>Get PI by ID</h2>
+<label for="getPITitolo">PI Titolo:</label>
+<input type="text" id="getPITitolo">
+<button onclick="getPIByTitle()">Get PI</button>
+<div id="piResult"></div>
+
+<script>
+    var map = L.map('map').setView([43.8396, 13.0148], 15); // Centra la mappa su Fano (latitudine, longitudine, zoom)
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+    }).addTo(map);
+
+    // Puoi aggiungere marker o layer aggiuntivi qui, ad esempio:
+    L.marker([43.8396, 13.0148]).addTo(map)
+        .bindPopup('Fano, Italia')
+        .openPopup();
+
+    const baseUrl = 'http://localhost:8080';
+
+
+    function getPI() {
+        fetch(`${baseUrl}/AllPI`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Errore nella richiesta.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const piList = document.getElementById('piList');
+                piList.innerHTML = ''; // Pulisci la lista precedente
+
+                data.forEach(pi => {
+                    const listItem = document.createElement('li');
+                    //costruisce la nuova lista
+                    listItem.textContent = `ID: ${pi.idPI}, Descrizione: ${pi.descrizione}, Titolo: ${pi.titolo}, Tipologia: ${pi.tipologia}, Latitudine: ${pi.latitudine}, Longitudine: ${pi.longitudine}`;
+                    piList.appendChild(listItem);
+                });
+            })
+            .catch(error => {
+                console.error('Errore:', error);
+                alert('Si è verificato un errore durante il recupero dei POI.');
+            });
+    }
+
+    function createPI() {
+        const piId = document.getElementById('piId').value;
+        const piLongitudine = document.getElementById('piLongitudine').value;
+        const piLatitudine = document.getElementById('piLatitudine').value;
+        const piTipologia = document.getElementById('piTipologia').value;
+        const piTitolo = document.getElementById('piTitolo').value;
+        const piDescrizione = document.getElementById('piDescrizione').value;
+        const pi = { idPI: piId, longitudine: piLongitudine, latitudine: piLatitudine, tipologia: piTipologia, descrizione: piDescrizione, titolo: piTitolo };
+
+        fetch(`${baseUrl}/create`, {
+        method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(pi)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Errore nella richiesta.');
+        }
+        return response.json();
+    })
+        .then(data => {
+            console.log('Dati ricevuti:', data); // Controlla i dati ricevuti nella console
+            alert('POI aggiunto con successo!');
+
+            // Aggiungi un marker sulla mappa per il nuovo POI
+            L.marker([piLatitudine, piLongitudine]).addTo(map)
+                .bindPopup(`<b>${piTitolo}</b><br>${piDescrizione}`)
+                .openPopup();
+                })
+                .catch(error => {
+                    console.error('Errore:', error);
+                    alert('Si è verificato un errore durante l\'aggiunta del POI.');
+                });
+                }
+                function getPIByTitle() {
+                    const piTitolo = document.getElementById('piTitolo').value;
+
+                    fetch(`${baseUrl}/PI/titolo?titolo=${encodeURIComponent(piTitolo)}`)
+                    .then(response => {
+                    if (!response.ok) {
+                    throw new Error('Errore nella richiesta.');
+                }
+                    return response.json();
+                })
+                    .then(pi => {
+                    const resultDiv = document.getElementById('piResult');
+                    if (pi) {
+                    resultDiv.textContent = `ID: ${pi.idPI}, Descrizione: ${pi.piDescrizione}, Titolo: ${pi.piTitolo}, Tipologia: ${pi.piTipologia}, Latitudine: ${pi.piLatitudine}, Longitudine: ${pi.piLongitudine}`;
+                } else {
+                    resultDiv.textContent = 'PI non trovato.';
+                }
+                })
+                    .catch(error => console.error('Errore:', error));
+                }
+
+
+</script>
+</body>
+</html>
