@@ -1,9 +1,9 @@
-package it.unicam.ProgettoIDS;
+/*package it.unicam.ProgettoIDS;
+
+import it.unicam.progettoidsgam.PI;
 
 import java.io.IOException;
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -19,7 +19,7 @@ public class Contest extends Elemento{
 
     private Invito invito;
 
-    public Contest(String descrizione,String titolo, String tipologia, PI piRiferimento,  Animatore creatore,Duration durata){
+    public Contest(String descrizione, String titolo, String tipologia, PI piRiferimento, Animatore creatore, Duration durata){
         super(descrizione,titolo,piRiferimento);
         this.creatore = creatore;
         this.tipologia=tipologia;
@@ -83,3 +83,5 @@ public class Contest extends Elemento{
         }
     }
 }
+
+ */

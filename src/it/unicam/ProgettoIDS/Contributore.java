@@ -1,4 +1,6 @@
-package it.unicam.ProgettoIDS;
+/*package it.unicam.ProgettoIDS;
+
+import it.unicam.progettoidsgam.PI;
 
 import java.io.File;
 import java.time.Duration;
@@ -61,7 +63,7 @@ public class Contributore extends Utente{
     public boolean getAutorizzato(){
         return this.autorizzato;
     }
-    public Contenuto creaContenuto( File file,String titolo, String descrizione,PI piRiferimento){
+    public Contenuto creaContenuto(File file, String titolo, String descrizione, PI piRiferimento){
         if(file!=null) {
             return new Contenuto(file, titolo, descrizione, "immagine",piRiferimento);
         }
@@ -123,3 +125,6 @@ public class Contributore extends Utente{
         listaCondivisa.aggiungiElemento(e, this, null);
    }
 }
+
+
+ */

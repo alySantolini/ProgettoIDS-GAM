@@ -1,7 +1,9 @@
-package it.unicam.ProgettoIDS;
+/*package it.unicam.ProgettoIDS;
+
+import it.unicam.progettoidsgam.PI;
 
 import java.io.IOException;
-import java.util.List;
+
 //DA SISTEMARE
 public abstract class Utente {
 
@@ -51,3 +53,4 @@ public abstract class Utente {
             return this.listaPersonale;
     }
 }
+*/

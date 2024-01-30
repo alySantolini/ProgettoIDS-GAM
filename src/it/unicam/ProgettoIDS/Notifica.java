@@ -1,4 +1,4 @@
-package it.unicam.ProgettoIDS;
+/*package it.unicam.ProgettoIDS;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,3 +58,5 @@ public abstract class Notifica {
         }
     }
 }
+
+ */

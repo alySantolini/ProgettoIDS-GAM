@@ -1,4 +1,6 @@
-package it.unicam.ProgettoIDS;
+/*package it.unicam.ProgettoIDS;
+import it.unicam.progettoidsgam.PI;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.Image;
@@ -14,7 +16,7 @@ public class Contenuto extends Elemento{
     private String idContenuto;
     private static int idCOPrecedente;
 
-    public Contenuto(File immagine, String titolo, String descrizione, String tipologia,PI piRiferimento) {
+    public Contenuto(File immagine, String titolo, String descrizione, String tipologia, PI piRiferimento) {
         super(descrizione,titolo,piRiferimento);
         this.immagine=immagine;
         this.tipologia=tipologia;
@@ -62,5 +64,5 @@ public class Contenuto extends Elemento{
         }
 
 }
-
+*/
 

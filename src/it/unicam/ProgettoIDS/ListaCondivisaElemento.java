@@ -1,4 +1,4 @@
-package it.unicam.ProgettoIDS;
+/*package it.unicam.ProgettoIDS;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ public class ListaCondivisaElemento {
     /*public Elemento get(int i){
         return lista.get(i);
     }
-*/
+
     public Elemento getElementoFromId(String idElemento){
         for(Elemento e : lista){
             if(e.getIdElemento().equals(idElemento)){
@@ -43,3 +43,4 @@ public class ListaCondivisaElemento {
         return null;
     }
 }
+*/

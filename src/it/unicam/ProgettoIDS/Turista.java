@@ -1,4 +1,4 @@
-package it.unicam.ProgettoIDS;
+/*package it.unicam.ProgettoIDS;
 
 //DA SISTEMARE
 public class Turista extends Utente{
@@ -29,3 +29,5 @@ public class Turista extends Utente{
 
 
 }
+
+ */

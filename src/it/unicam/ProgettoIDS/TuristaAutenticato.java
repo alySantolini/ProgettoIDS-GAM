@@ -1,4 +1,6 @@
-package it.unicam.ProgettoIDS;
+/*package it.unicam.ProgettoIDS;
+
+import it.unicam.progettoidsgam.PI;
 
 import java.io.File;
 
@@ -21,7 +23,7 @@ public class TuristaAutenticato extends Utente{
        super.setIdUtente("TA",idTAPrecedente);
         idTAPrecedente +=1;
     }
-    public Commento creaCommento(File file,String descrizione, String titolo, String tipologia,PI piRiferimento){
+    public Commento creaCommento(File file, String descrizione, String titolo, String tipologia, PI piRiferimento){
         if(file!=null) {
             return new Commento(file,descrizione, titolo,"immagine",piRiferimento);
         }
@@ -33,3 +35,6 @@ public class TuristaAutenticato extends Utente{
     }
 
 }
+
+
+ */

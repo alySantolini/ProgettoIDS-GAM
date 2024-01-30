@@ -1,4 +1,6 @@
-package it.unicam.ProgettoIDS;
+/*package it.unicam.ProgettoIDS;
+
+import it.unicam.progettoidsgam.PI;
 
 import java.io.IOException;
 
@@ -50,3 +52,5 @@ public abstract class Elemento {
     public abstract void visualizza() throws IOException;
 }
 
+
+ */

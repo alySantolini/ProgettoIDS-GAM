@@ -1,4 +1,6 @@
-package it.unicam.ProgettoIDS;
+/*package it.unicam.ProgettoIDS;
+
+import it.unicam.progettoidsgam.PI;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -16,7 +18,7 @@ public class Commento extends Elemento{
     private File immagine;
     private static int idCOMPrecedente;
 
-    public Commento(File immagine,String descrizione, String titolo, String tipologia,PI piRiferimento) {
+    public Commento(File immagine, String descrizione, String titolo, String tipologia, PI piRiferimento) {
         super(descrizione,titolo,piRiferimento);
         this.immagine=immagine;
         this.titolo=titolo;
@@ -63,3 +65,4 @@ public class Commento extends Elemento{
     }
 
 }
+*/

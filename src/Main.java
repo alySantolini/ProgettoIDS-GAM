@@ -1,9 +1,7 @@
-import it.unicam.ProgettoIDS.*;
+/*import it.unicam.ProgettoIDS.*;
+import it.unicam.progettoidsgam.PI;
 
-import javax.imageio.ImageIO;
-import java.io.File;
 import java.io.IOException;
-import java.awt.Image;
 import java.time.Duration;
 
 //DA SISTEMARE
@@ -30,8 +28,8 @@ public class Main {
         curatore.controlloLista(listaCondivisa);
         curatore.autorizzazione(lCeP,listaCondivisa,c.getIdElemento());
         curatore.controlloLista(listaCondivisa);
-      /*  Segnalazione s=contributore.creaSegnalazione(c,"contenuto errato",curatore);
-        curatore.gestioneSegnalazione(lCeP,s.getIdNotifica());*/
+      //  Segnalazione s=contributore.creaSegnalazione(c,"contenuto errato",curatore);
+      //  curatore.gestioneSegnalazione(lCeP,s.getIdNotifica());
        // contributore.creaContenuto(file,"perlana","lavatoCon").visualizza();
        // contributore.creaContenuto(null,"perlana","lavatoCon").visualizza();
         curatore.pubblicazioneContenuto(lCeP,null,"mammaCiao" ,"saluti",pi);
@@ -41,3 +39,5 @@ public class Main {
 
     }
 }
+
+*/

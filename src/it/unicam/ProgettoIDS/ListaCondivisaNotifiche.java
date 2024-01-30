@@ -1,4 +1,4 @@
-package it.unicam.ProgettoIDS;
+/*package it.unicam.ProgettoIDS;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -42,4 +42,6 @@ public class ListaCondivisaNotifiche {
     }
 
 }
+
+ */
 

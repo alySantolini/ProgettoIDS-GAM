@@ -1,12 +1,12 @@
-package it.unicam.ProgettoIDS;
+/*package it.unicam.ProgettoIDS;
 
+
+import it.unicam.progettoidsgam.PI;
 
 import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 //DA SISTEMARE
 public class Curatore extends Utente{
@@ -43,7 +43,7 @@ public class Curatore extends Utente{
     public void setCognome(String cognome) {
         this.cognome = cognome;
     }
-    public void autorizzazione(ListaCondivisaElementoPubblicato lCeP,ListaCondivisaElemento listaCondivisa,String idRichiesta /*controlla commento notifica autorizzazione*/){
+    public void autorizzazione(ListaCondivisaElementoPubblicato lCeP,ListaCondivisaElemento listaCondivisa,String idRichiesta /*controlla commento notifica autorizzazione){
         Elemento e = listaCondivisa.getElementoFromId(idRichiesta);
         listaCondivisa.rimuoviElemento(e,this);
         lCeP.aggiungiElemento(e,null,null,this); //"pubblico" l'elemento
@@ -70,7 +70,7 @@ public class Curatore extends Utente{
 
         listaCondivisa.getLista();
     }
-    public Contenuto creaContenuto(File file, String titolo, String descrizione,PI piRiferimento){
+    public Contenuto creaContenuto(File file, String titolo, String descrizione, PI piRiferimento){
         if(file!=null) {
             return new Contenuto(file, titolo, descrizione, "immagine",piRiferimento);
         }
@@ -126,3 +126,5 @@ public class Curatore extends Utente{
 
 
 }
+
+*/

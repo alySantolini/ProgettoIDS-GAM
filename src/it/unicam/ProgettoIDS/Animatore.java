@@ -1,4 +1,6 @@
-package it.unicam.ProgettoIDS;
+/*package it.unicam.ProgettoIDS;
+
+import it.unicam.progettoidsgam.PI;
 
 import java.time.Duration;
 import java.util.List;
@@ -50,7 +52,7 @@ public class Animatore extends Utente {
     public Contest creaContest(PI pi, String tipologia, String titolo, String descrizione, Animatore animatore, Duration durata){
         return new Contest (descrizione, titolo, tipologia, pi, this,durata);
     }
-    public List<Contributore> creaLista(/*DU*/){
+    public List<Contributore> creaLista(/*DU){
 
         /*ipotetico database utenti chiamato DU
         List<Contributore> destinatari = new ArrayList<>;
@@ -66,7 +68,7 @@ public class Animatore extends Utente {
             return null;
         }else{
         return destinatari;
-         */
+
 
         return null;
     }
@@ -83,3 +85,4 @@ public class Animatore extends Utente {
         System.out.println("il contest "+contest.getTitolo()+"è stato pubblicato");
     }
 }
+*/

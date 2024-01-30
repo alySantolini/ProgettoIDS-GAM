@@ -1,4 +1,6 @@
-package it.unicam.ProgettoIDS;
+/*package it.unicam.ProgettoIDS;
+
+import it.unicam.progettoidsgam.PI;
 
 import java.io.IOException;
 import java.time.Duration;
@@ -55,3 +57,5 @@ public class Evento extends Elemento{
 
 
 }
+
+ */

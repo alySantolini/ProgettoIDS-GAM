@@ -1,4 +1,4 @@
-package it.unicam.ProgettoIDS;
+/*package it.unicam.ProgettoIDS;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,3 +48,5 @@ public class ListaCondivisaElementoPubblicato { //uguale alla LCE, mi serviva un
         return null;
     }
 }
+
+ */

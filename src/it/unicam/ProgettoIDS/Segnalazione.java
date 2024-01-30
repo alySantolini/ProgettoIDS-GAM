@@ -1,4 +1,4 @@
-package it.unicam.ProgettoIDS;
+/*package it.unicam.ProgettoIDS;
 
 import java.util.List;
 
@@ -26,3 +26,5 @@ public class Segnalazione extends Notifica{
     }
 
 }
+
+ */
