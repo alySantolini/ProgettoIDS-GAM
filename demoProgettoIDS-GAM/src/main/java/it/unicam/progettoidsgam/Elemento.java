@@ -1,12 +1,14 @@
 package it.unicam.progettoidsgam;
 
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.*;
 
 import java.io.IOException;
 
 //DA SISTEMARE
-@MappedSuperclass
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Elemento {
+    @Id
     private String idElemento;
     private String descrizione;
     private String titolo;
@@ -54,7 +56,7 @@ public abstract class Elemento {
     public void setIdElemento(String prefix , int idPrecedente) {
         this.idElemento = prefix+idPrecedente;
     }
-    public abstract void visualizza() throws IOException;
+   // public abstract void visualizza() throws IOException;
 }
 
 
