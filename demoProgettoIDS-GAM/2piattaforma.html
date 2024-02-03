@@ -43,11 +43,53 @@
     <button type="button" onclick="createPI()">Create PI</button>
 </form>
 
-<h2>Get PI by ID</h2>
-<label for="getPITitolo">PI Titolo:</label>
-<input type="text" id="getPITitolo">
+<h2>Get PI by Titolo</h2>
+<label for="getTitolo">PI Titolo:</label>
+<input type="text" id="getTitolo">
 <button onclick="getPIByTitle()">Get PI</button>
 <div id="piResult"></div>
+
+<h1>Ottieni Contenuto</h1>
+<button onclick="getContenuto()">Get Contenuto</button>
+<h2>contenuto List</h2>
+<ul id="contenutoList"></ul>
+
+<h2>Create Contenuto</h2>
+<form id="contenutoForm">
+    <label for="contenutoId">contenuto id:</label>
+    <input type="text" id="contenutoId" name="contenutoId" disabled><br><br>
+    <label for="contenutoTipologia">contenuto tipologia:</label>
+    <input type="text" id="contenutoTipologia" name="contenutoTipologia" required><br><br>
+    <label for="contenutoTitolo">Contenuto Titolo:</label>
+    <input type="text" id="contenutoTitolo" name="contenutoTitolo" required><br><br>
+    <label for="contenutoDescrizione">contenuto Descrizione:</label>
+    <input type="text" id="contenutoDescrizione" name="contenutoDescrizione" required><br><br>
+    <label for="piRiferimento">Titolo PI Riferimento:</label>
+    <input type="text" id="piRiferimento" name="piRiferimento" required><br><br>
+    <input type="file" id="fileInput">
+    <button type="button" onclick="createContenuto()">Create Contenuto</button>
+
+</form>
+
+<h2>Create Esperienza</h2>
+<form id="esperienzaForm">
+    <label for="esperienzaId">esperienza id:</label>
+    <input type="text" id="esperienzaId" name="esperienzaId" disabled><br><br>
+    <label for="esperienzaTipologia">esperienza tipologia:</label>
+    <input type="text" id="esperienzaTipologia" name="esperienzaTipologia" required><br><br>
+    <label for="esperienzaTitolo">esperienza Titolo:</label>
+    <input type="text" id="esperienzaTitolo" name="esperienzaTitolo" required><br><br>
+    <label for="esperienzaDescrizione">esperienza Descrizione:</label>
+    <input type="text" id="esperienzaDescrizione" name="esperienzaDescrizione" required><br><br>
+    <label for="multiValues">Inserisci valori separati da virgole:</label>
+    <input type="text" id="multiValues" name="multiValues">
+    <button type="button" onclick="createEsperienza()">Create Esperienza</button>
+</form>
+<h2>Get esperienza by titolo</h2>
+<label for="titolo">esperienza Titolo:</label>
+<input type="text" id="titolo">
+<button onclick="getEsperienzaByTitle()">Get esperienza</button>
+<div id="esperienzaResult"></div>
 
 <script>
     var map = L.map('map').setView([43.8396, 13.0148], 15); // Centra la mappa su Fano (latitudine, longitudine, zoom)
@@ -99,53 +141,216 @@
         const pi = { idPI: piId, longitudine: piLongitudine, latitudine: piLatitudine, tipologia: piTipologia, descrizione: piDescrizione, titolo: piTitolo };
 
         fetch(`${baseUrl}/create`, {
-        method: 'POST',
+            method: 'POST',
             headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(pi)
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Errore nella richiesta.');
-        }
-        return response.json();
-    })
-        .then(data => {
-            console.log('Dati ricevuti:', data); // Controlla i dati ricevuti nella console
-            alert('POI aggiunto con successo!');
-
-            // Aggiungi un marker sulla mappa per il nuovo POI
-            L.marker([piLatitudine, piLongitudine]).addTo(map)
-                .bindPopup(`<b>${piTitolo}</b><br>${piDescrizione}`)
-                .openPopup();
-                })
-                .catch(error => {
-                    console.error('Errore:', error);
-                    alert('Si è verificato un errore durante l\'aggiunta del POI.');
-                });
-                }
-                function getPIByTitle() {
-                    const piTitolo = document.getElementById('piTitolo').value;
-
-                    fetch(`${baseUrl}/PI/titolo?titolo=${encodeURIComponent(piTitolo)}`)
-                    .then(response => {
-                    if (!response.ok) {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(pi)
+        })
+            /* fetch(`${baseUrl}/api/osm/save`,{
+               method: 'POST',
+               headers: {
+                 'Content-Type' : 'application/json',
+               },
+               body: JSON.stringify(pi)
+             })*/
+            .then(response => {
+                if (!response.ok) {
                     throw new Error('Errore nella richiesta.');
                 }
-                    return response.json();
-                })
-                    .then(pi => {
-                    const resultDiv = document.getElementById('piResult');
-                    if (pi) {
-                    resultDiv.textContent = `ID: ${pi.idPI}, Descrizione: ${pi.piDescrizione}, Titolo: ${pi.piTitolo}, Tipologia: ${pi.piTipologia}, Latitudine: ${pi.piLatitudine}, Longitudine: ${pi.piLongitudine}`;
-                } else {
-                    resultDiv.textContent = 'PI non trovato.';
-                }
-                })
-                    .catch(error => console.error('Errore:', error));
-                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Dati ricevuti:', data); // Controlla i dati ricevuti nella console
+                alert('POI aggiunto con successo!');
 
+                // Aggiungi un marker sulla mappa per il nuovo POI
+                L.marker([piLatitudine, piLongitudine]).addTo(map)
+                    .bindPopup(`<b>${piTitolo}</b><br>${piDescrizione}`)
+                    .openPopup();
+            })
+            .catch(error => {
+                console.error('Errore:', error);
+                alert('Si è verificato un errore durante l\'aggiunta del POI.');
+            });
+    }
+    function getPIByTitle() {
+        const getTitolo = document.getElementById('getTitolo').value;
+
+        fetch(`${baseUrl}/PI/titolo?titolo=${encodeURIComponent(getTitolo)}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Errore nella richiesta.');
+                }
+                return response.json();
+            })
+            .then(pi => {
+                const piResult = document.getElementById('piResult');
+                if (pi!=null) {
+                    piResult.textContent = `ID: ${pi.idPI}, Descrizione: ${pi.descrizione}, Titolo: ${pi.titolo}, Tipologia: ${pi.tipologia}, Latitudine: ${pi.latitudine}, Longitudine: ${pi.longitudine}`;
+                } else {
+                    piResult.textContent = `PI non trovato.`;
+                }
+            })
+            .catch(error => console.error('Errore:', error));
+    }
+    function getContenuto() {
+        //c'è da capire come poter visualizzare l'immagine
+        fetch(`${baseUrl}/elementi`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Errore nella richiesta.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const contenutoList = document.getElementById('contenutoList');
+                contenutoList.innerHTML = ''; // Pulisci la lista precedente
+
+                data.forEach(contenuto => {
+                    const listItem = document.createElement('li');
+                    //costruisce la nuova lista
+                    listItem.textContent = `ID: ${contenuto.idElemento}, Descrizione: ${contenuto.descrizione}, Titolo: ${contenuto.titolo}, PI Riferimento: ${contenuto.piRiferimento}
+                Immagine: ${contenuto.immagine}`;
+                    contenutoList.appendChild(listItem);
+                });
+            })
+            .catch(error => {
+                console.error('Errore:', error);
+                alert('Si è verificato un errore durante il recupero del contenuto.');
+            });
+    }
+
+
+    function createContenuto() {
+        const contenutoId=document.getElementById('contenutoId').value;
+        const contenutoTipologia = document.getElementById('contenutoTipologia').value;
+        const contenutoTitolo = document.getElementById('contenutoTitolo').value;
+        const contenutoDescrizione = document.getElementById('contenutoDescrizione').value;
+        const piRiferimento = document.getElementById('piRiferimento').value;
+
+        var fileInput = document.getElementById('fileInput');
+        var file = fileInput.files[0];
+        var filename=fileInput.value.toString();
+        var formData = new FormData();
+        //aggiungere il filename
+        formData.append('file', file);
+        formData.append('filename',filename);
+        // Se necessario, aggiungi il codice per recuperare l'immagine e convertirla in un formato utilizzabile
+
+        const contenuto = {
+            idElemento: contenutoId,
+            tipologia: contenutoTipologia,
+            titolo: contenutoTitolo,
+            descrizione: contenutoDescrizione,
+            piRiferimento: piRiferimento,
+            immagine: fileInput
+            // Aggiungi l'immagine se necessario
+        };
+
+        fetch(`${baseUrl}/contenuto`, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(contenuto),
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Errore nella richiesta.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Dati ricevuti:', data); // Controlla i dati ricevuti nella console
+                alert('Contenuto aggiunto con successo!');
+                // Esegui eventuali azioni aggiuntive dopo l'aggiunta del contenuto
+            })
+            .catch(error => {
+                console.error('Errore:', error);
+                alert('Si è verificato un errore durante l\'aggiunta del contenuto.');
+            });
+    }
+    function createEsperienza() {
+        const esperienzaId = document.getElementById('esperienzaId').value;
+        const esperienzaTipologia = document.getElementById('esperienzaTipologia').value;
+        const esperienzaTitolo = document.getElementById('esperienzaTitolo').value;
+        const esperienzaDescrizione = document.getElementById('esperienzaDescrizione').value;
+        const multiValues = document.getElementById('multiValues').value;
+        var valoriSeparati = multiValues.split(',');
+
+        // Crea una lista e aggiungi gli elementi
+        var listaPI = [];
+        for (var i = 0; i < valoriSeparati.length; i++) {
+            listaPI.push(valoriSeparati[i].trim());
+        }
+
+        const esperienza = {
+            idElemento: esperienzaId,
+            tipologia: esperienzaTipologia,
+            descrizione: esperienzaDescrizione,
+            titolo: esperienzaTitolo,
+            listaPI: listaPI,  // Assegna l'array di valori separati
+            piRiferimento: listaPI.at(0)
+        };
+
+        fetch(`${baseUrl}/createEsperienza`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(esperienza)
+        })
+            /* fetch(`${baseUrl}/api/osm/save`,{
+               method: 'POST',
+               headers: {
+                 'Content-Type' : 'application/json',
+               },
+               body: JSON.stringify(pi)
+             })*/
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Errore nella richiesta.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Dati ricevuti:', data); // Controlla i dati ricevuti nella console
+                alert('Esperienza aggiunta con successo!');
+
+            })
+            .catch(error => {
+                console.error('Errore:', error);
+                alert('Si è verificato un errore durante l\'aggiunta dell\'esperienza');
+            });
+    }
+    function getEsperienzaByTitle() {
+        const titolo = document.getElementById('titolo').value;
+
+        fetch(`${baseUrl}/api/0.6/way/titolo?titolo=${encodeURIComponent(titolo)}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Errore nella richiesta.');
+                }
+                return response.json();
+            })
+            .then(esperienza => {
+                const esperienzaResult = document.getElementById('esperienzaResult');
+                if (esperienza!=null) {
+                    esperienzaResult.textContent = `ID: ${esperienza.idElemento}, Descrizione: ${esperienza.descrizione}, Titolo: ${esperienza.titolo}, Tipologia: ${esperienza.tipologia}`;
+                    // Aggiungi la mappa di base (puoi scegliere altri provider come Mapbox, OpenTopoMap, ecc.)
+                    var lista = esperienza.listaPI;
+                    var punto1= [lista.at(0).getPIByTitle().latitudine,lista.at(0).getPIByTitle().longitudine];
+                    var punto2= [lista.at(lista.length-1).latitudine,lista.at(lista.length-1).longitudine];
+                    var linea = L.polyline([punto1, punto2], { color: 'red' }).addTo(map);
+
+                } else {
+                    esperienzaResult.textContent = `esperienza non trovata.`;
+                }
+            })
+            .catch(error => console.error('Errore:', error));
+    }
 
 </script>
 </body>
