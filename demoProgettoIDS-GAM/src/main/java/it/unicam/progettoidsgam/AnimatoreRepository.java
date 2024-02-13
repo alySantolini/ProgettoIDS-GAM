@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface PIRepository extends JpaRepository<PI, String> {
-    Optional<PI> findByTitolo(String titolo);
+public interface AnimatoreRepository extends JpaRepository<Animatore,String> {
+  //  Optional<Animatore> findByTitolo(String titolo);
 }

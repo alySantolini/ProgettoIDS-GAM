@@ -42,7 +42,12 @@ public class Contributore extends Utente {
 
 
     public void setIdContributore() {
-        super.setIdUtente("C", idCPrecedente);
+        if(autorizzato==true){
+            super.setIdUtente("CA", idCPrecedente);
+        }
+        else{
+            super.setIdUtente("C",idCPrecedente);
+        }
         idCPrecedente += 1;
     }
 
@@ -70,7 +75,7 @@ public class Contributore extends Utente {
         return this.autorizzato;
     }
 
-    public boolean authenticate(String nickname, String password) {
+/*   public boolean authenticate(String nickname, String password) {
         return this.nickname.equals(nickname) && this.getIdContributore().equals(password);
     }
  /*   public Contenuto creaContenuto( File file,String titolo, String descrizione,PI piRiferimento){

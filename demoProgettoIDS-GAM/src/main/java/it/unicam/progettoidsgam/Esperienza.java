@@ -1,8 +1,7 @@
 package it.unicam.progettoidsgam;
 
 import it.unicam.progettoidsgam.PI;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.List;
 
@@ -12,12 +11,18 @@ public class Esperienza extends Elemento {
 
     private String tipologia;
     private static int idEPrecedente; //indica l'id corrente
-    private  List<String> listaPI;
+    @ElementCollection
+    private List<String> listaPI;
+
     public Esperienza(String tipologia, String titolo, String descrizione, List<String> listaPI) {
         super(descrizione,titolo,listaPI.get(0));
         this.tipologia=tipologia;
-         this.listaPI = listaPI;
+        this.listaPI = listaPI;
         setIdEsperienza();
+    }
+
+    public List<String> getListaPI() {
+        return listaPI;
     }
 
     public Esperienza(){
@@ -40,9 +45,7 @@ public class Esperienza extends Elemento {
         return idEPrecedente;
     }
 
-   /* public static List<String> getListaPI() {
-        return listaPI;
-    }*/
+
 
     public String getTipologia() {
         return tipologia;

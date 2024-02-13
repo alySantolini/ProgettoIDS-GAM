@@ -12,8 +12,7 @@ import java.io.IOException;
 //DA SISTEMARE
 @Entity
 public class Contenuto extends Elemento{
-    @Id
-    private String idContenuto;
+
     private String tipologia;
     private String descrizione;
     private String titolo;
@@ -35,7 +34,7 @@ public class Contenuto extends Elemento{
     public Contenuto() {
     }
     public String getIdContenuto() {
-        return idContenuto;
+        return super.getIdElemento();
     }
 
     public String getTipologia() {

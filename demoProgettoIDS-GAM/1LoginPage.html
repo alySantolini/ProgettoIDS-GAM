@@ -35,8 +35,16 @@
         xhr.onreadystatechange = function() {
             if (xhr.readyState === XMLHttpRequest.DONE) {
                 if (xhr.status === 200) {
-                    // Se le credenziali sono valide, reindirizza l'utente a paginaWeb.html
-                    window.location.href = 'paginaWeb.html';
+                    // Se le credenziali sono valide, reindirizza l'utente in base alla prima lettera della password
+                    var firstLetter = password.charAt(0).toUpperCase();
+                    var secondLetter = password.charAt(1).toUpperCase();
+
+                    if (firstLetter === 'C' && secondLetter==="A" || secondLetter==="U") {
+                        window.location.href = '2piattaforma.html';
+                    }
+                    if(firstLetter==='A'){
+                        window.location.href='pagina2.html';
+                    }
                 } else {
                     // Gestisci eventuali errori di autenticazione
                     alert('Credenziali non valide');
@@ -46,6 +54,7 @@
         xhr.send('username=' + encodeURIComponent(username) + '&password=' + encodeURIComponent(password));
     });
 </script>
+
 
 </body>
 </html>

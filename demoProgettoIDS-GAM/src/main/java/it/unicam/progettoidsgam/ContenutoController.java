@@ -20,7 +20,6 @@ public class ContenutoController {
         this.contenutoService = contenutoService;
 
     }
-
     @GetMapping("/elementi")
     public ResponseEntity<Object> getElementi(){
         return contenutoService.getContenuti();

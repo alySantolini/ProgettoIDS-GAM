@@ -1,5 +1,6 @@
 package it.unicam.progettoidsgam;
 
+import it.unicam.progettoidsgam.eccezioni.ResourceAlreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,15 +11,15 @@ import java.io.IOException;
 @RestController
 public class ContributoreController {
 
-    @Autowired
-    private ContributoreService contributoreService;
 
+    private ContributoreService contributoreService;
+    @Autowired
     public ContributoreController(ContributoreService contributoreService) {
         this.contributoreService = contributoreService;
         salvaContributore();
     }
 
-   /* @PostMapping("/login")
+  /* @PostMapping("/login")
     public ResponseEntity<String> login(@RequestParam String username, @RequestParam String password) {
         boolean authenticated = contributoreService.authenticate(username, password);
         if (authenticated) {
@@ -34,6 +35,17 @@ public class ContributoreController {
         contributoreService.salvaContributoreIniziale();
         return ResponseEntity.ok("Contributore salvato con successo!");
     }
+    @PostMapping("/creaContributore")
+    public ResponseEntity<Object> addContributore(@RequestBody Contributore contributore) {
+        try {
+            // Aggiungi il contributore nel database
+            Contributore newContributore = contributoreService.addNewContributore(contributore);
 
+
+            return new ResponseEntity<>(newContributore, HttpStatus.CREATED);
+        } catch (ResourceAlreadyExistsException | IOException e) {
+            return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
+        }
+    }
 
 }
