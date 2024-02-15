@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autorizza PI</title>
+</head>
+<body>
+<h1>Autorizza PI</h1>
+<form id="autorizzaForm">
+    <label for="idPI">ID PI:</label>
+    <input type="text" id="idPI" name="idPI">
+    <button type="button" onclick="autorizza()">Autorizza</button>
+</form>
+
+<h2>Get Segnalazione</h2>
+<label for="idSegnalazione">id Segnalazione:</label>
+<input type="text" id="idSegnalazione">
+<button onclick="getSegnalazione()">Get Segnalazione</button>
+<div id="segnalazioneResult"></div>
+
+<h1>Gestisci Segnalazione</h1>
+<p>Inserisci l'ID della segnalazione che desideri gestire:</p>
+<input type="text" id="idS" placeholder="idS">
+<button onclick="gestisciSegnalazione()">Gestisci</button>
+
+<h1>Autorizza elemento</h1>
+<form id="autorizzaForm1">
+    <label for="idElemento">ID Elemento:</label>
+    <input type="text" id="idElemento" name="idElemento">
+    <button type="button" onclick="autorizzaElemento()">Autorizza</button>
+</form>
+
+<script>
+    if (!sessionStorage.getItem('isAuthenticated')) {
+        window.location.href = '/login.html';
+    }
+    const baseUrl = 'http://localhost:8080';
+    function autorizza() {
+        var idPI = document.getElementById('idPI').value;
+
+        // Crea un oggetto PI con l'ID inserito
+        var piData = {
+            idPI: idPI
+        };
+
+        // Esegui una richiesta POST per autorizzare il PI
+        fetch(`${baseUrl}/autorizza/PI`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(piData),
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+
+                // Aggiorna la pagina o esegui altre azioni necessarie dopo l'autorizzazione
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                // Gestisci eventuali errori
+            });
+    }
+    function autorizzaElemento() {
+        var idElemento = document.getElementById('idElemento').value;
+
+
+
+        // Crea un oggetto PI con l'ID inserito
+        var elementoData = {
+            idElemento: idElemento
+        };
+
+        // Esegui una richiesta POST per autorizzare il PI
+        fetch(`${baseUrl}/autorizzazione/Elemento`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(elementoData),
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+
+                // Aggiorna la pagina o esegui altre azioni necessarie dopo l'autorizzazione
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                // Gestisci eventuali errori
+            });
+    }
+
+    function getSegnalazione() {
+        const idSegnalazione = document.getElementById('idSegnalazione').value;
+
+        fetch(`${baseUrl}/segnalazione/idSegnalazione?idSegnalazione=${encodeURIComponent(idSegnalazione)}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Errore nella richiesta.');
+                }
+                return response.json();
+            })
+            .then(segnalazione => {
+                const segnalazioneResult = document.getElementById('segnalazioneResult');
+                if (segnalazione!=null) {
+                    segnalazioneResult.textContent = `ID: ${segnalazione.idSegnalazione}, Descrizione: ${segnalazione.descrizione},IdElemento: ${segnalazione.idElemento}`;
+                } else {
+                    segnalazioneResult.textContent = `Segnalazione non trovata.`;
+                }
+            })
+            .catch(error => console.error('Errore:', error));
+    }
+    function gestisciSegnalazione() {
+        var idS = document.getElementById('idS').value;
+
+        fetch(`${baseUrl}/gestisci/idSegnalazione?idSegnalazione=${encodeURIComponent(idS)}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Segnalazione gestita con successo');
+                    alert('Segnalazione gestita  con successo!');
+                    // Aggiungi qui eventuali azioni da eseguire dopo aver gestito la segnalazione
+                } else {
+                    console.error('Errore durante la gestione della segnalazione');
+                }
+            })
+            .catch(error => {
+                console.error('Errore:', error);
+                alert('Segnalazione non gestita!');
+            });
+    }
+</script>
+</body>
+</html>

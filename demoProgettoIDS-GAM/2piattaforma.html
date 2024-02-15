@@ -51,6 +51,12 @@
 <h2>contenuto List</h2>
 <ul id="contenutoList"></ul>
 
+<h2>Get contenuto by titolo</h2>
+<label for="titoloContenuto">contenuto Titolo:</label>
+<input type="text" id="titoloContenuto">
+<button onclick="getContenutoByTitle()">Get contenuto</button>
+<div id="contenutoResult"></div>
+
 <h2>Create Contenuto</h2>
 <form id="contenutoForm">
     <label for="contenutoId">contenuto id:</label>
@@ -101,8 +107,21 @@
 <h2>contest List</h2>
 <ul id="contestList"></ul>
 
+<h1>Aggiungi Segnalazione</h1>
+<form id="aggiungiSegnalazioneForm">
+    <label for="idSegnalazione">ID Segnalazione:</label>
+    <input type="text" id="idSegnalazione" name="idSegnalazione" disabled><br>
+    <label for="idElemento">ID Elemento:</label>
+    <input type="text" id="idElemento" name="idElemento"><br>
+    <label for="descrizioneSegnalazione">descrizione :</label>
+    <input type="text" id="descrizioneSegnalazione" name="descrizioneSegnalazione"><br>
+    <button type="button" onclick="inviaSegnalazione()">Aggiungi Segnalazione</button>
+</form>
 <script>
-    var map = L.map('map').setView([43.8396, 13.0148], 15); // Centra la mappa su Fano (latitudine, longitudine, zoom)
+    if (!sessionStorage.getItem('isAuthenticated')) {
+        window.location.href = '/login.html';
+    }
+    var map = L.map('map').setView([43.8396, 13.0148], 15);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
@@ -148,22 +167,23 @@
         const piTipologia = document.getElementById('piTipologia').value;
         const piTitolo = document.getElementById('piTitolo').value;
         const piDescrizione = document.getElementById('piDescrizione').value;
-        const pi = { idPI: piId, longitudine: piLongitudine, latitudine: piLatitudine, tipologia: piTipologia, descrizione: piDescrizione, titolo: piTitolo };
 
-        fetch(`${baseUrl}/pubblica`, {
+        const pi = {
+            idPI: piId,
+            longitudine: piLongitudine,
+            latitudine: piLatitudine,
+            tipologia: piTipologia,
+            descrizione: piDescrizione,
+            titolo: piTitolo
+        };
+
+        fetch(`${baseUrl}/pubblicaPI`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(pi)
         })
-            /* fetch(`${baseUrl}/api/osm/save`,{
-               method: 'POST',
-               headers: {
-                 'Content-Type' : 'application/json',
-               },
-               body: JSON.stringify(pi)
-             })*/
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Errore nella richiesta.');
@@ -184,6 +204,7 @@
                 alert('Si è verificato un errore durante l\'aggiunta del POI.');
             });
     }
+
     function getPIByTitle() {
         const getTitolo = document.getElementById('getTitolo').value;
 
@@ -230,7 +251,26 @@
                 alert('Si è verificato un errore durante il recupero del contenuto.');
             });
     }
+    function getContenutoByTitle() {
+        const titoloContenuto = document.getElementById('titoloContenuto').value;
 
+        fetch(`${baseUrl}/contenuto/titolo?titolo=${encodeURIComponent(titoloContenuto)}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Errore nella richiesta.');
+                }
+                return response.json();
+            })
+            .then(contenuto => {
+                const contenutoResult = document.getElementById('contenutoResult');
+                if (contenuto!=null) {
+                    contenutoResult.textContent = `ID: ${contenuto.idElemento}, Descrizione: ${contenuto.descrizione}, Titolo: ${contenuto.titolo},PI Riferimento: ${contenuto.piRiferimento}`;
+                } else {
+                    contenutoResult.textContent = `contenuto non trovato.`;
+                }
+            })
+            .catch(error => console.error('Errore:', error));
+    }
 
     function createContenuto() {
         const contenutoId=document.getElementById('contenutoId').value;
@@ -258,7 +298,7 @@
             // Aggiungi l'immagine se necessario
         };
 
-        fetch(`${baseUrl}/contenuto`, {
+        fetch(`${baseUrl}/pubblicaContenuto`, {
             method: 'POST',
             body: formData,
             headers: {
@@ -306,7 +346,7 @@
         };
 
 //console.log(listaPI)
-        fetch(`${baseUrl}/createEsperienza`, {
+        fetch(`${baseUrl}/pubblicaEsperienza`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -440,7 +480,7 @@
                 data.forEach(contest => {
                     const listItem = document.createElement('li');
                     //costruisce la nuova lista
-                    listItem.textContent = `ID: ${contest.idElemento}, Descrizione: ${contest.descrizione}, Titolo: ${contest.titolo}, Tipologia: ${contest.tipologia}, Animatore ${contest.creatore}, PiRiferimento ${contest.piRiferimento}, Durata ${contest.durata}`;
+                    listItem.textContent = `ID: ${contest.idElemento}, Descrizione: ${contest.descrizione}, Titolo: ${contest.titolo}, Tipologia: ${contest.tipologia}, Animatore ${contest.creatore}, PiRiferimento ${contest.piRiferimento},DataFine ${contest.dataFine}`;
                     contestList.appendChild(listItem);
                 });
             })
@@ -449,7 +489,41 @@
                 alert('Si è verificato un errore durante il recupero dei POI.');
             });
     }
+    function inviaSegnalazione() {
+        var idSegnalazione = document.getElementById('idSegnalazione').value;
+        var idElemento = document.getElementById('idElemento').value;
+        var descrizioneSegnalazione = document.getElementById('descrizioneSegnalazione').value;
 
+        var segnalazioneData = {
+            idSegnalazione: idSegnalazione,
+            idElemento:idElemento,
+            descrizione: descrizioneSegnalazione
+            // Aggiungi altri attributi
+        };
+
+        fetch(`${baseUrl}/pubblicaSegnalazione`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(segnalazioneData)
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Errore durante l\'aggiunta della segnalazione');
+                }
+            })
+            .then(data => {
+                // Gestisci la risposta del server, ad esempio mostra un messaggio di successo
+                console.log('Segnalazione aggiunta con successo:', data);
+            })
+            .catch(error => {
+                // Gestisci gli errori, ad esempio mostra un messaggio di errore
+                console.error('Errore:', error);
+            });
+    }
 </script>
 </body>
 </html>

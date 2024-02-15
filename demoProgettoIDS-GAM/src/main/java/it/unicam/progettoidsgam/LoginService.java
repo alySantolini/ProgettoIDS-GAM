@@ -17,7 +17,6 @@ public class LoginService {
     }
 
     public boolean authenticate(String username, String password) {
-        // Verifica se le credenziali appartengono a un contributore o a un curatore
         return contributoreService.authenticate(username, password) || curatoreService.authenticate(username, password)
                 || animatoreService.authenticate(username,password);
     }

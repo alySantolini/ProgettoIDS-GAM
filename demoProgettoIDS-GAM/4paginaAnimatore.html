@@ -26,6 +26,9 @@
     <button type="button" onclick="createContest()">Create Contest</button>
 </form>
 <script>
+    if (!sessionStorage.getItem('isAuthenticated')) {
+        window.location.href = '/login.html';
+    }
     const baseUrl = 'http://localhost:8080';
 
     function createContest() {

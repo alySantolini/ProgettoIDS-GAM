@@ -17,7 +17,7 @@ public class AnimatoreController {
 
     public AnimatoreController(AnimatoreService animatoreService) {
         this.animatoreService = animatoreService;
-        //salvaAnimatore();
+        salvaAnimatore();
     }
 
   /*  @PostMapping("/login")

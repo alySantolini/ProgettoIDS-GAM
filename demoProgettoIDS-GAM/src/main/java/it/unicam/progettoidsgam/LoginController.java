@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 public class LoginController {
 
     private final LoginService authenticationService;
-
     @Autowired
     public LoginController(LoginService authenticationService) {
         this.authenticationService = authenticationService;

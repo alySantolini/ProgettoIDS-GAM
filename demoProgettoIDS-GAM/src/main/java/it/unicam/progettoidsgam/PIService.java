@@ -8,51 +8,43 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static it.unicam.progettoidsgam.Curatore.piCuratore;
 
 @Service
 public class PIService {
 
     private final PIRepository piRepository;
-private final ElementiCuratoreRepository elementiCuratoreRepository;
     @Autowired
-    public PIService(PIRepository piRepository,ElementiCuratoreRepository elementiCuratoreRepository){
+    public PIService(PIRepository piRepository){
         this.piRepository=piRepository;
-        this.elementiCuratoreRepository=elementiCuratoreRepository;
     }
 
     public ResponseEntity<Object> getPI(){
         return new ResponseEntity<>(piRepository.findAll(), HttpStatus.OK);
     }
 
-    public PI addNewPI(PI pi) throws IOException {
+   public PI addNewPI(PI pi) throws IOException {
         Optional<PI> pi1=piRepository.findById(pi.getIdPI());
         if(pi1.isPresent()){
             throw new ResourceAlreadyExistsException("PI: " +pi.getTitolo()+pi.getDescrizione()+pi.getLongitudine()+pi.getLatitudine()+" esiste già");
         }
         pi.setIdPI();
-       /* if(!contributore.getAutorizzato()) {
-            elementiCuratoreRepository.save(pi);
-        }*/
-        return piRepository.save(pi);
+       return piRepository.save(pi);
+   }
+    public PI creaNewPI(PI pi) throws IOException {
+        Optional<PI> pi1=piRepository.findById(pi.getIdPI());
+        if(pi1.isPresent()){
+            throw new ResourceAlreadyExistsException("PI: " +pi.getTitolo()+pi.getDescrizione()+pi.getLongitudine()+pi.getLatitudine()+" esiste già");
+        }
+        pi.setIdPI();
+        piCuratore.add(pi);
+        return pi;
     }
-    /*public PI creaNewPI(PI pi,Contributore contributore) throws IOException {
-        Optional<PI> pi1=piRepository.findById(pi.getIdPI());
-        if(pi1.isPresent()){
-            throw new ResourceAlreadyExistsException("PI: " +pi.getTitolo()+pi.getDescrizione()+pi.getLongitudine()+pi.getLatitudine()+" esiste già");
-        }
-        pi.setIdPI();
-       if(!contributore.getAutorizzato()) {
-            elementiCuratoreRepository.save(pi);
-        }
-        return piRepository.save(pi);
-    }*/
 
     public ResponseEntity<Object> getPIByTitolo(String titolo) {
-        // Implementa la logica per recuperare un punto di interesse dal repository in base al titolo
-        // Esempio:
         Optional<PI> pi = piRepository.findByTitolo(titolo);
         if (pi != null) {
             return new ResponseEntity<>(pi, HttpStatus.OK);
@@ -60,28 +52,29 @@ private final ElementiCuratoreRepository elementiCuratoreRepository;
             return ResponseEntity.notFound().build();
         }
     }
-
-    public float getPI(String titolo) {
-        // Implementa la logica per recuperare un punto di interesse dal repository in base al titolo
-        // Esempio:
-        Optional<PI> pi = piRepository.findByTitolo(titolo);
-        if (pi != null) {
-            return  pi.get().getLatitudine();
-        } else {
-           return 0;
+    /*
+        public float getPI(String titolo) {
+            // Implementa la logica per recuperare un punto di interesse dal repository in base al titolo
+            // Esempio:
+            Optional<PI> pi = piRepository.findByTitolo(titolo);
+            if (pi != null) {
+                return  pi.get().getLatitudine();
+            } else {
+             return 0;
+            }
         }
-    }
-    public float getPILong(String titolo) {
-        // Implementa la logica per recuperare un punto di interesse dal repository in base al titolo
-        // Esempio:
-        Optional<PI> pi = piRepository.findByTitolo(titolo);
-        if (pi != null) {
-            return  pi.get().getLongitudine();
-        } else {
-            return 0;
+        /*
+        public float getPILong(String titolo) {
+            // Implementa la logica per recuperare un punto di interesse dal repository in base al titolo
+            // Esempio:
+            Optional<PI> pi = piRepository.findByTitolo(titolo);
+            if (pi != null) {
+                return  pi.get().getLongitudine();
+            } else {
+                return 0;
+            }
         }
-    }
-
+    */
     public PIRepository getRepository() {
         return piRepository;}
 }

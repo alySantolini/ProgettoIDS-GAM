@@ -16,13 +16,11 @@ public class ContributoreService {
     @Autowired
     public ContributoreService(ContributoreRepository contributoreRepository) {
         this.contributoreRepository=contributoreRepository;
-       /* Contributore c1=new Contributore("alice","santolini","ali",true);
-        contributoreRepository.save(c1);*/
     }
 
     public void salvaContributoreIniziale() {
         Contributore contributore = new Contributore("Nome", "Cognome", "nickname", true);
-        Contributore contributore1=new Contributore("ali","santolini","aliS",false);
+        Contributore contributore1=new Contributore("ali","santolini","ali",false);
         // Imposta altri attributi se necessario
         contributoreRepository.save(contributore);
         contributoreRepository.save(contributore1);

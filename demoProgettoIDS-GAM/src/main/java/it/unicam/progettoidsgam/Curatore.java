@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 
 //DA SISTEMARE
@@ -16,10 +17,9 @@ public class Curatore extends Contributore{
     private String nome;
     private String cognome;
     private String nickname;
-
-
-
-    public Curatore(String nome, String cognome, String nickname/*, ListaCondivisaNotifiche listaPersonale*/) {
+    protected static List<PI> piCuratore=new ArrayList<>();
+    protected static List<Elemento> elementiCuratore=new ArrayList<>();
+    public Curatore(String nome, String cognome, String nickname) {
         super(nome ,cognome , nickname,true/*listaPersonale*/);
         //this.idCuratore = "CU001";
         //this.nome = nome;

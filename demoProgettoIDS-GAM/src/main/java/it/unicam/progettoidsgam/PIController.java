@@ -25,9 +25,7 @@ public class PIController {
     public ResponseEntity<Object> getPI(){
         return piService.getPI();
     }
-
-
-    @PostMapping("/pubblica")
+  @PostMapping("/pubblicaPI")
     public ResponseEntity<Object> addPI(@RequestBody PI pi) {
         try {
             // Aggiungi il PI nel database
@@ -37,21 +35,20 @@ public class PIController {
             return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
         }
     }
-  /*  @PostMapping("/crea")
-    public ResponseEntity<Object> creaPI(@RequestBody PI pi,@RequestBody Contributore contributore) {
+    @PostMapping("/creaPI")
+    public ResponseEntity<Object> creaPI(@RequestBody PI pi) {
         try {
-            // Aggiungi il PI nel database
-            PI newPI = piService.creaNewPI(pi,contributore);
+            PI newPI = piService.creaNewPI(pi);
             return new ResponseEntity<>(newPI, HttpStatus.CREATED);
         } catch (ResourceAlreadyExistsException | IOException e) {
             return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
         }
-    }*/
+    }
    @GetMapping("/PI/{titolo}")
     public ResponseEntity<Object> getPISingolo(@PathParam("titolo") String titolo) {
         return piService.getPIByTitolo(titolo);
     }
-
+/*
     @GetMapping("/{titolo}")
     public float getPILat(@PathParam("titolo") String titolo) {
         return piService.getPI(titolo);
@@ -59,5 +56,5 @@ public class PIController {
     @GetMapping("/Esperienza/{titolo}")
     public float getPILong(@PathParam("titolo") String titolo) {
         return piService.getPILong(titolo);
-    }
+    }*/
 }

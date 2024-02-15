@@ -38,12 +38,19 @@
                     // Se le credenziali sono valide, reindirizza l'utente in base alla prima lettera della password
                     var firstLetter = password.charAt(0).toUpperCase();
                     var secondLetter = password.charAt(1).toUpperCase();
+                    sessionStorage.setItem('isAuthenticated', 'true');
 
-                    if (firstLetter === 'C' && secondLetter==="A" || secondLetter==="U") {
+                    if (firstLetter === 'C' && secondLetter==="A") {
                         window.location.href = '2piattaforma.html';
                     }
                     if(firstLetter==='A'){
-                        window.location.href='pagina2.html';
+                        window.location.href='4paginaAnimatore.html';
+                    }
+                    if(firstLetter==='C' && !isNaN(parseInt(secondLetter)) ){
+                        window.location.href='3paginaContributore.html';
+                    }
+                    if (firstLetter === 'C' && secondLetter==="U") {
+                        window.location.href = '5paginaCuratore.html';
                     }
                 } else {
                     // Gestisci eventuali errori di autenticazione
