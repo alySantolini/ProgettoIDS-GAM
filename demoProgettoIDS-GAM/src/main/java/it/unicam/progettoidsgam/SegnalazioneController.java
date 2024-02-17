@@ -1,5 +1,6 @@
 package it.unicam.progettoidsgam;
 
+import org.springframework.ui.Model;
 import it.unicam.progettoidsgam.eccezioni.ResourceAlreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,4 +31,9 @@ public class SegnalazioneController {
             return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
         }
     }
+    /*@GetMapping("/elimina/{id}")
+    public String eliminaSegnalazione(@PathVariable String id) {
+        segnalazioneService.eliminaSegnalazione(id);
+        return "redirect:/pagina-successo"; // Reindirizza a una pagina di successo o altrove
+    }*/
 }

@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Optional;
 
 import static it.unicam.progettoidsgam.Curatore.piCuratore;
@@ -16,6 +15,10 @@ import static it.unicam.progettoidsgam.Curatore.piCuratore;
 @Service
 public class PIService {
 
+    private static final double MIN_LATITUDINE = 43.8266;
+    private static final double MAX_LATITUDINE = 43.8687;
+    private static final double MIN_LONGITUDINE = 13.0148;
+    private static final double MAX_LONGITUDINE = 13.0767;
     private final PIRepository piRepository;
     @Autowired
     public PIService(PIRepository piRepository){
@@ -28,20 +31,29 @@ public class PIService {
 
    public PI addNewPI(PI pi) throws IOException {
         Optional<PI> pi1=piRepository.findById(pi.getIdPI());
-        if(pi1.isPresent()){
+        Optional<PI> pi2= piRepository.findByTitolo(pi.getTitolo());
+        if(pi1.isPresent() || pi2.isPresent()){
             throw new ResourceAlreadyExistsException("PI: " +pi.getTitolo()+pi.getDescrizione()+pi.getLongitudine()+pi.getLatitudine()+" esiste già");
         }
-        pi.setIdPI();
-       return piRepository.save(pi);
+       if(controlloCordinate(pi.getLatitudine(),pi.getLongitudine())) {
+           pi.setIdPI();
+           return piRepository.save(pi);
+       }else{
+       throw new IllegalArgumentException("le cordinate sono errate");}
    }
+
     public PI creaNewPI(PI pi) throws IOException {
-        Optional<PI> pi1=piRepository.findById(pi.getIdPI());
-        if(pi1.isPresent()){
+        for(PI piNA: piCuratore){
+        if(piNA.getIdPI().equals(pi.getIdPI()) || piNA.getTitolo().equals(pi.getTitolo()) ){
             throw new ResourceAlreadyExistsException("PI: " +pi.getTitolo()+pi.getDescrizione()+pi.getLongitudine()+pi.getLatitudine()+" esiste già");
         }
+    }
+        if(controlloCordinate(pi.getLatitudine(),pi.getLongitudine())){
         pi.setIdPI();
         piCuratore.add(pi);
-        return pi;
+        return pi;}
+
+        throw new IllegalArgumentException("le cordinate sono errate");
     }
 
     public ResponseEntity<Object> getPIByTitolo(String titolo) {
@@ -52,6 +64,12 @@ public class PIService {
             return ResponseEntity.notFound().build();
         }
     }
+
+    public static boolean controlloCordinate(double latitudine, double longitudine) {
+        return latitudine >= MIN_LATITUDINE && latitudine <= MAX_LATITUDINE &&
+                longitudine >= MIN_LONGITUDINE && longitudine <= MAX_LONGITUDINE;
+    }
+
     /*
         public float getPI(String titolo) {
             // Implementa la logica per recuperare un punto di interesse dal repository in base al titolo

@@ -16,10 +16,14 @@ public class Contest extends Elemento {
 
     public Contest(String descrizione, String titolo, String tipologia, String piRiferimento, String creatore, Date inizio,Date fine) {
         super(descrizione, titolo, piRiferimento);
+
         this.creatore = creatore;
         this.tipologia = tipologia;
         this.dataInizio = inizio;
         this.dataFine= fine;
+        if (inizio.after(fine)) {
+            throw new IllegalArgumentException("La data di inizio deve essere precedente alla data di fine.");
+        }
         setIdContest();
     }
 

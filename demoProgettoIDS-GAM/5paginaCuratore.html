@@ -45,7 +45,7 @@
         };
 
         // Esegui una richiesta POST per autorizzare il PI
-        fetch(`${baseUrl}/autorizza/PI`, {
+        fetch(`${baseUrl}/autorizza/idPI?idPI=${encodeURIComponent(idPI)}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -55,11 +55,12 @@
             .then(response => response.json())
             .then(data => {
                 console.log('Success:', data);
-
+                alert('autorizzato', data.idPI);
                 // Aggiorna la pagina o esegui altre azioni necessarie dopo l'autorizzazione
             })
             .catch((error) => {
                 console.error('Error:', error);
+                alert('Error', error);
                 // Gestisci eventuali errori
             });
     }
@@ -84,11 +85,12 @@
             .then(response => response.json())
             .then(data => {
                 console.log('Success:', data);
-
+                alert('autorizzato',data.idElemento);
                 // Aggiorna la pagina o esegui altre azioni necessarie dopo l'autorizzazione
             })
             .catch((error) => {
                 console.error('Error:', error);
+                alert('errore')
                 // Gestisci eventuali errori
             });
     }
@@ -129,6 +131,7 @@
                     // Aggiungi qui eventuali azioni da eseguire dopo aver gestito la segnalazione
                 } else {
                     console.error('Errore durante la gestione della segnalazione');
+                    alert('Errore durante la gestione della segnalazione')
                 }
             })
             .catch(error => {

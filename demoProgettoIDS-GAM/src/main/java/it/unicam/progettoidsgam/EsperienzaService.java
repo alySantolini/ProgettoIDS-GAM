@@ -14,10 +14,12 @@ import static it.unicam.progettoidsgam.Curatore.elementiCuratore;
 @Service
 public class EsperienzaService {
     private final EsperienzaRepository esperienzaRepository;
+    private ElementiCuratoreRepository<Esperienza>elementiCuratoreRepository;
 
     @Autowired
-    public EsperienzaService(EsperienzaRepository esperienzaRepository){
+    public EsperienzaService(EsperienzaRepository esperienzaRepository, ElementiCuratoreRepository<Esperienza> elementiCuratoreRepository){
         this.esperienzaRepository=esperienzaRepository;
+        this.elementiCuratoreRepository=elementiCuratoreRepository;
     }
     public ResponseEntity<Object> getEsperienza(String titolo){
         Optional<Esperienza> esperienza = esperienzaRepository.findByTitolo(titolo);
@@ -37,7 +39,8 @@ public class EsperienzaService {
             throw new ResourceAlreadyExistsException("Esperienza: " +esperienza.getTitolo()+esperienza.getDescrizione()+esperienza.getTipologia()+" esiste già");
         }
         esperienza.setIdEsperienza();
-        return esperienzaRepository.save(esperienza);
+        return elementiCuratoreRepository.save(esperienza);
+        //esperienzaRepository.save(esperienza);
     }
 
     public Esperienza creaNewEsperienza(Esperienza e) throws IOException {

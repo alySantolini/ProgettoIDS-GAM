@@ -38,7 +38,8 @@ public class ContenutoService {
             throw new ResourceAlreadyExistsException("CO: " +co.getTitolo()+co.getDescrizione()+co.getPiRiferimento()+" esiste già");
         }
             co.setIdContenuto();
-            return contenutoRepository.save(co);
+        return  elementiCuratoreRepository.save(co);
+            // contenutoRepository.save(co);
     }
     public Contenuto creaNewContenuto(Contenuto co) throws IOException {
         Optional<Contenuto> co1= contenutoRepository.findById(co.getIdContenuto());

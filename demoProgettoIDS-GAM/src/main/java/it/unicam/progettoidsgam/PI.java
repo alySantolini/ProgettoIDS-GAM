@@ -6,8 +6,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 //DA SISTEMARE
 @Entity
@@ -16,14 +14,14 @@ public class PI {
     private String idPI;
     //private static List<Elemento> lCPI=new ArrayList<>();
     private String tipologia;
-    private float longitudine;
-    private float latitudine;
+    private double longitudine;
+    private double latitudine;
     private String descrizione;
     @Column(name = "titolo")
     private String titolo;
     private static int idPIPrecedente;
 
-    public PI(String descrizione, String titolo, String tipologia, float longitudine, float latitudine) {
+    public PI(String descrizione, String titolo, String tipologia, double longitudine, double latitudine) {
         this.descrizione=descrizione;
         this.titolo=titolo;
         this.longitudine=longitudine;
@@ -42,19 +40,19 @@ public class PI {
         idPIPrecedente+=1;
     }
 
-    public float getLongitudine() {
+    public double getLongitudine() {
         return longitudine;
     }
 
-    public void setLongitudine(float longitudine) {
+    public void setLongitudine(double longitudine) {
         this.longitudine = longitudine;
     }
 
-    public float getLatitudine() {
+    public double getLatitudine() {
         return latitudine;
     }
 
-    public void setLatitudine(float latitudine) {
+    public void setLatitudine(double latitudine) {
         this.latitudine = latitudine;
     }
 

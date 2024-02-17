@@ -14,17 +14,16 @@ import static it.unicam.progettoidsgam.Curatore.elementiCuratore;
 public class CuratoreService {
 
     private final CuratoreRepository curatoreRepository;
+
     private final SegnalazioneRepository segnalazioneRepository;
     private final PIRepository piRepository;
-    private final ContenutoRepository contenutoRepository;
-    private final EsperienzaRepository esperienzaRepository;
+    private ElementiCuratoreRepository <Elemento> elementiCuratoreRepository;
     @Autowired
-    public CuratoreService(EsperienzaRepository esperienzaRepository,ContenutoRepository contenutoRepository,CuratoreRepository curatoreRepository,SegnalazioneRepository segnalazioneRepository,PIRepository piRepository) {
-        this.contenutoRepository=contenutoRepository;
+    public CuratoreService(ElementiCuratoreRepository<Elemento> elementiCuratoreRepository,CuratoreRepository curatoreRepository,SegnalazioneRepository segnalazioneRepository,PIRepository piRepository) {
+        this.elementiCuratoreRepository=elementiCuratoreRepository;
         this.curatoreRepository =curatoreRepository;
         this.segnalazioneRepository=segnalazioneRepository;
         this.piRepository=piRepository;
-        this.esperienzaRepository=esperienzaRepository;
     }
 
     public void salva() {
@@ -54,13 +53,24 @@ public class CuratoreService {
 
     public ResponseEntity<Object> gestisciSegnalazione(String idSegnalazione){
         Optional<Segnalazione> segnalazioneOptional = segnalazioneRepository.findById(idSegnalazione);
+        eliminaElementoAssociato( segnalazioneOptional.get());
         if(segnalazioneOptional.isPresent()){
             segnalazioneRepository.delete(segnalazioneOptional.get());
             return new ResponseEntity<>(segnalazioneOptional,HttpStatus.OK);
-         }else {
+         }else{
             return ResponseEntity.notFound().build();
         }
     }
+    public void eliminaElementoAssociato(Segnalazione segnalazione) {
+        String idElementoAssociato = segnalazione.getIdElemento();
+
+        if(piRepository.existsById(idElementoAssociato)){
+            piRepository.deleteById(idElementoAssociato);
+        }else{
+        elementiCuratoreRepository.deleteById(idElementoAssociato);
+        }
+    }
+
     public ResponseEntity<Object> autorizzaPI(PI pi) {
         if (pi != null) {
             piRepository.save(pi);
@@ -70,11 +80,8 @@ public class CuratoreService {
         }
     }
     public ResponseEntity<Object> autorizzaElemento(Elemento e) {
-        if(e instanceof  Contenuto){
-            contenutoRepository.save((Contenuto)e);
-        }else{
-              esperienzaRepository.save((Esperienza) e);
-         }
+
+            elementiCuratoreRepository.save(e);
          return new ResponseEntity<>(e,HttpStatus.OK);
     }
 }

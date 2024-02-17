@@ -47,11 +47,12 @@ public class CuratoreController {
     public ResponseEntity<Object> gestisciSegnalazione(@PathParam("idSegnalazione")String idSegnalazione){
         return curatoreService.gestisciSegnalazione(idSegnalazione);
     }
-    @PostMapping("/autorizza/PI")
-    public ResponseEntity<Object> autorizzaPI(){
+    @PostMapping("/autorizza/{idPI}")
+    public ResponseEntity<Object> autorizzaPI(@PathParam("idPI") String idPI){
             for (PI pi: piCuratore) {
+                if(pi.getIdPI().equals(idPI)){
                 piCuratore.remove(pi);
-              return curatoreService.autorizzaPI(pi);
+              return curatoreService.autorizzaPI(pi);}
             }
         return null;
     }

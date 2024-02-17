@@ -11,21 +11,29 @@ import java.util.Optional;
 
 @Service
 public class SegnalazioneService {
+    private SegnalazioneRepository segnalazioneRepository;
 
-    private final SegnalazioneRepository segnalazioneRepository;
 
     @Autowired
-    public SegnalazioneService( SegnalazioneRepository segnalazioneRepository) throws IOException {
-        this.segnalazioneRepository =segnalazioneRepository;
+    public SegnalazioneService(SegnalazioneRepository segnalazioneRepository, ElementiCuratoreRepository elementiCuratoreRepository) throws IOException {
+        this.segnalazioneRepository = segnalazioneRepository;
     }
+
     public Segnalazione addNewSegnalazione(Segnalazione segnalazione) throws IOException {
-        Optional<Segnalazione> so1= segnalazioneRepository.findById(segnalazione.getIdSegnalazione());
-        if(so1.isPresent()){
-            throw new ResourceAlreadyExistsException("S: " + segnalazione.getIdSegnalazione()+" esiste già");
+        Optional<Segnalazione> so1 = segnalazioneRepository.findById(segnalazione.getIdSegnalazione());
+        if (so1.isPresent()) {
+            throw new ResourceAlreadyExistsException("S: " + segnalazione.getIdSegnalazione() + " esiste già");
         }
         segnalazione.setIdSegnalazione();
-            return segnalazioneRepository.save(segnalazione);
+        return segnalazioneRepository.save(segnalazione);
     }
+
     public SegnalazioneRepository getRepository() {
-        return segnalazioneRepository;}
+        return segnalazioneRepository;
+    }
+
+    public Segnalazione findById(String id) {
+        return segnalazioneRepository.findById(id).orElse(null);
+    }
+
 }

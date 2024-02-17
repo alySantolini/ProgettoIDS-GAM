@@ -158,11 +158,11 @@
             })
             .then(data => {
                 console.log('Dati ricevuti:', data); // Controlla i dati ricevuti nella console
-                alert('POI aggiunto con successo!');
+                alert('PI in attesa di autorizzazione!');
             })
             .catch(error => {
                 console.error('Errore:', error);
-                alert('Si è verificato un errore durante l\'aggiunta del POI.');
+                alert('Si è verificato un errore durante l\'aggiunta del PI.');
             });
     }
     function getPI() {
@@ -186,7 +186,7 @@
             })
             .catch(error => {
                 console.error('Errore:', error);
-                alert('Si è verificato un errore durante il recupero dei POI.');
+                alert('Si è verificato un errore durante il recupero dei PI.');
             });
     }
     function creaContenuto() {
@@ -231,7 +231,7 @@
             })
             .then(data => {
                 console.log('Dati ricevuti:', data); // Controlla i dati ricevuti nella console
-                alert('Contenuto aggiunto con successo!');
+                alert('Contenuto in attesa di autorizzazione!');
                 // Esegui eventuali azioni aggiuntive dopo l'aggiunta del contenuto
             })
             .catch(error => {
@@ -329,20 +329,13 @@
         };
 
 //console.log(listaPI)
-        fetch(`${baseUrl}/createEsperienza`, {
+        fetch(`${baseUrl}/creaEsperienza`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(esperienza)
         })
-            /* fetch(`${baseUrl}/api/osm/save`,{
-               method: 'POST',
-               headers: {
-                 'Content-Type' : 'application/json',
-               },
-               body: JSON.stringify(pi)
-             })*/
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Errore nella richiesta.');
@@ -351,7 +344,7 @@
             })
             .then(data => {
                 console.log('Dati ricevuti:', data); // Controlla i dati ricevuti nella console
-                alert('Esperienza aggiunta con successo!');
+                alert('Esperienza in attesa di autorizzazione!');
 
             })
             .catch(error => {
@@ -389,10 +382,12 @@
             .then(data => {
                 // Gestisci la risposta del server, ad esempio mostra un messaggio di successo
                 console.log('Segnalazione aggiunta con successo:', data);
+                alert('Segnalazione generata con successo');
             })
             .catch(error => {
                 // Gestisci gli errori, ad esempio mostra un messaggio di errore
                 console.error('Errore:', error);
+                alert('Errore');
             });
     }
 
@@ -411,7 +406,7 @@
                 data.forEach(contest => {
                     const listItem = document.createElement('li');
                     //costruisce la nuova lista
-                    listItem.textContent = `ID: ${contest.idElemento}, Descrizione: ${contest.descrizione}, Titolo: ${contest.titolo}, Tipologia: ${contest.tipologia}, Animatore ${contest.creatore}, PiRiferimento ${contest.piRiferimento}, Durata ${contest.durata}`;
+                    listItem.textContent = `ID: ${contest.idElemento}, Descrizione: ${contest.descrizione}, Titolo: ${contest.titolo}, Tipologia: ${contest.tipologia}, Animatore ${contest.creatore}, PiRiferimento ${contest.piRiferimento}, DataInizio ${contest.dataInizio}, DataFine ${contest.dataFine}`;
                     contestList.appendChild(listItem);
                 });
             })

@@ -192,7 +192,7 @@
             })
             .then(data => {
                 console.log('Dati ricevuti:', data); // Controlla i dati ricevuti nella console
-                alert('POI aggiunto con successo!');
+                alert('PI aggiunto con successo!');
 
                 // Aggiungi un marker sulla mappa per il nuovo POI
                 L.marker([piLatitudine, piLongitudine]).addTo(map)
@@ -201,7 +201,7 @@
             })
             .catch(error => {
                 console.error('Errore:', error);
-                alert('Si è verificato un errore durante l\'aggiunta del POI.');
+                alert('Si è verificato un errore durante l\'aggiunta del PI.');
             });
     }
 
@@ -498,7 +498,6 @@
             idSegnalazione: idSegnalazione,
             idElemento:idElemento,
             descrizione: descrizioneSegnalazione
-            // Aggiungi altri attributi
         };
 
         fetch(`${baseUrl}/pubblicaSegnalazione`, {
@@ -518,10 +517,12 @@
             .then(data => {
                 // Gestisci la risposta del server, ad esempio mostra un messaggio di successo
                 console.log('Segnalazione aggiunta con successo:', data);
+                alert('Segnalazione generata con successo');
             })
             .catch(error => {
                 // Gestisci gli errori, ad esempio mostra un messaggio di errore
                 console.error('Errore:', error);
+                alert('Errore');
             });
     }
 </script>
