@@ -1,10 +1,7 @@
 package it.unicam.progettoidsgam;
 
 import it.unicam.progettoidsgam.PI;
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 import java.util.List;
 

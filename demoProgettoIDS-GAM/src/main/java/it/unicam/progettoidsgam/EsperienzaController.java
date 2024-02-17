@@ -25,10 +25,21 @@ public class EsperienzaController {
         return esperienzaService.getEsperienza(titolo);
     }
 
-    @PostMapping("/createEsperienza")
+    @PostMapping("/pubblicaEsperienza")
     public ResponseEntity<Object> addEsperienza(@RequestBody Esperienza esperienza) {
         try {
             Esperienza newEsperienza = esperienzaService.addNewEsperienza(esperienza);
+            return new ResponseEntity<>(newEsperienza, HttpStatus.CREATED);
+        } catch (ResourceAlreadyExistsException | IOException e) {
+            return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("/creaEsperienza")
+    public ResponseEntity<Object> creaEsperienza(@RequestBody Esperienza esperienza) {
+        try {
+            // Aggiungi il contenuto nel database
+            Esperienza newEsperienza = esperienzaService.creaNewEsperienza(esperienza);
             return new ResponseEntity<>(newEsperienza, HttpStatus.CREATED);
         } catch (ResourceAlreadyExistsException | IOException e) {
             return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);

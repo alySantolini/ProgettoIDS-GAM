@@ -1,4 +1,4 @@
-/*package it.unicam.progettoidsgam;
+package it.unicam.progettoidsgam;
 
 import it.unicam.progettoidsgam.eccezioni.ResourceAlreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,17 +16,12 @@ public class AnimatoreService {
     @Autowired
     public AnimatoreService(AnimatoreRepository animatoreRepository) {
         this.animatoreRepository=animatoreRepository;
-        Contributore c1=new Contributore("alice","santolini","ali",true);
-        contributoreRepository.save(c1);
-
-}
-  /*  public void salvaAnimatoreIniziale() {
+    }
+   public void salvaAnimatoreIniziale() {
         Animatore animatore = new Animatore("Nome","Cognome","nickname2");
-        // Imposta altri attributi se necessario
-        animatore.setIdAnimatore();
         animatoreRepository.save(animatore);
-    }*/
-/*
+    }
+
     public boolean authenticate(String nickname, String id) {
         Optional<Animatore> animatoreOptional = animatoreRepository.findById(id);
         if (animatoreOptional.isPresent()) {
@@ -46,4 +41,3 @@ public class AnimatoreService {
         return animatoreRepository.save(animatore);
     }
 }
-*/

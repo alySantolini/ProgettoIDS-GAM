@@ -1,4 +1,4 @@
-/*package it.unicam.progettoidsgam;
+package it.unicam.progettoidsgam;
 
 import it.unicam.progettoidsgam.PI;
 import jakarta.persistence.Entity;
@@ -10,14 +10,14 @@ import java.util.List;
 //DA SISTEMARE
 @Entity
 public class Animatore extends Utente {
-    private String idAnimatore;
+
     private String nome;
     private String cognome;
     private static int idAPrecedente;
 
 
-    public Animatore(String nome, String cognome, String nickname ListaCondivisaNotifiche listaPersonale) {
-        super(nickname listaPersonale);
+    public Animatore(String nome, String cognome, String nickname /*istaCondivisaNotifiche listaPersonale*/) {
+        super(nickname /*listaPersonale*/);
         this.nome = nome;
         this.cognome = cognome;
         setIdAnimatore();
@@ -28,7 +28,7 @@ public class Animatore extends Utente {
     }
 
     public String getIdAnimatore() {
-        return idAnimatore;
+        return super.getIdUtente();
     }
 
     public void setIdAnimatore() {

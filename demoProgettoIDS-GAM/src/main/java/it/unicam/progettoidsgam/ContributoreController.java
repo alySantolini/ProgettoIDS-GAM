@@ -19,7 +19,7 @@ public class ContributoreController {
         salvaContributore();
     }
 
- /*  @PostMapping("/login")
+  /* @PostMapping("/login")
     public ResponseEntity<String> login(@RequestParam String username, @RequestParam String password) {
         boolean authenticated = contributoreService.authenticate(username, password);
         if (authenticated) {
@@ -27,8 +27,8 @@ public class ContributoreController {
         } else {
             return new ResponseEntity<>("Credenziali non valide", HttpStatus.UNAUTHORIZED);
         }
-    }
-*/
+    }*/
+
 
     @PostMapping("/salva-contributore")
     public ResponseEntity<String> salvaContributore() {

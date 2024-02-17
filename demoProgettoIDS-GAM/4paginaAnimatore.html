@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Creazione Contest</title>
+</head>
+<body>
+<h2>Create Contest</h2>
+<form id="contestForm">
+    <label for="contestId">contest id:</label>
+    <input type="text" id="contestId" name="contestId" disabled><br><br>
+    <label for="contestTipologia">contest tipologia:</label>
+    <input type="text" id="contestTipologia" name="contestTipologia" required><br><br>
+    <label for="contestTitolo">contest Titolo:</label>
+    <input type="text" id="contestTitolo" name="contestTitolo" required><br><br>
+    <label for="contestDescrizione">contest Descrizione:</label>
+    <input type="text" id="contestDescrizione" name="contestDescrizione" required><br><br>
+    <label for="piRiferimento">Titolo PI Riferimento:</label>
+    <input type="text" id="piRiferimento" name="piRiferimento" required><br><br>
+    <label for="animatore">creatore:</label>
+    <input type="text" id="animatore" name="animatore" required><br><br>
+    <label for="dataInizio">Seleziona una data di inizio:</label>
+    <input type="date" id="dataInizio" name="dataInizio">
+    <label for="dataFine">Seleziona una data di fine:</label>
+    <input type="date" id="dataFine" name="dataFine">
+    <button type="button" onclick="createContest()">Create Contest</button>
+</form>
+<script>
+    if (!sessionStorage.getItem('isAuthenticated')) {
+        window.location.href = '/login.html';
+    }
+    const baseUrl = 'http://localhost:8080';
+
+    function createContest() {
+        const contestId = document.getElementById('contestId').value;
+        const contestTipologia = document.getElementById('contestTipologia').value;
+        const contestTitolo = document.getElementById('contestTitolo').value;
+        const contestDescrizione = document.getElementById('contestDescrizione').value;
+        const piRiferimento = document.getElementById('piRiferimento').value;
+        const animatore = document.getElementById('animatore').value;
+        const dataInizio = document.getElementById('dataInizio').value;
+        const dataFine = document.getElementById('dataFine').value;
+
+        const contest = {
+            idElemento: contestId,
+            tipologia: contestTipologia,
+            titolo: contestTitolo,
+            descrizione: contestDescrizione,
+            piRiferimento: piRiferimento,
+            creatore: animatore,
+            dataInizio: dataInizio,
+            dataFine:dataFine
+        };
+
+        fetch(`${baseUrl}/creaContest`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(contest),
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Errore nella richiesta.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Dati ricevuti:', data); // Controlla i dati ricevuti nella console
+                alert('Contest aggiunto con successo!');
+                // Esegui eventuali azioni aggiuntive dopo l'aggiunta del contest
+            })
+            .catch(error => {
+                console.error('Errore:', error);
+                alert('Si è verificato un errore durante l\'aggiunta del contest.');
+            });
+    }
+</script>
+</body>
+</html>

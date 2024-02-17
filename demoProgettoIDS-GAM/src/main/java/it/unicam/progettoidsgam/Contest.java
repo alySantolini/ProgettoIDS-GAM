@@ -1,56 +1,62 @@
-/*package it.unicam.progettoidsgam;
+package it.unicam.progettoidsgam;
 
-import it.unicam.progettoidsgam.PI;
 import jakarta.persistence.Entity;
-
-import java.io.IOException;
 import java.time.Duration;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.Date;
 
 //DA SISTEMARE
 @Entity
 public class Contest extends Elemento {
     private String tipologia;
-    private String titolo;
-    private String descrizione;
-    private Animatore creatore;
-    private String idContest;
+    private String creatore;
     private static int idCONPrecedente;
-    private Duration durata;
+    private Date dataInizio;
+    private Date dataFine;
+    // private Invito invito;
 
-   // private Invito invito;
-
-    public Contest(String descrizione, String titolo, String tipologia, String piRiferimento, Animatore creatore, Duration durata) {
+    public Contest(String descrizione, String titolo, String tipologia, String piRiferimento, String creatore, Date inizio,Date fine) {
         super(descrizione, titolo, piRiferimento);
         this.creatore = creatore;
         this.tipologia = tipologia;
-        this.durata = durata;
+        this.dataInizio = inizio;
+        this.dataFine= fine;
         setIdContest();
     }
 
     public Contest() {
-
+        super();
     }
 
+    /*   public Contest(String descrizione, String titolo, String tipologia, String piRiferimento, Animatore creatore /*Invito invito, Duration durata) {
+           super(descrizione, titolo, piRiferimento);
+           this.creatore = creatore;
+           this.tipologia = tipologia;
+           //  this.invito = invito;
+           this.durata = durata;
+           setIdContest();
+       }
+   */
+    public Date getDataInizio() {
+        return dataInizio;
+    }
+    public Date getDataFine() {
+        return dataFine;
+    }
+    public void setIdContest() {
+        super.setIdElemento("CON",idCONPrecedente);
+        idCONPrecedente +=1;
 
-        public Contest(String descrizione, String titolo, String tipologia, String piRiferimento, Animatore creatore, Invito invito, Duration durata) {
-            super(descrizione, titolo, piRiferimento);
-            this.creatore = creatore;
-            this.tipologia = tipologia;
-          //  this.invito = invito;
-            this.durata = durata;
-            setIdContest();
-        }
-
-    public Duration getDurata() {
-        return durata;
+    }
+    public String getIdContest() {
+        return super.getIdElemento();
     }
 
-    public void setDurata(Duration durata) {
-        this.durata = durata;
+    public void setDataInizio(Date inizio) {
+        this.dataInizio = inizio;
     }
-
+    public void setDataFine(Date fine) {
+        this.dataFine = fine;
+    }
     public String getTipologia() {
         return tipologia;
     }
@@ -59,18 +65,16 @@ public class Contest extends Elemento {
         this.tipologia = tipologia;
     }
 
-
-    private void setIdContest() {
-        super.setIdElemento("CON", idCONPrecedente);
-        idCONPrecedente = idCONPrecedente + 1;
-
+    public void setCreatore(String creatore) {
+        this.creatore = creatore;
     }
 
-    public Animatore getCreatore() {
+
+    public String getCreatore() {
         return creatore;
     }
 }
-    /*
+/*
     public void terminaEvento(ListaCondivisaElementoPubblicato lista,Contest c){
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
@@ -93,6 +97,5 @@ public class Contest extends Elemento {
             System.out.println("Il contest non esiste");
         }
     }
-}
+}*/
 
- */

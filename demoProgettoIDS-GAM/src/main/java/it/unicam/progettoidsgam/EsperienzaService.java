@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.util.Optional;
 import it.unicam.progettoidsgam.eccezioni.ResourceAlreadyExistsException;
 
+import static it.unicam.progettoidsgam.Curatore.elementiCuratore;
+
 @Service
 public class EsperienzaService {
     private final EsperienzaRepository esperienzaRepository;
@@ -36,6 +38,16 @@ public class EsperienzaService {
         }
         esperienza.setIdEsperienza();
         return esperienzaRepository.save(esperienza);
+    }
+
+    public Esperienza creaNewEsperienza(Esperienza e) throws IOException {
+        Optional<Esperienza> e1= esperienzaRepository.findById(e.getIdElemento());
+        if(e1.isPresent()){
+            throw new ResourceAlreadyExistsException("E: " +e.getTitolo()+e.getDescrizione()+e.getPiRiferimento()+" esiste già");
+        }
+        e.setIdEsperienza();
+        elementiCuratore.add(e);
+        return e;
     }
 }
 

@@ -1,8 +1,14 @@
 package it.unicam.progettoidsgam;
 
+import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+import static it.unicam.progettoidsgam.Curatore.elementiCuratore;
+import static it.unicam.progettoidsgam.Curatore.piCuratore;
 
 @CrossOrigin(origins = "http://localhost:63342")
 @RestController
@@ -32,7 +38,30 @@ public class CuratoreController {
         curatoreService.salva();
         return ResponseEntity.ok("Contributore salvato con successo!");
     }
+    @GetMapping("/segnalazione/{idSegnalazione}")
+    public ResponseEntity<Object> getSegnalazioneSingola(@PathParam ("idSegnalazione") String idSegnalazione){
+        return curatoreService.getSegnalazione(idSegnalazione);
+    }
 
-
+    @PutMapping("/gestisci/{idSegnalazione}")
+    public ResponseEntity<Object> gestisciSegnalazione(@PathParam("idSegnalazione")String idSegnalazione){
+        return curatoreService.gestisciSegnalazione(idSegnalazione);
+    }
+    @PostMapping("/autorizza/PI")
+    public ResponseEntity<Object> autorizzaPI(){
+            for (PI pi: piCuratore) {
+                piCuratore.remove(pi);
+              return curatoreService.autorizzaPI(pi);
+            }
+        return null;
+    }
+    @PostMapping("/autorizzazione/Elemento")
+    public ResponseEntity<Object> autorizzaElemento(){
+        for (Elemento e: elementiCuratore) {
+            elementiCuratore.remove(e);
+            return curatoreService.autorizzaElemento(e);
+        }
+        return null;
+    }
 }
 
