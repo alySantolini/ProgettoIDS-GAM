@@ -7,5 +7,5 @@ import java.util.Optional;
 
 @Repository
 public interface AnimatoreRepository extends JpaRepository<Animatore,String> {
-  //  Optional<Animatore> findByTitolo(String titolo);
+    Optional<Animatore> findByNickname(String nickname);
 }

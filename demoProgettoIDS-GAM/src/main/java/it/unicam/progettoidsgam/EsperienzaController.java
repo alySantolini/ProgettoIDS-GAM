@@ -20,7 +20,7 @@ public class EsperienzaController {
         this.esperienzaService = esperienzaService;
     }
 
-    @GetMapping("/api/0.6/way/{titolo}")
+    @GetMapping("/esperienza/{titolo}")
     public ResponseEntity<Object> getEsperienza(@PathParam("titolo") String titolo){
         return esperienzaService.getEsperienza(titolo);
     }

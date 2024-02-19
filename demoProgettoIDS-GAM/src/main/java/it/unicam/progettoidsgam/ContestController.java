@@ -36,9 +36,13 @@ public class ContestController {
             return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
         }
     }
-
     @GetMapping("/contest/{titolo}")
     public ResponseEntity<Object> getContest(@PathParam("titolo") String titolo) {
         return contestService.getContestByTitolo(titolo);
     }
+
+   /* @PostMapping("/partecipa/{idContest}")
+    public ResponseEntity<Object> partecipaAlContest(@PathParam("idContest") String idContest){
+        return contestService.partecipa(idContest);
+    }*/
 }

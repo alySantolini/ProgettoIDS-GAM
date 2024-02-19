@@ -2,6 +2,7 @@ package it.unicam.progettoidsgam;
 
 import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -54,15 +55,29 @@ public class CuratoreController {
                 piCuratore.remove(pi);
               return curatoreService.autorizzaPI(pi);}
             }
-        return null;
+        return new ResponseEntity<>("Errore durante l'autorizzazione " , HttpStatus.BAD_REQUEST);
     }
-    @PostMapping("/autorizzazione/Elemento")
-    public ResponseEntity<Object> autorizzaElemento(){
+    @PostMapping("/autorizzazione/{idElemento}")
+    public ResponseEntity<Object> autorizzaElemento(@PathParam("idElemento") String idElemento){
         for (Elemento e: elementiCuratore) {
-            elementiCuratore.remove(e);
-            return curatoreService.autorizzaElemento(e);
+            if(e.getIdElemento().equals(idElemento)){
+                elementiCuratore.remove(e);
+                return curatoreService.autorizzaElemento(e);}
         }
-        return null;
+        return new ResponseEntity<>("Errore durante l'autorizzazione " , HttpStatus.BAD_REQUEST);
+    }
+
+    @GetMapping("/getSegnalazioni")
+    public ResponseEntity<Object> getSegnalazioni(){
+        return curatoreService.getSegnalazioni();
+    }
+    @GetMapping("/getPIDaAutorizzare")
+    public ResponseEntity<Object> getPI(){
+        return curatoreService.getPI();
+    }
+    @GetMapping("/getListaDaAutorizzare")
+    public ResponseEntity<Object> getLista(){
+        return curatoreService.getLista();
     }
 }
 

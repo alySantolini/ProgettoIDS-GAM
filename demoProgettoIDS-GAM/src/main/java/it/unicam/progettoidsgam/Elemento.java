@@ -12,7 +12,6 @@ public abstract class Elemento {
     private String idElemento;
     private String descrizione;
     private String titolo;
-
     private String piRiferimento;
 
     public Elemento(String descrizione, String titolo,String piRiferimento) {

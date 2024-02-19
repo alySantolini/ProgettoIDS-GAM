@@ -44,17 +44,14 @@ public class PIController {
             return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
         }
     }
-   @GetMapping("/PI/{titolo}")
+    @GetMapping("/PI/{titolo}")
     public ResponseEntity<Object> getPISingolo(@PathParam("titolo") String titolo) {
-        return piService.getPIByTitolo(titolo);
+       PI pi= piService.getPIByTitolo(titolo);
+        return new ResponseEntity<>(pi, HttpStatus.CREATED);
+
     }
-/*
-    @GetMapping("/{titolo}")
-    public float getPILat(@PathParam("titolo") String titolo) {
-        return piService.getPI(titolo);
+    @GetMapping("/PI/elementi/{titolo}")
+    public ResponseEntity<Object> getElemento(@PathParam("titolo") String titolo) {
+         return  piService.getElementi(titolo);
     }
-    @GetMapping("/Esperienza/{titolo}")
-    public float getPILong(@PathParam("titolo") String titolo) {
-        return piService.getPILong(titolo);
-    }*/
 }

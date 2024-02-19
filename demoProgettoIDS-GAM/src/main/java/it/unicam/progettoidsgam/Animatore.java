@@ -16,8 +16,8 @@ public class Animatore extends Utente {
     private static int idAPrecedente;
 
 
-    public Animatore(String nome, String cognome, String nickname /*istaCondivisaNotifiche listaPersonale*/) {
-        super(nickname /*listaPersonale*/);
+    public Animatore(String nome, String cognome, String nickname) {
+        super(nickname);
         this.nome = nome;
         this.cognome = cognome;
         setIdAnimatore();

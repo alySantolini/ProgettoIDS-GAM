@@ -19,6 +19,21 @@
 <button onclick="getSegnalazione()">Get Segnalazione</button>
 <div id="segnalazioneResult"></div>
 
+<h1>Ottieni segnalazioni</h1>
+<button onclick="getSegnalazioni()">Get segnalazioni</button>
+<h2>Segnalazioni List</h2>
+<ul id="segnalazioniList"></ul>
+
+<h1>Ottieni lista elementi da autorizzare</h1>
+<button onclick="getLista()">Get lista</button>
+<h2>lista </h2>
+<ul id="listaList"></ul>
+
+<h1>Ottieni lista pi da autorizzare</h1>
+<button onclick="getPI()">Get lista pi</button>
+<h2>lista </h2>
+<ul id="piList"></ul>
+
 <h1>Gestisci Segnalazione</h1>
 <p>Inserisci l'ID della segnalazione che desideri gestire:</p>
 <input type="text" id="idS" placeholder="idS">
@@ -66,16 +81,11 @@
     }
     function autorizzaElemento() {
         var idElemento = document.getElementById('idElemento').value;
-
-
-
-        // Crea un oggetto PI con l'ID inserito
-        var elementoData = {
+         var elementoData = {
             idElemento: idElemento
         };
 
-        // Esegui una richiesta POST per autorizzare il PI
-        fetch(`${baseUrl}/autorizzazione/Elemento`, {
+        fetch(`${baseUrl}/autorizzazione/idElemento?idElemento=${encodeURIComponent(idElemento)}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -92,6 +102,78 @@
                 console.error('Error:', error);
                 alert('errore')
                 // Gestisci eventuali errori
+            });
+    }
+    function getSegnalazioni() {
+        fetch(`${baseUrl}/getSegnalazioni`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Errore nella richiesta.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const segnalazioniList = document.getElementById('segnalazioniList');
+                segnalazioniList.innerHTML = ''; // Pulisci la lista precedente
+
+                data.forEach(segnalazione => {
+                    const listItem = document.createElement('li');
+                    //costruisce la nuova lista
+                    listItem.textContent = `ID: ${segnalazione.idSegnalazione}, Descrizione: ${segnalazione.descrizione}`;
+                    segnalazioniList.appendChild(listItem);
+                });
+            })
+            .catch(error => {
+                console.error('Errore:', error);
+                alert('Si è verificato un errore durante il recupero delle segnalazioni.');
+            });
+    }
+    function getLista() {
+        fetch(`${baseUrl}/getListaDaAutorizzare`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Errore nella richiesta.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const listaList = document.getElementById('listaList');
+                listaList.innerHTML = ''; // Pulisci la lista precedente
+
+                data.forEach(elemento => {
+                    const listItem = document.createElement('li');
+                    //costruisce la nuova lista
+                    listItem.textContent = `ID: ${elemento.idElemento},Titolo: ${elemento.titolo}, Descrizione: ${elemento.descrizione}`;
+                    listaList.appendChild(listItem);
+                });
+            })
+            .catch(error => {
+                console.error('Errore:', error);
+                alert('Si è verificato un errore durante il recupero delle segnalazioni.');
+            });
+    }
+    function getPI() {
+        fetch(`${baseUrl}/getPIDaAutorizzare`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Errore nella richiesta.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const piList = document.getElementById('piList');
+                piList.innerHTML = ''; // Pulisci la lista precedente
+
+                data.forEach(pi => {
+                    const listItem = document.createElement('li');
+                    //costruisce la nuova lista
+                    listItem.textContent = `ID: ${pi.idPI},Titolo: ${pi.titolo}, Descrizione: ${pi.descrizione}`;
+                    piList.appendChild(listItem);
+                });
+            })
+            .catch(error => {
+                console.error('Errore:', error);
+                alert('Si è verificato un errore durante il recupero delle segnalazioni.');
             });
     }
 

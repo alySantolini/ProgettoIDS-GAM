@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -14,13 +15,13 @@ public class ContestService {
 
     private final ContestRepository contestRepository;
     private final PIRepository piRepository;
-    private ElementiCuratoreRepository<Contest> elementiCuratoreRepository;
+    private ElementiRepository<Contest> elementiRepository;
 
     @Autowired
-    public ContestService(ContestRepository contestRepository, PIRepository piRepository,ElementiCuratoreRepository<Contest> elementiCuratoreRepository) throws IOException {
+    public ContestService(ContestRepository contestRepository, PIRepository piRepository, ElementiRepository<Contest> elementiRepository) throws IOException {
         this.contestRepository =contestRepository;
         this.piRepository=piRepository;
-        this.elementiCuratoreRepository = elementiCuratoreRepository;
+        this.elementiRepository = elementiRepository;
     }
     public ResponseEntity<Object> getContest(){
         return new ResponseEntity<>(contestRepository.findAll(), HttpStatus.OK);
@@ -38,15 +39,13 @@ public class ContestService {
             throw new IllegalArgumentException("La data di inizio deve essere precedente alla data di fine.");
         }
         co.setIdContest();
-        return elementiCuratoreRepository.save(co);
+        return elementiRepository.save(co);
     }
 
     public ContestRepository getRepository() {
         return contestRepository;}
 
     public ResponseEntity<Object> getContestByTitolo(String titolo) {
-        // Implementa la logica per recuperare un punto di interesse dal repository in base al titolo
-        // Esempio:
         Optional<Contest> contest = contestRepository.findByTitolo(titolo);
         if (contest != null) {
             return new ResponseEntity<>(contest, HttpStatus.OK);
@@ -54,4 +53,9 @@ public class ContestService {
             return ResponseEntity.notFound().build();
         }
     }
+   /* public ResponseEntity<Object> partecipa(String idContest){
+        Optional<Contest> contest = contestRepository.findById(idContest);
+        String pi=contest.get().getPiRiferimento();
+
+    }*/
 }

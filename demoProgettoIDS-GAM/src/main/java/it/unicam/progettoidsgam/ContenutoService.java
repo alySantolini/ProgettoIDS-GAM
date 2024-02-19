@@ -14,13 +14,13 @@ public class ContenutoService {
 
     private final ContenutoRepository contenutoRepository;
     private final PIRepository piRepository;
-    private final ElementiCuratoreRepository<Contenuto> elementiCuratoreRepository;
+    private final ElementiRepository<Contenuto> elementiRepository;
 
     @Autowired
-    public ContenutoService(ContenutoRepository contenutoRepository, PIRepository piRepository,ElementiCuratoreRepository<Contenuto> elementiCuratoreRepository) throws IOException {
+    public ContenutoService(ContenutoRepository contenutoRepository, PIRepository piRepository, ElementiRepository<Contenuto> elementiRepository) throws IOException {
         this.contenutoRepository =contenutoRepository;
         this.piRepository=piRepository;
-        this.elementiCuratoreRepository=elementiCuratoreRepository;
+        this.elementiRepository = elementiRepository;
     }
 
 
@@ -38,7 +38,7 @@ public class ContenutoService {
             throw new ResourceAlreadyExistsException("CO: " +co.getTitolo()+co.getDescrizione()+co.getPiRiferimento()+" esiste già");
         }
             co.setIdContenuto();
-        return  elementiCuratoreRepository.save(co);
+        return  elementiRepository.save(co);
             // contenutoRepository.save(co);
     }
     public Contenuto creaNewContenuto(Contenuto co) throws IOException {

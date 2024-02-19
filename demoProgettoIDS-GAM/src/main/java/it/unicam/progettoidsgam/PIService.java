@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 import static it.unicam.progettoidsgam.Curatore.piCuratore;
@@ -20,9 +21,11 @@ public class PIService {
     private static final double MIN_LONGITUDINE = 13.0148;
     private static final double MAX_LONGITUDINE = 13.0767;
     private final PIRepository piRepository;
+    private final ElementiRepository elementiRepository;
     @Autowired
-    public PIService(PIRepository piRepository){
+    public PIService(PIRepository piRepository,ElementiRepository elementiRepository){
         this.piRepository=piRepository;
+        this.elementiRepository=elementiRepository;
     }
 
     public ResponseEntity<Object> getPI(){
@@ -39,7 +42,7 @@ public class PIService {
            pi.setIdPI();
            return piRepository.save(pi);
        }else{
-       throw new IllegalArgumentException("le cordinate sono errate");}
+       throw new IllegalArgumentException("le coordinate sono errate");}
    }
 
     public PI creaNewPI(PI pi) throws IOException {
@@ -51,48 +54,35 @@ public class PIService {
         if(controlloCordinate(pi.getLatitudine(),pi.getLongitudine())){
         pi.setIdPI();
         piCuratore.add(pi);
-        return pi;}
-
+        return pi;
+        }
         throw new IllegalArgumentException("le cordinate sono errate");
     }
 
-    public ResponseEntity<Object> getPIByTitolo(String titolo) {
+    public PI getPIByTitolo(String titolo) {
         Optional<PI> pi = piRepository.findByTitolo(titolo);
         if (pi != null) {
-            return new ResponseEntity<>(pi, HttpStatus.OK);
+            return pi.get();
         } else {
-            return ResponseEntity.notFound().build();
+            return null;
         }
     }
 
+    public ResponseEntity<Object> getElementi(String titolo){
+        Optional<PI> pi = piRepository.findByTitolo(titolo);
+        if(pi.isPresent()){
+           List<Elemento> lista= elementiRepository.findAll();
+           for (Elemento e : lista){
+               e.getPiRiferimento().equals(titolo);
+               return new ResponseEntity<>(e,HttpStatus.OK);
+            }
+        }
+        return ResponseEntity.notFound().build();
+     }
     public static boolean controlloCordinate(double latitudine, double longitudine) {
         return latitudine >= MIN_LATITUDINE && latitudine <= MAX_LATITUDINE &&
                 longitudine >= MIN_LONGITUDINE && longitudine <= MAX_LONGITUDINE;
     }
-
-    /*
-        public float getPI(String titolo) {
-            // Implementa la logica per recuperare un punto di interesse dal repository in base al titolo
-            // Esempio:
-            Optional<PI> pi = piRepository.findByTitolo(titolo);
-            if (pi != null) {
-                return  pi.get().getLatitudine();
-            } else {
-             return 0;
-            }
-        }
-        /*
-        public float getPILong(String titolo) {
-            // Implementa la logica per recuperare un punto di interesse dal repository in base al titolo
-            // Esempio:
-            Optional<PI> pi = piRepository.findByTitolo(titolo);
-            if (pi != null) {
-                return  pi.get().getLongitudine();
-            } else {
-                return 0;
-            }
-        }
-    */
     public PIRepository getRepository() {
         return piRepository;}
 }

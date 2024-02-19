@@ -4,11 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
-
 import static it.unicam.progettoidsgam.Curatore.elementiCuratore;
+import static it.unicam.progettoidsgam.Curatore.piCuratore;
+
+import java.util.Optional;
 
 @Service
 public class CuratoreService {
@@ -17,10 +16,10 @@ public class CuratoreService {
 
     private final SegnalazioneRepository segnalazioneRepository;
     private final PIRepository piRepository;
-    private ElementiCuratoreRepository <Elemento> elementiCuratoreRepository;
+    private ElementiRepository<Elemento> elementiRepository;
     @Autowired
-    public CuratoreService(ElementiCuratoreRepository<Elemento> elementiCuratoreRepository,CuratoreRepository curatoreRepository,SegnalazioneRepository segnalazioneRepository,PIRepository piRepository) {
-        this.elementiCuratoreRepository=elementiCuratoreRepository;
+    public CuratoreService(ElementiRepository<Elemento> elementiRepository, CuratoreRepository curatoreRepository, SegnalazioneRepository segnalazioneRepository, PIRepository piRepository) {
+        this.elementiRepository = elementiRepository;
         this.curatoreRepository =curatoreRepository;
         this.segnalazioneRepository=segnalazioneRepository;
         this.piRepository=piRepository;
@@ -50,7 +49,23 @@ public class CuratoreService {
             return ResponseEntity.notFound().build();
         }
     }
+    public ResponseEntity<Object> getSegnalazioni() {
+        return new ResponseEntity<>(segnalazioneRepository.findAll(), HttpStatus.OK);
+    }
 
+    public ResponseEntity<Object> getLista() {
+        for (Elemento e: elementiCuratore) {
+            System.out.println(e);
+        }
+        return new ResponseEntity<>(elementiCuratore, HttpStatus.OK);
+    }
+
+    public ResponseEntity<Object> getPI() {
+        for (PI pi: piCuratore) {
+            System.out.println(pi);
+        }
+        return new ResponseEntity<>(piCuratore, HttpStatus.OK);
+    }
     public ResponseEntity<Object> gestisciSegnalazione(String idSegnalazione){
         Optional<Segnalazione> segnalazioneOptional = segnalazioneRepository.findById(idSegnalazione);
         eliminaElementoAssociato( segnalazioneOptional.get());
@@ -67,7 +82,7 @@ public class CuratoreService {
         if(piRepository.existsById(idElementoAssociato)){
             piRepository.deleteById(idElementoAssociato);
         }else{
-        elementiCuratoreRepository.deleteById(idElementoAssociato);
+        elementiRepository.deleteById(idElementoAssociato);
         }
     }
 
@@ -80,8 +95,7 @@ public class CuratoreService {
         }
     }
     public ResponseEntity<Object> autorizzaElemento(Elemento e) {
-
-            elementiCuratoreRepository.save(e);
+        elementiRepository.save(e);
          return new ResponseEntity<>(e,HttpStatus.OK);
     }
 }

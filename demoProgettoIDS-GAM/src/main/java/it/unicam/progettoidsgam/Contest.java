@@ -16,7 +16,6 @@ public class Contest extends Elemento {
 
     public Contest(String descrizione, String titolo, String tipologia, String piRiferimento, String creatore, Date inizio,Date fine) {
         super(descrizione, titolo, piRiferimento);
-
         this.creatore = creatore;
         this.tipologia = tipologia;
         this.dataInizio = inizio;

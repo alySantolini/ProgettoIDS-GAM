@@ -92,6 +92,12 @@
 <h2>contest List</h2>
 <ul id="contestList"></ul>
 
+<h2>Get Elementi by Titolo pi </h2>
+<label for="elementi">PI Titolo:</label>
+<input type="text" id="elementi">
+<button onclick="getElementiPI()">Get elementi</button>
+<div id="elementiResult"></div>
+
 <h2>Get PI by Titolo</h2>
 <label for="getTitolo">PI Titolo:</label>
 <input type="text" id="getTitolo">
@@ -159,11 +165,15 @@
             .then(data => {
                 console.log('Dati ricevuti:', data); // Controlla i dati ricevuti nella console
                 alert('PI in attesa di autorizzazione!');
+                L.marker([piLatitudine, piLongitudine]).addTo(map)
+                    .bindPopup(`<b>${piTitolo}</b><br>${piDescrizione}`)
+                    .openPopup();
             })
             .catch(error => {
                 console.error('Errore:', error);
                 alert('Si è verificato un errore durante l\'aggiunta del PI.');
             });
+
     }
     function getPI() {
         fetch(`${baseUrl}/AllPI`)
@@ -188,6 +198,26 @@
                 console.error('Errore:', error);
                 alert('Si è verificato un errore durante il recupero dei PI.');
             });
+    }
+    function getElementiPI() {
+        const elementi = document.getElementById('elementi').value;
+
+        fetch(`${baseUrl}/PI/elementi/titolo?titolo=${encodeURIComponent(elementi)}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Errore nella richiesta.');
+                }
+                return response.json();
+            })
+            .then(elementi => {
+                const elementiResult = document.getElementById('elementiResult');
+                if (elementi!=null) {
+                    elementiResult.textContent = `ID: ${elementi.idElemento}, Descrizione: ${elementi.descrizione}, Titolo: ${elementi.titolo}, Tipologia: ${elementi.tipologia}`;
+                } else {
+                    piResult.textContent = `PI non trovato.`;
+                }
+            })
+            .catch(error => console.error('Errore:', error));
     }
     function creaContenuto() {
         const contenutoId=document.getElementById('contenutoId').value;

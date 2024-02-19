@@ -1,6 +1,7 @@
 package it.unicam.progettoidsgam;
 
 import it.unicam.progettoidsgam.eccezioni.ResourceAlreadyExistsException;
+import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +30,11 @@ public class AnimatoreController {
             return new ResponseEntity<>("Credenziali non valide", HttpStatus.UNAUTHORIZED);
         }
     }*/
+
+    @GetMapping("/allAnimatore")
+    public ResponseEntity<Object> getAnimatori() {
+        return animatoreService.getAnimatori();
+    }
      @PostMapping("/salva-animatore")
     public ResponseEntity<String> salvaAnimatore() {
         animatoreService.salvaAnimatoreIniziale();
@@ -37,11 +43,23 @@ public class AnimatoreController {
     @PostMapping("/creaAnimatore")
     public ResponseEntity<Object> addAnimatore(@RequestBody Animatore animatore) {
         try {
-            // Aggiungi l'animatore nel database
             Animatore newAnimatore = animatoreService.addNewAnimatore(animatore);
             return new ResponseEntity<>(newAnimatore, HttpStatus.CREATED);
         } catch (ResourceAlreadyExistsException | IOException e) {
             return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
         }
+    }
+    @GetMapping("/animatore/{idUtente}")
+    public ResponseEntity<Object> getAnimatore(@PathParam("idUtente") String idUtente) {
+        return animatoreService.getAnimatore(idUtente);
+    }
+    @GetMapping("/animatore/{nickname}")
+    public ResponseEntity<Object> getAnimatoreByNickname(@PathParam("nickname") String nickname) {
+        return animatoreService.getAnimatoreByNickname(nickname);
+    }
+
+    @DeleteMapping("/cancellaAnimatore/{idUtente}")
+    public ResponseEntity<Object> cancellaAnimatore(@PathParam("idUtente") String idUtente) {
+        return animatoreService.cancellaAnimatore(idUtente);
     }
 }

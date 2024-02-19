@@ -14,15 +14,18 @@ import static it.unicam.progettoidsgam.Curatore.elementiCuratore;
 @Service
 public class EsperienzaService {
     private final EsperienzaRepository esperienzaRepository;
-    private ElementiCuratoreRepository<Esperienza>elementiCuratoreRepository;
+    private ElementiRepository<Esperienza> elementiRepository;
+    private final PIRepository piRepository;
 
     @Autowired
-    public EsperienzaService(EsperienzaRepository esperienzaRepository, ElementiCuratoreRepository<Esperienza> elementiCuratoreRepository){
+    public EsperienzaService(PIService piService,PIRepository piRepository,EsperienzaRepository esperienzaRepository, ElementiRepository<Esperienza> elementiRepository){
         this.esperienzaRepository=esperienzaRepository;
-        this.elementiCuratoreRepository=elementiCuratoreRepository;
+        this.elementiRepository = elementiRepository;
+        this.piRepository= piRepository;
     }
     public ResponseEntity<Object> getEsperienza(String titolo){
         Optional<Esperienza> esperienza = esperienzaRepository.findByTitolo(titolo);
+
         if (esperienza != null) {
             return new ResponseEntity<>(esperienza, HttpStatus.OK);
         } else {
@@ -33,13 +36,13 @@ public class EsperienzaService {
     //aggiungere controllo esistenza pi
     public Esperienza addNewEsperienza(Esperienza esperienza) throws IOException {
         Optional<Esperienza> esperienza1=esperienzaRepository.findById(esperienza.getIdElemento());
-        Optional<Esperienza> eperienza2=esperienzaRepository.findByTitolo(esperienza.getTitolo());
+        Optional<Esperienza> esperienza2=esperienzaRepository.findByTitolo(esperienza.getTitolo());
 
-        if(esperienza1.isPresent()||eperienza2.isPresent() ){
+        if( esperienza1.isPresent() || esperienza2.isPresent() ){
             throw new ResourceAlreadyExistsException("Esperienza: " +esperienza.getTitolo()+esperienza.getDescrizione()+esperienza.getTipologia()+" esiste già");
         }
         esperienza.setIdEsperienza();
-        return elementiCuratoreRepository.save(esperienza);
+        return elementiRepository.save(esperienza);
         //esperienzaRepository.save(esperienza);
     }
 

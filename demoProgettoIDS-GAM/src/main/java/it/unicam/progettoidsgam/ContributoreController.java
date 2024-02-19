@@ -1,6 +1,7 @@
 package it.unicam.progettoidsgam;
 
 import it.unicam.progettoidsgam.eccezioni.ResourceAlreadyExistsException;
+import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,14 +39,22 @@ public class ContributoreController {
     @PostMapping("/creaContributore")
     public ResponseEntity<Object> addContributore(@RequestBody Contributore contributore) {
         try {
-            // Aggiungi il contributore nel database
             Contributore newContributore = contributoreService.addNewContributore(contributore);
-
-
-            return new ResponseEntity<>(newContributore, HttpStatus.CREATED);
+             return new ResponseEntity<>(newContributore, HttpStatus.CREATED);
         } catch (ResourceAlreadyExistsException | IOException e) {
             return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
         }
     }
-
+    @GetMapping("/contributore/{idUtente}")
+    public ResponseEntity<Object> getContributore(@PathParam("idUtente") String idUtente) {
+        return contributoreService.getContributore(idUtente);
+    }
+    @GetMapping("/contributore/{nickname}")
+    public ResponseEntity<Object> getContributoreByNickname(@PathParam("nickname") String nickname) {
+        return contributoreService.getContributoreByNickname(nickname);
+    }
+    @DeleteMapping("/cancellaContributore/{idUtente}")
+    public ResponseEntity<Object> cancellaAnimatore(@PathParam("idUtente") String idUtente) {
+        return contributoreService.cancellaContributore(idUtente);
+    }
 }
