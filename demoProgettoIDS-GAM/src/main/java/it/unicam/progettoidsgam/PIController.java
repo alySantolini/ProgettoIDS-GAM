@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin(origins="http://localhost:63342")
 @RestController
@@ -28,10 +29,9 @@ public class PIController {
   @PostMapping("/pubblicaPI")
     public ResponseEntity<Object> addPI(@RequestBody PI pi) {
         try {
-            // Aggiungi il PI nel database
             PI newPI = piService.addNewPI(pi);
             return new ResponseEntity<>(newPI, HttpStatus.CREATED);
-        } catch (ResourceAlreadyExistsException | IOException e) {
+        } catch (ResourceAlreadyExistsException | IOException  e) {
             return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
         }
     }
@@ -46,12 +46,12 @@ public class PIController {
     }
     @GetMapping("/PI/{titolo}")
     public ResponseEntity<Object> getPISingolo(@PathParam("titolo") String titolo) {
-       PI pi= piService.getPIByTitolo(titolo);
-        return new ResponseEntity<>(pi, HttpStatus.CREATED);
+        return piService.getPIByTitolo(titolo);
 
     }
+
     @GetMapping("/PI/elementi/{titolo}")
     public ResponseEntity<Object> getElemento(@PathParam("titolo") String titolo) {
-         return  piService.getElementi(titolo);
+        return piService.getElementi(titolo);
     }
 }

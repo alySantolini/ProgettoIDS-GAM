@@ -1,28 +1,31 @@
 package it.unicam.progettoidsgam;
 
 import jakarta.persistence.Entity;
-import java.time.Duration;
-import java.util.Date;
+import jakarta.persistence.OneToMany;
 
-//DA SISTEMARE
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 @Entity
 public class Contest extends Elemento {
     private String tipologia;
     private String creatore;
     private static int idCONPrecedente;
+    @OneToMany
+    public static List<Elemento> elementiContest=new ArrayList<>();
     private Date dataInizio;
     private Date dataFine;
-    // private Invito invito;
+    private String titolo;
+    private String descrizione;
 
     public Contest(String descrizione, String titolo, String tipologia, String piRiferimento, String creatore, Date inizio,Date fine) {
         super(descrizione, titolo, piRiferimento);
         this.creatore = creatore;
         this.tipologia = tipologia;
+        this.elementiContest=null;
         this.dataInizio = inizio;
         this.dataFine= fine;
-        if (inizio.after(fine)) {
-            throw new IllegalArgumentException("La data di inizio deve essere precedente alla data di fine.");
-        }
         setIdContest();
     }
 
@@ -30,18 +33,10 @@ public class Contest extends Elemento {
         super();
     }
 
-    /*   public Contest(String descrizione, String titolo, String tipologia, String piRiferimento, Animatore creatore /*Invito invito, Duration durata) {
-           super(descrizione, titolo, piRiferimento);
-           this.creatore = creatore;
-           this.tipologia = tipologia;
-           //  this.invito = invito;
-           this.durata = durata;
-           setIdContest();
-       }
-   */
     public Date getDataInizio() {
         return dataInizio;
     }
+
     public Date getDataFine() {
         return dataFine;
     }
@@ -50,6 +45,14 @@ public class Contest extends Elemento {
         idCONPrecedente +=1;
 
     }
+    public List<Elemento> getElementiContest() {
+        return elementiContest;
+    }
+
+    public void setElementiContest(List<Elemento> elementiContest) {
+        this.elementiContest = elementiContest;
+    }
+
     public String getIdContest() {
         return super.getIdElemento();
     }
@@ -60,6 +63,7 @@ public class Contest extends Elemento {
     public void setDataFine(Date fine) {
         this.dataFine = fine;
     }
+
     public String getTipologia() {
         return tipologia;
     }
@@ -67,12 +71,9 @@ public class Contest extends Elemento {
     public void setTipologia(String tipologia) {
         this.tipologia = tipologia;
     }
-
     public void setCreatore(String creatore) {
         this.creatore = creatore;
     }
-
-
     public String getCreatore() {
         return creatore;
     }

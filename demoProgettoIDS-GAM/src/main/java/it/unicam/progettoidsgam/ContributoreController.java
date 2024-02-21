@@ -57,4 +57,8 @@ public class ContributoreController {
     public ResponseEntity<Object> cancellaAnimatore(@PathParam("idUtente") String idUtente) {
         return contributoreService.cancellaContributore(idUtente);
     }
+   /* @PostMapping("/partecipa/{titoloContestInvito}")
+    public ResponseEntity<Object> partecipaInvito(@PathParam("titoloContestInvito") String titoloContestInvito,String idContributore) {
+        return contributoreService.partecipa(titoloContestInvito,idContributore);
+    }*/
 }

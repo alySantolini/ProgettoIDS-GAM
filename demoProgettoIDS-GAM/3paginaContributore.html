@@ -26,7 +26,7 @@
     <label for="piLatitudine">PI Latitudine:</label>
     <input type="text" id="piLatitudine" name="piLatitudine" required><br><br>
     <label for="piTipologia">PI tipologia:</label>
-    <input type="text" id="piTipologia" name="piTipologia" required><br><br>
+    <input type="text" id="piTipologia" name="piTipologia" onclick="showAlert1()" required><br><br>
     <label for="piTitolo">PI Titolo:</label>
     <input type="text" id="piTitolo" name="piTitolo" required><br><br>
     <label for="piDescrizione">PI Descrizione:</label>
@@ -93,8 +93,8 @@
 <ul id="contestList"></ul>
 
 <h2>Get Elementi by Titolo pi </h2>
-<label for="elementi">PI Titolo:</label>
-<input type="text" id="elementi">
+<label for="titolo">PI Titolo:</label>
+<input type="text" id="titolo">
 <button onclick="getElementiPI()">Get elementi</button>
 <div id="elementiResult"></div>
 
@@ -175,6 +175,9 @@
             });
 
     }
+    function showAlert1() {
+        alert("Inserire tutti i caratteri maiuscoli e attaccati");
+    }
     function getPI() {
         fetch(`${baseUrl}/AllPI`)
             .then(response => {
@@ -200,22 +203,25 @@
             });
     }
     function getElementiPI() {
-        const elementi = document.getElementById('elementi').value;
+        const titolo = document.getElementById('titolo').value;
 
-        fetch(`${baseUrl}/PI/elementi/titolo?titolo=${encodeURIComponent(elementi)}`)
+        fetch(`${baseUrl}/PI/elementi/titolo?titolo=${encodeURIComponent(titolo)}`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Errore nella richiesta.');
                 }
                 return response.json();
             })
-            .then(elementi => {
+            .then(data => {
                 const elementiResult = document.getElementById('elementiResult');
-                if (elementi!=null) {
-                    elementiResult.textContent = `ID: ${elementi.idElemento}, Descrizione: ${elementi.descrizione}, Titolo: ${elementi.titolo}, Tipologia: ${elementi.tipologia}`;
-                } else {
-                    piResult.textContent = `PI non trovato.`;
-                }
+                elementiResult.innerHTML = ''; // Pulisci la lista precedente
+
+                data.forEach(elemento => {
+                    const listItem = document.createElement('li');
+                    //costruisce la nuova lista
+                    listItem.textContent = `ID: ${elemento.idElemento}, Descrizione: ${elemento.descrizione}, Titolo: ${elemento.titolo}, Tipologia: ${elemento.tipologia}`;
+                    elementiResult.appendChild(listItem);
+                });
             })
             .catch(error => console.error('Errore:', error));
     }
@@ -358,7 +364,6 @@
             piRiferimento: listaPI.at(0)
         };
 
-//console.log(listaPI)
         fetch(`${baseUrl}/creaEsperienza`, {
             method: 'POST',
             headers: {
@@ -382,7 +387,6 @@
                 alert('Si è verificato un errore durante l\'aggiunta dell\'esperienza');
             });
     }
-
     function inviaSegnalazione() {
         var idSegnalazione = document.getElementById('idSegnalazione').value;
         var idElemento = document.getElementById('idElemento').value;

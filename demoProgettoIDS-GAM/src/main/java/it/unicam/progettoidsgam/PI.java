@@ -1,6 +1,7 @@
 package it.unicam.progettoidsgam;
 
 
+import it.unicam.progettoidsgam.TipologiaPI;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -13,7 +14,7 @@ public class PI {
     @Id
     private String idPI;
     //private static List<Elemento> lCPI=new ArrayList<>();
-    private String tipologia;
+    private TipologiaPI tipologia;
     private double longitudine;
     private double latitudine;
     private String descrizione;
@@ -21,7 +22,7 @@ public class PI {
     private String titolo;
     private static int idPIPrecedente;
 
-    public PI(String descrizione, String titolo, String tipologia, double longitudine, double latitudine) {
+    public PI(String descrizione, String titolo, TipologiaPI tipologia, double longitudine, double latitudine) {
         this.descrizione=descrizione;
         this.titolo=titolo;
         this.longitudine=longitudine;
@@ -56,7 +57,7 @@ public class PI {
         this.latitudine = latitudine;
     }
 
-    public void setTipologia(String tipologia) {
+    public void setTipologia(TipologiaPI tipologia) {
         this.tipologia = tipologia;
     }
 
@@ -76,7 +77,7 @@ public class PI {
         this.titolo = titolo;
     }
 
-    public String getTipologia() {
+    public TipologiaPI getTipologia() {
         return tipologia;
     }
 

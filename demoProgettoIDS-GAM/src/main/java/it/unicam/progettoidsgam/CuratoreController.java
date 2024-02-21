@@ -6,10 +6,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 import static it.unicam.progettoidsgam.Curatore.elementiCuratore;
 import static it.unicam.progettoidsgam.Curatore.piCuratore;
+
 
 @CrossOrigin(origins = "http://localhost:63342")
 @RestController

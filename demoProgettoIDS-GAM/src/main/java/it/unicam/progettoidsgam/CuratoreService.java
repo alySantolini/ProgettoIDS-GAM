@@ -1,9 +1,18 @@
 package it.unicam.progettoidsgam;
 
+import it.unicam.progettoidsgam.Curatore;
+import it.unicam.progettoidsgam.Elemento;
+import it.unicam.progettoidsgam.PI;
+import it.unicam.progettoidsgam.Segnalazione;
+import it.unicam.progettoidsgam.CuratoreRepository;
+import it.unicam.progettoidsgam.ElementiRepository;
+import it.unicam.progettoidsgam.PIRepository;
+import it.unicam.progettoidsgam.SegnalazioneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
 import static it.unicam.progettoidsgam.Curatore.elementiCuratore;
 import static it.unicam.progettoidsgam.Curatore.piCuratore;
 

@@ -1,5 +1,8 @@
 package it.unicam.progettoidsgam;
 
+import it.unicam.progettoidsgam.Contributore;
+import it.unicam.progettoidsgam.ContributoreRepository;
+import it.unicam.progettoidsgam.UtentiRepository;
 import it.unicam.progettoidsgam.eccezioni.ResourceAlreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -7,15 +10,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
+
+import static it.unicam.progettoidsgam.Contest.elementiContest;
 
 @Service
 public class ContributoreService {
 
     private final ContributoreRepository contributoreRepository;
     private final UtentiRepository<Contributore> utentiRepository;
+
     @Autowired
     public ContributoreService(UtentiRepository<Contributore> utentiRepository,ContributoreRepository contributoreRepository) {
         this.contributoreRepository=contributoreRepository;

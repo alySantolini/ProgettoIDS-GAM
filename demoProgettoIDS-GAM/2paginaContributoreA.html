@@ -9,6 +9,18 @@
             height: 400px;
             width: 100%;
         }
+        .popup-container {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
     </style>
 </head>
 <body>
@@ -31,8 +43,8 @@
     <input type="text" id="piLongitudine" name="piLongitudine" required><br><br>
     <label for="piLatitudine">PI Latitudine:</label>
     <input type="text" id="piLatitudine" name="piLatitudine" required><br><br>
-    <label for="piTipologia">PI tipologia:</label>
-    <input type="text" id="piTipologia" name="piTipologia" required><br><br>
+    <label for="piTipologia" >PI tipologia:</label>
+    <input type="text" id="piTipologia" name="piTipologia" onclick="showAlert()" required><br><br>
     <label for="piTitolo">PI Titolo:</label>
     <input type="text" id="piTitolo" name="piTitolo" required><br><br>
     <label for="piDescrizione">PI Descrizione:</label>
@@ -46,11 +58,11 @@
 <button onclick="getPIByTitle()">Get PI</button>
 <div id="piResult"></div>
 
-<h2>Get Elementi by Titolo pi </h2>
-<label for="elementi">PI Titolo:</label>
-<input type="text" id="elementi">
-<button onclick="getElementiPI()">Get elementi</button>
-<div id="elementiResult"></div>
+<h1>Ottieni elementi PI</h1>
+<label for="titoloPI">PI Titolo:</label>
+<input type="text" id="titoloPI">
+<button onclick="getElementiPI()">Get Elementi</button>
+<ul id="elementiList"></ul>
 
 <h1>Ottieni Contenuto</h1>
 <button onclick="getContenuto()">Get Contenuto</button>
@@ -62,6 +74,19 @@
 <input type="text" id="titoloContenuto">
 <button onclick="getContenutoByTitle()">Get contenuto</button>
 <div id="contenutoResult"></div>
+
+<div id="popup" class="popup-container">
+    <h2>Vuoi aggiungere il tuo contenuto al contest?</h2>
+    <button onclick="showPopup1(),hidePopup()">Aggiungi al contest</button>
+   <button onclick="hidePopup()">Non aggiungere al contest</button>
+</div>
+
+<div id="popup1" class="popup-container">
+    <label for="contestTitolo">titolo contest</label>
+    <input type="text" id="contestTitolo">
+    <button onclick="partecipa(),hidePopup1()">Partecipa al contest</button>
+    <button onclick="hidePopup1(),showPopup()">Indietro</button>
+</div>
 
 <h2>Create Contenuto</h2>
 <form id="contenutoForm">
@@ -76,7 +101,7 @@
     <label for="piRiferimento">Titolo PI Riferimento:</label>
     <input type="text" id="piRiferimento" name="piRiferimento" required><br><br>
     <input type="file" id="fileInput">
-    <button type="button" onclick="createContenuto()">Create Contenuto</button>
+    <button type="button" onclick="createContenuto(),showPopup()">Crea Contenuto</button>
 
 </form>
 
@@ -165,7 +190,9 @@
                 alert('Si è verificato un errore durante il recupero dei POI.');
             });
     }
-
+    function showAlert() {
+        alert("Inserire tutti i caratteri maiuscoli e attaccati");
+    }
     function createPI() {
         const piId = document.getElementById('piId').value;
         const piLongitudine = document.getElementById('piLongitudine').value;
@@ -211,22 +238,25 @@
             });
     }
     function getElementiPI() {
-        const elementi = document.getElementById('elementi').value;
+        const titoloPI = document.getElementById('titoloPI').value;
 
-        fetch(`${baseUrl}/PI/elementi/titolo?titolo=${encodeURIComponent(elementi)}`)
+        fetch(`${baseUrl}/PI/elementi/titolo?titolo=${encodeURIComponent(titoloPI)}`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Errore nella richiesta.');
                 }
                 return response.json();
             })
-            .then(elementi => {
-                const elementiResult = document.getElementById('elementiResult');
-                if (elementi!=null) {
-                    elementiResult.textContent = `ID: ${elementi.idElemento}, Descrizione: ${elementi.descrizione}, Titolo: ${elementi.titolo}, Tipologia: ${elementi.tipologia}`;
-                } else {
-                    piResult.textContent = `PI non trovato.`;
-                }
+            .then(data => {
+                const elementiList = document.getElementById('elementiList');
+                elementiList.innerHTML = ''; // Pulisci la lista precedente
+
+                data.forEach(elemento => {
+                    const listItem = document.createElement('li');
+                    //costruisce la nuova lista
+                    listItem.textContent = `ID: ${elemento.idElemento}, Descrizione: ${elemento.descrizione}, Titolo: ${elemento.titolo}, Tipologia: ${elemento.tipologia}`;
+                    elementiList.appendChild(listItem);
+                });
             })
             .catch(error => console.error('Errore:', error));
     }
@@ -290,14 +320,29 @@
             .then(contenuto => {
                 const contenutoResult = document.getElementById('contenutoResult');
                 if (contenuto!=null) {
-                    contenutoResult.textContent = `ID: ${contenuto.idElemento}, Descrizione: ${contenuto.descrizione}, Titolo: ${contenuto.titolo},PI Riferimento: ${contenuto.piRiferimento}`;
+                    contenutoResult.textContent = `ID: ${contenuto.idElemento}, Descrizione: ${contenuto.descrizione}, Titolo: ${contenuto.titolo},PI Riferimento: ${contenuto.piRiferimento},Immagine: ${contenuto.immagine}`;
                 } else {
                     contenutoResult.textContent = `contenuto non trovato.`;
                 }
             })
             .catch(error => console.error('Errore:', error));
     }
-
+    function hidePopup() {
+        // Nasconde il pop-up impostando lo stile "display" a "none"
+        document.getElementById('popup').style.display = 'none';
+    }
+    function hidePopup1() {
+        // Nasconde il pop-up impostando lo stile "display" a "none"
+        document.getElementById('popup1').style.display = 'none';
+    }
+    function showPopup() {
+        // Mostra il pop-up impostando lo stile "display" a "block"
+        document.getElementById('popup').style.display = 'block';
+    }
+    function showPopup1() {
+        // Mostra il pop-up impostando lo stile "display" a "block"
+        document.getElementById('popup1').style.display = 'block';
+    }
     function createContenuto() {
         const contenutoId=document.getElementById('contenutoId').value;
         const contenutoTipologia = document.getElementById('contenutoTipologia').value;
@@ -348,6 +393,36 @@
                 alert('Si è verificato un errore durante l\'aggiunta del contenuto.');
             });
     }
+    function partecipa() {
+        const contestTitolo = document.getElementById('contestTitolo').value;
+
+        const data = {
+            contest: contestTitolo
+        };
+        fetch(`${baseUrl}/partecipa/contest?contest=${encodeURIComponent(contestTitolo)}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            // Convertire l'oggetto dei dati in JSON e inviarlo come corpo della richiesta
+            body: JSON.stringify(data)
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Errore nella richiesta.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Success:', data);
+                alert('Contenuto aggiunto al contest');
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('Error: ' + error.message);
+            });
+    }
+
     function createEsperienza() {
         const esperienzaId = document.getElementById('esperienzaId').value;
         const esperienzaTipologia = document.getElementById('esperienzaTipologia').value;
@@ -409,51 +484,12 @@
                 const esperienzaResult = document.getElementById('esperienzaResult');
                 if (esperienza != null) {
                     esperienzaResult.textContent = `ID: ${esperienza.idElemento}, Descrizione: ${esperienza.descrizione}, Titolo: ${esperienza.titolo}, Tipologia: ${esperienza.tipologia}, ListaPI: ${esperienza.listaPI}, PiRiferimento: ${esperienza.piRiferimento}`;
-                   var punto1= getPIByTitolo(esperienza.listaPI.at(0));
-                       console.log(punto1);
-                       console.log(punto1.longitudine);
-                   /* L.marker([pi1, pi2]).addTo(map).bindPopup(punto1).openPopup();
-                       var marker2 = L.marker([pi3, pi4]).addTo(map).bindPopup(punto2);
-
-                       var linea = L.polyline([
-                           [pi1, pi2],
-                           [pi3, pi4]
-                       ], { color: 'red' }).addTo(map);
-                   } else {
-                       esperienzaResult.textContent = `L'esperienza non ha abbastanza punti di interesse per tracciare una linea.`;
-                   }*/
                 } else {
                     esperienzaResult.textContent = `Esperienza non trovata.`;
                 }
             })
             .catch(error => console.error('Errore:', error));
     }
-   /* function getPILat(titolo) {
-     return fetch(`${baseUrl}/titolo?titolo=${encodeURIComponent(titolo)}`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Errore nel recupero della latitudine del punto di interesse.');
-                }
-                return response.json(); // Parsa la risposta come JSON
-            })
-            .catch(error => {
-                console.error('Si è verificato un errore durante il recupero della latitudine del punto di interesse:', error);
-                throw error; // Rilancia l'errore per la gestione in caso di necessità
-            });
-    }
-    function getPILong(titolo) {
-        return fetch(`${baseUrl}/Esperienza/titolo?titolo=${encodeURIComponent(titolo)}`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Errore nel recupero della latitudine del punto di interesse.');
-                }
-                 return response.json(); // Parsa la risposta come JSON
-            })
-            .catch(error => {
-                console.error('Si è verificato un errore durante il recupero della latitudine del punto di interesse:', error);
-                throw error; // Rilancia l'errore per la gestione in caso di necessità
-            });
-    }*/
     function getContestByTitle() {
         const titoloContest = document.getElementById('titoloContest').value;
 

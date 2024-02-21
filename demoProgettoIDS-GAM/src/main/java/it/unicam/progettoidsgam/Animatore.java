@@ -1,11 +1,7 @@
 package it.unicam.progettoidsgam;
 
-import it.unicam.progettoidsgam.PI;
+
 import jakarta.persistence.Entity;
-
-
-import java.time.Duration;
-import java.util.List;
 
 //DA SISTEMARE
 @Entity

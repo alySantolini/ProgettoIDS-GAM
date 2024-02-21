@@ -1,4 +1,7 @@
 package it.unicam.progettoidsgam;
+import it.unicam.progettoidsgam.AnimatoreService;
+import it.unicam.progettoidsgam.ContributoreService;
+import it.unicam.progettoidsgam.CuratoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -7,7 +10,6 @@ public class LoginService {
 
     private final ContributoreService contributoreService;
     private final CuratoreService curatoreService;
-
     private final AnimatoreService animatoreService;
     @Autowired
     public LoginService(ContributoreService contributoreService, CuratoreService curatoreService,AnimatoreService animatoreService) {

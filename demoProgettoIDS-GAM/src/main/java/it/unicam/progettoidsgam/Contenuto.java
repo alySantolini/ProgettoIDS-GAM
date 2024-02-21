@@ -1,21 +1,14 @@
 package it.unicam.progettoidsgam;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
 import java.io.File;
-import java.io.IOException;
 
 //DA SISTEMARE
 @Entity
-public class Contenuto extends Elemento{
+public class Contenuto extends Elemento {
 
     private String tipologia;
-    private String descrizione;
-    private String titolo;
     private File immagine;
     private static int idCOPrecedente;
 
@@ -30,7 +23,6 @@ public class Contenuto extends Elemento{
         this.tipologia=tipologia;
         setIdContenuto();
     }
-
     public Contenuto() {
     }
     public String getIdContenuto() {
@@ -51,7 +43,7 @@ public class Contenuto extends Elemento{
     }
 
 
-    public void visualizza() throws IOException {
+   /* public void visualizza() throws IOException {
         if (this.immagine != null) {
             System.out.println(this.getIdElemento() + this.getTitolo() + this.getDescrizione() + this.getTipologia());
             Image image = ImageIO.read(this.immagine);
@@ -68,7 +60,7 @@ public class Contenuto extends Elemento{
             frame.setVisible(true);
         }
         System.out.println(this.getIdElemento() + this.getTitolo() + this.getDescrizione() + this.getTipologia());
-        }
+        }*/
 
 }
 

@@ -13,7 +13,6 @@ import java.io.IOException;
 @RestController
 public class ContenutoController {
 
-
     private ContenutoService contenutoService;
 
     @Autowired
@@ -51,5 +50,10 @@ public class ContenutoController {
     @GetMapping("/contenuto/{titolo}")
     public ResponseEntity<Object> getContenuto(@PathParam("titolo") String titolo) {
         return contenutoService.getContenutoByTitolo(titolo);
+    }
+
+    @PostMapping("/partecipa/{contest}")
+    public ResponseEntity<Object> partecipaContest(@PathParam("contest") String contest) {
+        return contenutoService.partecipa(contest);
     }
 }

@@ -1,5 +1,8 @@
 package it.unicam.progettoidsgam;
 
+import it.unicam.progettoidsgam.Segnalazione;
+import it.unicam.progettoidsgam.ElementiRepository;
+import it.unicam.progettoidsgam.SegnalazioneRepository;
 import it.unicam.progettoidsgam.eccezioni.ResourceAlreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

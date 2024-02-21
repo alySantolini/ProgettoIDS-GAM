@@ -1,6 +1,5 @@
 package it.unicam.progettoidsgam;
 
-import org.springframework.ui.Model;
 import it.unicam.progettoidsgam.eccezioni.ResourceAlreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

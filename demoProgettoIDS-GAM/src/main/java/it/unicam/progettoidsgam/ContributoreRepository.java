@@ -1,5 +1,6 @@
 package it.unicam.progettoidsgam;
 
+import it.unicam.progettoidsgam.Contributore;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

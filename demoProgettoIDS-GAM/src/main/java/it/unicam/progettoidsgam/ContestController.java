@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.time.Duration;
 
 @CrossOrigin(origins="http://localhost:63342")
 @RestController
@@ -41,8 +40,12 @@ public class ContestController {
         return contestService.getContestByTitolo(titolo);
     }
 
-   /* @PostMapping("/partecipa/{idContest}")
-    public ResponseEntity<Object> partecipaAlContest(@PathParam("idContest") String idContest){
-        return contestService.partecipa(idContest);
-    }*/
+    @GetMapping("/elementi/{titolo}")
+    public ResponseEntity<Object> getContenutiContest(@PathParam("titolo") String titolo) {
+        return contestService.getContenutiContest(titolo);
+    }
+    @DeleteMapping("/cancellaContest")
+    public ResponseEntity<Object> cancellaContest() {
+        return contestService.cancellaContest();
+    }
 }

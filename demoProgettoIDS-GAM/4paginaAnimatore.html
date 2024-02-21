@@ -25,6 +25,13 @@
     <input type="date" id="dataFine" name="dataFine">
     <button type="button" onclick="createContest()">Create Contest</button>
 </form>
+
+<h1>Ottieni Elementi</h1>
+<label for="titolo">Titolo contest</label>
+<input type="text" id="titolo" name="titolo" required>
+<button onclick="getElementiContest()">Get elementi</button>
+<ul id="elementiList"></ul>
+
 <script>
     if (!sessionStorage.getItem('isAuthenticated')) {
         window.location.href = '/login.html';
@@ -73,6 +80,33 @@
             .catch(error => {
                 console.error('Errore:', error);
                 alert('Si è verificato un errore durante l\'aggiunta del contest.');
+            });
+    }
+
+    function getElementiContest() {
+        const titolo=document.getElementById('titolo').value;
+
+        fetch(`${baseUrl}/elementi/titolo?titolo=${encodeURIComponent(titolo)}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Errore nella richiesta.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const elementiList = document.getElementById('elementiList');
+                elementiList.innerHTML = ''; // Pulisci la lista precedente
+
+                data.forEach(elemento => {
+                    const listItem = document.createElement('li');
+                    //costruisce la nuova lista
+                    listItem.textContent = `ID: ${elemento.idElemento}, Descrizione: ${elemento.descrizione}, Titolo: ${elemento.titolo}, Tipologia: ${elemento.tipologia},Immagine: ${elemento.immagine}`;
+                    elementiList.appendChild(listItem);
+                });
+            })
+            .catch(error => {
+                console.error('Errore:', error);
+                alert('Si è verificato un errore durante il recupero dei contenuti.');
             });
     }
 </script>

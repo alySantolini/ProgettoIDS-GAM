@@ -3,8 +3,6 @@ package it.unicam.progettoidsgam;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
-import java.util.List;
-
 //DA SISTEMARE
 @Entity
 public class Segnalazione{

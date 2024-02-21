@@ -1,10 +1,10 @@
 package it.unicam.progettoidsgam;
 
 
-import it.unicam.progettoidsgam.PI;
-import jakarta.persistence.*;
-
-import java.io.IOException;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 
 //DA SISTEMARE
 @Entity

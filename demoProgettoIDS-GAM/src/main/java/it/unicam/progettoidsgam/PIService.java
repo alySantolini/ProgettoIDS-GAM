@@ -1,6 +1,10 @@
 package it.unicam.progettoidsgam;
 
 
+import it.unicam.progettoidsgam.Elemento;
+import it.unicam.progettoidsgam.PI;
+import it.unicam.progettoidsgam.ElementiRepository;
+import it.unicam.progettoidsgam.PIRepository;
 import it.unicam.progettoidsgam.eccezioni.ResourceAlreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,9 +12,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import static it.unicam.progettoidsgam.Curatore.piCuratore;
 
 @Service
@@ -38,7 +42,7 @@ public class PIService {
         if(pi1.isPresent() || pi2.isPresent()){
             throw new ResourceAlreadyExistsException("PI: " +pi.getTitolo()+pi.getDescrizione()+pi.getLongitudine()+pi.getLatitudine()+" esiste già");
         }
-       if(controlloCordinate(pi.getLatitudine(),pi.getLongitudine())) {
+       if(controlloCordinate(pi.getLatitudine(),pi.getLongitudine()) ) {
            pi.setIdPI();
            return piRepository.save(pi);
        }else{
@@ -59,26 +63,27 @@ public class PIService {
         throw new IllegalArgumentException("le cordinate sono errate");
     }
 
-    public PI getPIByTitolo(String titolo) {
+    public ResponseEntity<Object> getPIByTitolo(String titolo) {
         Optional<PI> pi = piRepository.findByTitolo(titolo);
-        if (pi != null) {
-            return pi.get();
+        if (pi.isPresent()) {
+            return ResponseEntity.ok(pi.get());
         } else {
-            return null;
+            return ResponseEntity.notFound().build();
         }
     }
-
     public ResponseEntity<Object> getElementi(String titolo){
         Optional<PI> pi = piRepository.findByTitolo(titolo);
         if(pi.isPresent()){
            List<Elemento> lista= elementiRepository.findAll();
+            List<Elemento> lista1=new ArrayList<>();
            for (Elemento e : lista){
                e.getPiRiferimento().equals(titolo);
-               return new ResponseEntity<>(e,HttpStatus.OK);
+               lista1.add(e);
             }
+            return new ResponseEntity<>(lista1,HttpStatus.OK);
         }
         return ResponseEntity.notFound().build();
-     }
+    }
     public static boolean controlloCordinate(double latitudine, double longitudine) {
         return latitudine >= MIN_LATITUDINE && latitudine <= MAX_LATITUDINE &&
                 longitudine >= MIN_LONGITUDINE && longitudine <= MAX_LONGITUDINE;
