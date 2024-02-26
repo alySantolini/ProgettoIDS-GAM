@@ -1,9 +1,12 @@
 package it.unicam.progettoidsgam;
 
+import it.unicam.progettoidsgam.eccezioni.ResourceAlreadyExistsException;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 //DA SISTEMARE
 @Entity
@@ -68,6 +71,9 @@ public class Esperienza extends Elemento {
  */
 
 
+
 }
+
+
 
 

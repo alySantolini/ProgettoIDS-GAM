@@ -31,6 +31,12 @@ public class ElementoController {
             return new ResponseEntity<>(ex, HttpStatus.BAD_REQUEST);
         }
     }
+
+    @GetMapping("/elementi")
+    public ResponseEntity<Object> getElementi(){
+        return contenutoService.getContenuti();
+    }
+
     @PostMapping("/creaContenuto")
     public ResponseEntity<Object> creaContenuto(@RequestBody Contenuto contenuto) {
         try {
@@ -55,6 +61,11 @@ public class ElementoController {
         return esperienzaService.getEsperienza(titolo);
     }
 
+    @GetMapping("/esperienze")
+    public ResponseEntity<Object> getEsperienze(){
+        return esperienzaService.getEsperienze();
+    }
+
     @PostMapping("/pubblicaEsperienza")
     public ResponseEntity<Object> addEsperienza(@RequestBody Esperienza esperienza) {
         try {
@@ -75,4 +86,6 @@ public class ElementoController {
             return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
         }
     }
+
+
 }

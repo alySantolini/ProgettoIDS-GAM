@@ -1,6 +1,7 @@
 package it.unicam.progettoidsgam;
 
 import it.unicam.progettoidsgam.eccezioni.ResourceAlreadyExistsException;
+import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ public class SegnalazioneController {
 
 
     private SegnalazioneService segnalazioneService;
+   // private final SegnalazioneRepository segnalazioneRepository;
 
     @Autowired
     public SegnalazioneController(SegnalazioneService segnalazioneService) {
@@ -30,6 +32,17 @@ public class SegnalazioneController {
             return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
         }
     }
+
+    @GetMapping("/getSegnalazioni")
+    public ResponseEntity<Object> getSegnalazioni(){
+        return segnalazioneService.getSegnalazioni();
+    }
+
+    @GetMapping("/segnalazione/{idSegnalazione}")
+    public ResponseEntity<Object> getSegnalazioneSingola(@PathParam("idSegnalazione") String idSegnalazione){
+        return segnalazioneService.getSegnalazione(idSegnalazione);
+    }
+
     /*@GetMapping("/elimina/{id}")
     public String eliminaSegnalazione(@PathVariable String id) {
         segnalazioneService.eliminaSegnalazione(id);

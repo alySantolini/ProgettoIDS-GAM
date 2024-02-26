@@ -50,14 +50,7 @@ public class CuratoreService {
         }
         return false;
     }
-    public ResponseEntity<Object> getSegnalazione(String idSegnalazione) {
-        Optional<Segnalazione> segnalazione = segnalazioneRepository.findById(idSegnalazione);
-        if (segnalazione != null) {
-            return new ResponseEntity<>(segnalazione, HttpStatus.OK);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
+
     public ResponseEntity<Object> getSegnalazioni() {
         return new ResponseEntity<>(segnalazioneRepository.findAll(), HttpStatus.OK);
     }

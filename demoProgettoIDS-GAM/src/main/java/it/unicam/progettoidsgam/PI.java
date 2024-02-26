@@ -2,9 +2,7 @@ package it.unicam.progettoidsgam;
 
 
 import it.unicam.progettoidsgam.TipologiaPI;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.io.IOException;
 
@@ -14,6 +12,7 @@ public class PI {
     @Id
     private String idPI;
     //private static List<Elemento> lCPI=new ArrayList<>();
+    @Enumerated(EnumType.STRING)
     private TipologiaPI tipologia;
     private double longitudine;
     private double latitudine;

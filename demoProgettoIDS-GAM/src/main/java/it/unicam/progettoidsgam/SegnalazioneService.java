@@ -5,6 +5,8 @@ import it.unicam.progettoidsgam.ElementiRepository;
 import it.unicam.progettoidsgam.SegnalazioneRepository;
 import it.unicam.progettoidsgam.eccezioni.ResourceAlreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -31,6 +33,19 @@ public class SegnalazioneService {
 
     public SegnalazioneRepository getRepository() {
         return segnalazioneRepository;
+    }
+
+    public ResponseEntity<Object> getSegnalazioni() {
+        return new ResponseEntity<>(segnalazioneRepository.findAll(), HttpStatus.OK);
+    }
+
+    public ResponseEntity<Object> getSegnalazione(String idSegnalazione) {
+        Optional<Segnalazione> segnalazione = segnalazioneRepository.findById(idSegnalazione);
+        if (segnalazione != null) {
+            return new ResponseEntity<>(segnalazione, HttpStatus.OK);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     public Segnalazione findById(String id) {

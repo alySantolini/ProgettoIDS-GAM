@@ -1,6 +1,7 @@
 package it.unicam.progettoidsgam;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
 import java.util.ArrayList;
@@ -8,29 +9,56 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-public class Contest extends Elemento {
+public class Contest {
     private String tipologia;
+    private String titolo;
+    private String descrizione;
+    private String piRiferimento;
     private String creatore;
+    @Id
+    private String idContest;
     private static int idCONPrecedente;
     @OneToMany
     public static List<Elemento> elementiContest=new ArrayList<>();
     private Date dataInizio;
     private Date dataFine;
-    private String titolo;
-    private String descrizione;
 
     public Contest(String descrizione, String titolo, String tipologia, String piRiferimento, String creatore, Date inizio,Date fine) {
-        super(descrizione, titolo, piRiferimento);
         this.creatore = creatore;
         this.tipologia = tipologia;
+        this.titolo=titolo;
+        this.descrizione=descrizione;
+        this.piRiferimento=piRiferimento;
         this.elementiContest=null;
         this.dataInizio = inizio;
         this.dataFine= fine;
         setIdContest();
     }
 
-    public Contest() {
-        super();
+    public Contest(){}
+
+    public String getTitolo() {
+        return titolo;
+    }
+
+    public void setTitolo(String titolo) {
+        this.titolo = titolo;
+    }
+
+    public String getDescrizione() {
+        return descrizione;
+    }
+
+    public void setDescrizione(String descrizione) {
+        this.descrizione = descrizione;
+    }
+
+    public String getPiRiferimento() {
+        return piRiferimento;
+    }
+
+    public void setPiRiferimento(String piRiferimento) {
+        this.piRiferimento = piRiferimento;
     }
 
     public Date getDataInizio() {
@@ -41,7 +69,7 @@ public class Contest extends Elemento {
         return dataFine;
     }
     public void setIdContest() {
-        super.setIdElemento("CON",idCONPrecedente);
+        idContest="CON"+idCONPrecedente;
         idCONPrecedente +=1;
 
     }
@@ -54,7 +82,7 @@ public class Contest extends Elemento {
     }
 
     public String getIdContest() {
-        return super.getIdElemento();
+        return idContest;
     }
 
     public void setDataInizio(Date inizio) {

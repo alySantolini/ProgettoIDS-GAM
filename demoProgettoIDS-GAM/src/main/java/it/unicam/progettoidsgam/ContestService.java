@@ -25,13 +25,11 @@ public class ContestService {
     private final ContestRepository contestRepository;
     //private final InvitoRepository invitoRepository;
     private final PIRepository piRepository;
-    private ElementiRepository<Contest> elementiRepository;
 
     @Autowired
-    public ContestService(ContestRepository contestRepository, PIRepository piRepository, ElementiRepository<Contest> elementiRepository) throws IOException {
+    public ContestService(ContestRepository contestRepository, PIRepository piRepository) throws IOException {
         this.contestRepository =contestRepository;
         this.piRepository=piRepository;
-        this.elementiRepository = elementiRepository;
       //  this.invitoRepository=invitoRepository;
     }
     public ResponseEntity<Object> getContest(){
@@ -50,7 +48,7 @@ public class ContestService {
             throw new IllegalArgumentException("La data di inizio deve essere precedente alla data di fine.");
         }
         co.setIdContest();
-        return elementiRepository.save(co);
+        return contestRepository.save(co);
     }
 
     public ContestRepository getRepository() {
@@ -83,9 +81,9 @@ public class ContestService {
         List<Contest> contest = contestRepository.findAll();
         for (Contest c: contest) {
             if(c.getDataFine().getTime()==dataCorrente.getTime()){
-                elementiRepository.delete(c);
+                contestRepository.delete(c);
             }
-            return new  ResponseEntity<>(elementiRepository, HttpStatus.OK);
+            return new  ResponseEntity<>(contestRepository, HttpStatus.OK);
         }
         return ResponseEntity.notFound().build();
     }

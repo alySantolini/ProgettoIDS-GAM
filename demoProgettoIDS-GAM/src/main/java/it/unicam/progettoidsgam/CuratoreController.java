@@ -17,6 +17,7 @@ public class CuratoreController {
     @Autowired
     private CuratoreService curatoreService;
 
+
     public CuratoreController(CuratoreService curatoreService) {
         this.curatoreService = curatoreService;
         salvaCuratore();
@@ -38,10 +39,7 @@ public class CuratoreController {
         curatoreService.salva();
         return ResponseEntity.ok("Contributore salvato con successo!");
     }
-    @GetMapping("/segnalazione/{idSegnalazione}")
-    public ResponseEntity<Object> getSegnalazioneSingola(@PathParam ("idSegnalazione") String idSegnalazione){
-        return curatoreService.getSegnalazione(idSegnalazione);
-    }
+
 
     @PutMapping("/gestisci/{idSegnalazione}")
     public ResponseEntity<Object> gestisciSegnalazione(@PathParam("idSegnalazione")String idSegnalazione){
@@ -66,10 +64,6 @@ public class CuratoreController {
         return new ResponseEntity<>("Errore durante l'autorizzazione " , HttpStatus.BAD_REQUEST);
     }
 
-    @GetMapping("/getSegnalazioni")
-    public ResponseEntity<Object> getSegnalazioni(){
-        return curatoreService.getSegnalazioni();
-    }
     @GetMapping("/getPIDaAutorizzare")
     public ResponseEntity<Object> getPI(){
         return curatoreService.getPI();
