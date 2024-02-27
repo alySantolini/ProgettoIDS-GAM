@@ -9,6 +9,37 @@
             height: 400px;
             width: 100%;
         }
+        .popup-container {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .modal img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 5px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -17,7 +48,7 @@
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
 
-<h2>Create PI</h2>
+<h2>Crea PI</h2>
 <form id="piForm1">
     <label for="piId" >PI id</label>
     <input type="text" id="piId" name="piId" disabled><br><br>
@@ -31,10 +62,27 @@
     <input type="text" id="piTitolo" name="piTitolo" required><br><br>
     <label for="piDescrizione">PI Descrizione:</label>
     <input type="text" id="piDescrizione" name="piDescrizione" required><br><br>
-    <button type="button" onclick="creaPI()">Create PI</button>
+    <button type="button" onclick="creaPI()">Crea PI</button>
 </form>
 
-<h2>Create Contenuto</h2>
+<h2>Ottieni PI by Titolo</h2>
+<label for="getTitolo">PI Titolo:</label>
+<input type="text" id="getTitolo">
+<button onclick="getPIByTitle()">ottieni PI</button>
+<div id="piResult"></div>
+
+<h2>Ottieni Elementi by Titolo pi </h2>
+<label for="titolo">PI Titolo:</label>
+<input type="text" id="titolo">
+<button onclick="getElementiPI()">ottieni elementi</button>
+<div id="elementiResult"></div>
+
+<h1>Ottieni lista PI</h1>
+<button onclick="getPI()">ottieni PI</button>
+<h2>PI List</h2>
+<ul id="piLista"></ul>
+
+<h2>Crea commento</h2>
 <form id="contenutoForm1">
     <label for="contenutoId">contenuto id:</label>
     <input type="text" id="contenutoId" name="contenutoId" disabled><br><br>
@@ -46,11 +94,39 @@
     <input type="text" id="contenutoDescrizione" name="contenutoDescrizione" required><br><br>
     <label for="piRiferimento">Titolo PI Riferimento:</label>
     <input type="text" id="piRiferimento" name="piRiferimento" required><br><br>
-    <input type="file" id="fileInput">
-    <button type="button" onclick="creaContenuto()">Create Contenuto</button>
+    <button type="button" onclick="creaContenuto()">Crea Contenuto</button>
+</form>
+
+
+<h2>Crea Contenuto con immagine</h2>
+<form id="contenutoForm2">
+    <label for="contenutoId1">contenuto id:</label>
+    <input type="text" id="contenutoId1" name="contenutoId" disabled><br><br>
+    <label for="contenutoTitolo1">Contenuto Titolo:</label>
+    <input type="text" id="contenutoTitolo1" name="contenutoTitolo" required><br><br>
+    <label for="contenutoDescrizione1">contenuto Descrizione:</label>
+    <input type="text" id="contenutoDescrizione1" name="contenutoDescrizione" required><br><br>
+    <label for="piRiferimento1">Titolo PI Riferimento:</label>
+    <input type="text" id="piRiferimento1" name="piRiferimento" required><br><br>
+    <div id="fileInputContainer">
+        <input type="file" id="fileInput">
+    </div>
+    <button type="button" onclick="creaContenutoMultimediale()">Crea Contenuto</button>
 
 </form>
-<h2>Create Esperienza</h2>
+
+<h2>Ottieni contenuto by titolo</h2>
+<label for="titoloContenuto">contenuto Titolo:</label>
+<input type="text" id="titoloContenuto">
+<button onclick="getContenutoByTitle()">ottieni contenuto</button>
+<div id="contenutoResult"></div>
+
+<h1>Ottieni Contenuti</h1>
+<button onclick="getContenuto()">ottieni Contenuti</button>
+<h2>contenuto List</h2>
+<ul id="contenutoList"></ul>
+
+<h2>Crea Esperienza</h2>
 <form id="esperienzaForm1">
     <label for="esperienzaId">esperienza id:</label>
     <input type="text" id="esperienzaId" name="esperienzaId" disabled><br><br>
@@ -62,13 +138,25 @@
     <input type="text" id="esperienzaDescrizione" name="esperienzaDescrizione" required><br><br>
     <label for="multiValues">Inserisci valori separati da virgole:</label>
     <input type="text" id="multiValues" name="multiValues">
-    <button type="button" onclick="creaEsperienza()">Create Esperienza</button>
+    <button type="button" onclick="creaEsperienza()">Crea Esperienza</button>
 </form>
 
-<h1>Ottieni PI</h1>
-<button onclick="getPI()">Get PI</button>
-<h2>PI List</h2>
-<ul id="piLista"></ul>
+<h2>Ottieni esperienza by titolo</h2>
+<label for="esperienzaTitolo">esperienza Titolo:</label>
+<input type="text" id="esperienzaTitolo1" required>
+<button onclick="getEsperienzaByTitle()">ottieni esperienza</button>
+<div id="esperienzaResult"></div>
+
+<h2>Ottieni contest by titolo</h2>
+<label for="titoloContest">contest Titolo:</label>
+<input type="text" id="titoloContest">
+<button onclick="getContestByTitle()">ottieni contest</button>
+<div id="contestResult"></div>
+
+<h1>Ottieni lista contest</h1>
+<button onclick="getContest()">ottieni Contest</button>
+<h2>contest List</h2>
+<ul id="contestList"></ul>
 
 <h1>Aggiungi Segnalazione</h1>
 <form id="aggiungiSegnalazioneForm">
@@ -80,41 +168,6 @@
     <input type="text" id="descrizioneSegnalazione" name="descrizioneSegnalazione"><br>
     <button type="button" onclick="inviaSegnalazione()">Aggiungi Segnalazione</button>
 </form>
-<h2>Get contest by titolo</h2>
-<label for="titoloContest">contest Titolo:</label>
-<input type="text" id="titoloContest">
-<button onclick="getContestByTitle()">Get contest</button>
-<div id="contestResult"></div>
-
-
-<h1>Ottieni contest</h1>
-<button onclick="getContest()">Get Contest</button>
-<h2>contest List</h2>
-<ul id="contestList"></ul>
-
-<h2>Get Elementi by Titolo pi </h2>
-<label for="titolo">PI Titolo:</label>
-<input type="text" id="titolo">
-<button onclick="getElementiPI()">Get elementi</button>
-<div id="elementiResult"></div>
-
-<h2>Get PI by Titolo</h2>
-<label for="getTitolo">PI Titolo:</label>
-<input type="text" id="getTitolo">
-<button onclick="getPIByTitle()">Get PI</button>
-<div id="piResult"></div>
-
-<h1>Ottieni Contenuto</h1>
-<button onclick="getContenuto()">Get Contenuto</button>
-<h2>contenuto List</h2>
-<ul id="contenutoList"></ul>
-
-
-<h2>Get contenuto by titolo</h2>
-<label for="titoloContenuto">contenuto Titolo:</label>
-<input type="text" id="titoloContenuto">
-<button onclick="getContenutoByTitle()">Get contenuto</button>
-<div id="contenutoResult"></div>
 
 <script>
     if (!sessionStorage.getItem('isAuthenticated')) {
@@ -202,6 +255,26 @@
                 alert('Si è verificato un errore durante il recupero dei PI.');
             });
     }
+    function getPIByTitle() {
+        const getTitolo = document.getElementById('getTitolo').value;
+
+        fetch(`${baseUrl}/PI/titolo?titolo=${encodeURIComponent(getTitolo)}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Errore nella richiesta.');
+                }
+                return response.json();
+            })
+            .then(pi => {
+                const piResult = document.getElementById('piResult');
+                if (pi!=null) {
+                    piResult.textContent = `ID: ${pi.idPI}, Descrizione: ${pi.descrizione}, Titolo: ${pi.titolo}, Tipologia: ${pi.tipologia}, Latitudine: ${pi.latitudine}, Longitudine: ${pi.longitudine}`;
+                } else {
+                    piResult.textContent = `PI non trovato.`;
+                }
+            })
+            .catch(error => console.error('Errore:', error));
+    }
     function getElementiPI() {
         const titolo = document.getElementById('titolo').value;
 
@@ -225,7 +298,7 @@
             })
             .catch(error => console.error('Errore:', error));
     }
-    function creaContenuto() {
+   /* function creaContenuto() {
         const contenutoId=document.getElementById('contenutoId').value;
         const contenutoTipologia = document.getElementById('contenutoTipologia').value;
         const contenutoTitolo = document.getElementById('contenutoTitolo').value;
@@ -274,10 +347,9 @@
                 console.error('Errore:', error);
                 alert('Si è verificato un errore durante l\'aggiunta del contenuto.');
             });
-    }
+    }*/
     function getContenuto() {
-        //c'è da capire come poter visualizzare l'immagine
-        fetch(`${baseUrl}/elementi`)
+        fetch(`${baseUrl}/contenuti`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Errore nella richiesta.');
@@ -313,34 +385,71 @@
             })
             .then(contenuto => {
                 const contenutoResult = document.getElementById('contenutoResult');
-                if (contenuto!=null) {
-                    contenutoResult.textContent = `ID: ${contenuto.idElemento}, Descrizione: ${contenuto.descrizione}, Titolo: ${contenuto.titolo},PI Riferimento: ${contenuto.piRiferimento}`;
-                } else {
-                    contenutoResult.textContent = `contenuto non trovato.`;
-                }
-            })
-            .catch(error => console.error('Errore:', error));
-    }
-    function getPIByTitle() {
-        const getTitolo = document.getElementById('getTitolo').value;
+                if (contenuto != null) {
+                    contenutoResult.innerHTML = `ID: ${contenuto.idElemento}, Descrizione: ${contenuto.descrizione}, Titolo: ${contenuto.titolo}, PI Riferimento: ${contenuto.piRiferimento}`;
 
-        fetch(`${baseUrl}/PI/titolo?titolo=${encodeURIComponent(getTitolo)}`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Errore nella richiesta.');
-                }
-                return response.json();
-            })
-            .then(pi => {
-                const piResult = document.getElementById('piResult');
-                if (pi!=null) {
-                    piResult.textContent = `ID: ${pi.idPI}, Descrizione: ${pi.descrizione}, Titolo: ${pi.titolo}, Tipologia: ${pi.tipologia}, Latitudine: ${pi.latitudine}, Longitudine: ${pi.longitudine}`;
+                    if (contenuto.immagine) {
+                        const byteCharacters = atob(contenuto.immagine); // Converti i byte in una stringa base64
+                        const byteNumbers = new Array(byteCharacters.length);
+                        for (let i = 0; i < byteCharacters.length; i++) {
+                            byteNumbers[i] = byteCharacters.charCodeAt(i);
+                        }
+                        const byteArray = new Uint8Array(byteNumbers);
+
+                        // Crea un oggetto Blob dai dati dell'immagine
+                        const blob = new Blob([byteArray], { type: 'image/jpeg' }); // Sostituisci 'image/jpeg' con il tipo MIME corretto dell'immagine
+
+                        // Crea un URL oggetto dal Blob
+                        const url = URL.createObjectURL(blob);
+
+                        // Continua come prima con l'utilizzo dell'URL nell'elemento img
+                        var modal = document.createElement('div');
+                        modal.classList.add('modal');
+                        var img = document.createElement('img');
+                        img.src = url;
+                        modal.appendChild(img);
+                        document.body.appendChild(modal);
+                        modal.addEventListener('click', function() {
+                            modal.remove();
+                        });
+                    }
                 } else {
-                    piResult.textContent = `PI non trovato.`;
+                    contenutoResult.textContent = `Contenuto non trovato.`;
                 }
             })
             .catch(error => console.error('Errore:', error));
     }
+    function creaContenutoMultimediale() {
+        const contenutoId = document.getElementById('contenutoId1').value;
+        const contenutoTitolo = document.getElementById('contenutoTitolo1').value;
+        const contenutoDescrizione = document.getElementById('contenutoDescrizione1').value;
+        const piRiferimento = document.getElementById('piRiferimento1').value;
+
+        const fileInput = document.getElementById('fileInput');
+        const file = fileInput.files[0];
+
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('idElemento', contenutoId);
+        formData.append('titolo', contenutoTitolo);
+        formData.append('descrizione', contenutoDescrizione);
+        formData.append('piRiferimento', piRiferimento);
+
+        fetch(`${baseUrl}/creaContenutoMultimediale`, {
+            method: 'POST',
+            body: formData
+        })
+            .then(data => {
+                console.log('Dati ricevuti:', data); // Controlla i dati ricevuti nella console
+                alert('Contenuto in attesa di autorizzazione!');
+            })
+            .catch(error => {
+                console.error('Errore:', error);
+                alert('Si è verificato un errore durante l\'aggiunta del contenuto.');
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
     function creaEsperienza() {
         const esperienzaId = document.getElementById('esperienzaId').value;
         const esperienzaTipologia = document.getElementById('esperienzaTipologia').value;
@@ -386,6 +495,27 @@
                 console.error('Errore:', error);
                 alert('Si è verificato un errore durante l\'aggiunta dell\'esperienza');
             });
+    }
+
+    function getEsperienzaByTitle() {
+        const titolo = document.getElementById('esperienzaTitolo1').value;
+
+        fetch(`${baseUrl}/esperienza/titolo?titolo=${encodeURIComponent(titolo)}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Errore nella richiesta.');
+                }
+                return response.json();
+            })
+            .then(esperienza => {
+                const esperienzaResult = document.getElementById('esperienzaResult');
+                if (esperienza != null) {
+                    esperienzaResult.textContent = `ID: ${esperienza.idElemento}, Descrizione: ${esperienza.descrizione}, Titolo: ${esperienza.titolo}, Tipologia: ${esperienza.tipologia}, ListaPI: ${esperienza.listaPI}, PiRiferimento: ${esperienza.piRiferimento}`;
+                } else {
+                    esperienzaResult.textContent = `Esperienza non trovata.`;
+                }
+            })
+            .catch(error => console.error('Errore:', error));
     }
     function inviaSegnalazione() {
         var idSegnalazione = document.getElementById('idSegnalazione').value;
@@ -440,7 +570,7 @@
                 data.forEach(contest => {
                     const listItem = document.createElement('li');
                     //costruisce la nuova lista
-                    listItem.textContent = `ID: ${contest.idElemento}, Descrizione: ${contest.descrizione}, Titolo: ${contest.titolo}, Tipologia: ${contest.tipologia}, Animatore ${contest.creatore}, PiRiferimento ${contest.piRiferimento}, DataInizio ${contest.dataInizio}, DataFine ${contest.dataFine}`;
+                    listItem.textContent = `ID: ${contest.idContest}, Descrizione: ${contest.descrizione}, Titolo: ${contest.titolo}, Tipologia: ${contest.tipologia}, Animatore ${contest.creatore}, PiRiferimento ${contest.piRiferimento}, DataInizio ${contest.dataInizio}, DataFine ${contest.dataFine}`;
                     contestList.appendChild(listItem);
                 });
             })

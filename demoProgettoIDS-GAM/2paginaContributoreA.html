@@ -404,7 +404,7 @@
         // Mostra il pop-up impostando lo stile "display" a "block"
         document.getElementById('popup1').style.display = 'block';
     }
-    function createCommento() {
+  /*  function createCommento() {
         const contenutoId=document.getElementById('contenutoId').value;
         const contenutoTipologia = document.getElementById('contenutoTipologia').value;
         const contenutoTitolo = document.getElementById('contenutoTitolo').value;
@@ -453,7 +453,7 @@
                 console.error('Errore:', error);
                 alert('Si è verificato un errore durante l\'aggiunta del contenuto.');
             });
-    }
+    }*/
 
     function creaContenutoMultimediale() {
         const contenutoId = document.getElementById('contenutoId1').value;
@@ -475,33 +475,13 @@
             method: 'POST',
             body: formData
         })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Errore nella richiesta.');
-                }
-                return response.blob();
+            .then(data => {
+                console.log('Dati ricevuti:', data); // Controlla i dati ricevuti nella console
+                alert('Contenuto aggiunto!');
             })
-            .then(blob => {
-                var url = URL.createObjectURL(blob);
-
-                // Creazione della finestra modale
-                var modal = document.createElement('div');
-                modal.classList.add('modal');
-
-                // Creazione dell'elemento immagine
-                var img = document.createElement('img');
-                img.src = url;
-                modal.appendChild(img);
-
-                // Aggiunta della finestra modale al corpo del documento
-                document.body.appendChild(modal);
-
-                // Chiudi la finestra modale quando l'utente fa clic su di essa
-                modal.addEventListener('click', function() {
-                    modal.remove();
-                });
-
-                alert('Contenuto aggiunto con successo!');
+            .catch(error => {
+                console.error('Errore:', error);
+                alert('Si è verificato un errore durante l\'aggiunta del contenuto.');
             })
             .catch(error => console.error('Error:', error));
     }
