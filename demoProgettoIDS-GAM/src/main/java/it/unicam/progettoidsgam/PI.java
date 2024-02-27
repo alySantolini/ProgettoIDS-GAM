@@ -1,7 +1,7 @@
 package it.unicam.progettoidsgam;
 
 
-import it.unicam.progettoidsgam.TipologiaPI;
+import it.unicam.progettoidsgam.enumerazioni.TipologiaPI;
 import jakarta.persistence.*;
 
 import java.io.IOException;

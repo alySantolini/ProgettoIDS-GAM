@@ -1,11 +1,9 @@
 package it.unicam.progettoidsgam;
 
 
-import it.unicam.progettoidsgam.Elemento;
-import it.unicam.progettoidsgam.PI;
-import it.unicam.progettoidsgam.ElementiRepository;
-import it.unicam.progettoidsgam.PIRepository;
 import it.unicam.progettoidsgam.eccezioni.ResourceAlreadyExistsException;
+import it.unicam.progettoidsgam.modelli.Elemento;
+import it.unicam.progettoidsgam.repository.ElementiRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import static it.unicam.progettoidsgam.Curatore.piCuratore;
+import static it.unicam.progettoidsgam.modelli.Curatore.piCuratore;
 
 @Service
 public class PIService {

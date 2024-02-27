@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Mappa di Fano</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
- <style>
+    <style>
         #map {
             height: 400px;
             width: 100%;
@@ -78,7 +78,7 @@
 <div id="popup" class="popup-container">
     <h2>Vuoi aggiungere il tuo contenuto al contest?</h2>
     <button onclick="showPopup1(),hidePopup()">Aggiungi al contest</button>
-   <button onclick="hidePopup()">Non aggiungere al contest</button>
+    <button onclick="hidePopup()">Non aggiungere al contest</button>
 </div>
 
 <div id="popup1" class="popup-container">
@@ -283,7 +283,7 @@
     }
     function getContenuto() {
         //c'è da capire come poter visualizzare l'immagine
-        fetch(`${baseUrl}/elementi`)
+        fetch(`${baseUrl}/contenuti`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Errore nella richiesta.');
@@ -503,7 +503,7 @@
             .then(contest => {
                 const contestResult = document.getElementById('contestResult');
                 if (contest!=null) {
-                    contestResult.textContent = `ID: ${contest.idElemento}, Descrizione: ${contest.descrizione}, Titolo: ${contest.titolo}, Tipologia: ${contest.tipologia}, PiRiferimento ${contest.piRiferimento}, DataFine ${contest.dataFine}, Animatore ${contest.creatore}`;
+                    contestResult.textContent = `ID: ${contest.idContest}, Descrizione: ${contest.descrizione}, Titolo: ${contest.titolo}, Tipologia: ${contest.tipologia}, PiRiferimento ${contest.piRiferimento}, DataFine ${contest.dataFine}, Animatore ${contest.creatore}`;
                 } else {
                     contestResult.textContent = `contest non trovato.`;
                 }
@@ -525,7 +525,7 @@
                 data.forEach(contest => {
                     const listItem = document.createElement('li');
                     //costruisce la nuova lista
-                    listItem.textContent = `ID: ${contest.idElemento}, Descrizione: ${contest.descrizione}, Titolo: ${contest.titolo}, Tipologia: ${contest.tipologia}, Animatore ${contest.creatore}, PiRiferimento ${contest.piRiferimento},DataFine ${contest.dataFine}`;
+                    listItem.textContent = `ID: ${contest.idContest}, Descrizione: ${contest.descrizione}, Titolo: ${contest.titolo}, Tipologia: ${contest.tipologia}, Animatore ${contest.creatore}, PiRiferimento ${contest.piRiferimento},DataFine ${contest.dataFine}`;
                     contestList.appendChild(listItem);
                 });
             })
