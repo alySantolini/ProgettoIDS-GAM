@@ -41,32 +41,6 @@ public class ContenutoService {
         return new ResponseEntity<>(contenutoRepository.findAll(), HttpStatus.OK);
     }
 
-    public Contenuto addNewContenuto(Contenuto co) throws IOException {
-        Optional<Contenuto> co1= contenutoRepository.findById(co.getIdContenuto());
-        Optional<PI> piOptional = piRepository.findByTitolo(co.getPiRiferimento());
-        if (piOptional.isEmpty()) {
-            throw new ResourceAlreadyExistsException("PI con ID " + co.getPiRiferimento() + " non trovato.");
-        }
-        if(co1.isPresent()){
-            throw new ResourceAlreadyExistsException("CO: " +co.getTitolo()+co.getDescrizione()+co.getPiRiferimento()+" esiste già");
-        }
-            co.setIdContenuto();
-        return  elementiRepository.save(co);
-            // contenutoRepository.save(co);
-    }
-    public Contenuto creaNewContenuto(Contenuto co) throws IOException {
-        Optional<Contenuto> co1= contenutoRepository.findById(co.getIdContenuto());
-        Optional<PI> piOptional = piRepository.findByTitolo(co.getPiRiferimento());
-        if (piOptional.isEmpty()) {
-            throw new ResourceAlreadyExistsException("PI con ID " + co.getPiRiferimento() + " non trovato.");
-        }
-        if(co1.isPresent()){
-            throw new ResourceAlreadyExistsException("CO: " +co.getTitolo()+co.getDescrizione()+co.getPiRiferimento()+" esiste già");
-        }
-        co.setIdContenuto();
-        elementiCuratore.add(co);
-        return co;
-    }
     public Contenuto addContenutoMultimediale(String titolo, String descrizione, String piRiferimento, MultipartFile file) throws IOException {
         File newFile = new File("/C:/Users/Alice/IdeaProjects/unicam/src/main/resources"+file.getOriginalFilename());
         newFile.createNewFile();

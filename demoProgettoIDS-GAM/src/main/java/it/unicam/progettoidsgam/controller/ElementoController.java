@@ -11,8 +11,10 @@ import it.unicam.progettoidsgam.service.ContenutoService;
 import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
@@ -30,28 +32,17 @@ public class ElementoController {
 
     }
 
-    @PostMapping("/pubblicaContenuto")
-    public ResponseEntity<Object> addElemento(@RequestBody Contenuto e) {
-        try{
-            Elemento newElemento=contenutoService.addNewContenuto( e);
-            return new ResponseEntity<>(newElemento, HttpStatus.CREATED);
-        }
-        catch(ResourceAlreadyExistsException | IOException ex) {
-            return new ResponseEntity<>(ex, HttpStatus.BAD_REQUEST);
-        }
+    @PostMapping(value="/pubblicaContenutoMultimediale", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Object> addContenutoMultimediale(@RequestParam("titolo") String titolo,@RequestParam("descrizione") String descrizione, @RequestParam("piRiferimento") String piRiferimento,@RequestParam("file") MultipartFile file) throws IOException {
+        Contenuto contenuto = contenutoService.addContenutoMultimediale(titolo,descrizione,piRiferimento,file);
+        return new ResponseEntity<>(contenuto.getImmagine(), HttpStatus.OK);
     }
 
 
-
-    @PostMapping("/creaContenuto")
-    public ResponseEntity<Object> creaContenuto(@RequestBody Contenuto contenuto) {
-        try {
-            // Aggiungi il contenuto nel database
-            Contenuto newContenuto = contenutoService.creaNewContenuto(contenuto);
-            return new ResponseEntity<>(newContenuto, HttpStatus.CREATED);
-        } catch (ResourceAlreadyExistsException | IOException e) {
-            return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
-        }
+    @PostMapping(value="/creaContenutoMultimediale", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Object> creaContenutoMultimediale(@RequestParam("titolo") String titolo,@RequestParam("descrizione") String descrizione, @RequestParam("piRiferimento") String piRiferimento,@RequestParam("file") MultipartFile file) throws IOException {
+        Contenuto contenuto = contenutoService.creaContenutoMultimediale(titolo,descrizione,piRiferimento,file);
+        return new ResponseEntity<>(contenuto.getImmagine(), HttpStatus.OK);
     }
 
 
