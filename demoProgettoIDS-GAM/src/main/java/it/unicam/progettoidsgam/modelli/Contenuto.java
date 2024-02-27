@@ -22,6 +22,12 @@ public class Contenuto extends Elemento {
 
     public Contenuto() {
     }
+
+    @Override
+    public void creazione() {
+        System.out.println("Creato");
+    }
+
     public String getIdContenuto() {
         return super.getIdElemento();
     }

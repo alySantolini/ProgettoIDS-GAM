@@ -56,17 +56,10 @@ public class Esperienza extends Elemento {
         this.tipologia = tipologia;
     }
 
-   /* public void visualizza(){
-        if (idEsperienza!=null){
-            System.out.println(this.titolo+this.descrizione);
-            for(PI puntoInteresse : this.listaPI){
-                System.out.println(puntoInteresse);
-            }
-        }else{
-            System.out.println("l'esperienza non esiste");
-        }
+    @Override
+    public void creazione() {
+        System.out.println("Creato");
     }
- */
 
 
 

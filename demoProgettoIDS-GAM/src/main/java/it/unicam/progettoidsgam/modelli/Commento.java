@@ -21,12 +21,16 @@ public class Commento extends Elemento {
 
     public Commento(String descrizione,String titolo,String tipologia,String piRiferimento) {
         super(descrizione,titolo,piRiferimento);
-        this.titolo=titolo;
         this.tipologia=tipologia;
         setIdCommento();
     }
 
     public Commento(){
+    }
+
+    @Override
+    public void creazione() {
+        System.out.println("Creato");
     }
 
     public String getIdCommento() {

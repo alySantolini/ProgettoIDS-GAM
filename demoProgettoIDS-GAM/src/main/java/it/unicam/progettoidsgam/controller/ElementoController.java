@@ -27,14 +27,17 @@ public class ElementoController {
     private CommentoService commentoService;
 
     @Autowired
-    public ElementoController(ContenutoService contenutoService) {
+    public ElementoController(ContenutoService contenutoService,EsperienzaService esperienzaService, CommentoService commentoService) {
         this.contenutoService = contenutoService;
+        this.esperienzaService=esperienzaService;
+        this.commentoService=commentoService;
 
     }
 
     @PostMapping(value="/pubblicaContenutoMultimediale", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Object> addContenutoMultimediale(@RequestParam("titolo") String titolo,@RequestParam("descrizione") String descrizione, @RequestParam("piRiferimento") String piRiferimento,@RequestParam("file") MultipartFile file) throws IOException {
         Contenuto contenuto = contenutoService.addContenutoMultimediale(titolo,descrizione,piRiferimento,file);
+        contenuto.creazione();
         return new ResponseEntity<>(contenuto.getImmagine(), HttpStatus.OK);
     }
 
@@ -42,6 +45,7 @@ public class ElementoController {
     @PostMapping(value="/creaContenutoMultimediale", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Object> creaContenutoMultimediale(@RequestParam("titolo") String titolo,@RequestParam("descrizione") String descrizione, @RequestParam("piRiferimento") String piRiferimento,@RequestParam("file") MultipartFile file) throws IOException {
         Contenuto contenuto = contenutoService.creaContenutoMultimediale(titolo,descrizione,piRiferimento,file);
+        contenuto.creazione();
         return new ResponseEntity<>(contenuto.getImmagine(), HttpStatus.OK);
     }
 
@@ -50,6 +54,7 @@ public class ElementoController {
     public ResponseEntity<Object> addEsperienza(@RequestBody Esperienza esperienza) {
         try {
             Esperienza newEsperienza = esperienzaService.addNewEsperienza(esperienza);
+            esperienza.creazione();
             return new ResponseEntity<>(newEsperienza, HttpStatus.CREATED);
         } catch (ResourceAlreadyExistsException | IOException e) {
             return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
@@ -61,6 +66,7 @@ public class ElementoController {
         try {
             // Aggiungi il contenuto nel database
             Esperienza newEsperienza = esperienzaService.creaNewEsperienza(esperienza);
+            esperienza.creazione();
             return new ResponseEntity<>(newEsperienza, HttpStatus.CREATED);
         } catch (ResourceAlreadyExistsException | IOException e) {
             return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
@@ -72,6 +78,7 @@ public class ElementoController {
         try {
             // Aggiungi il commento nel database
             Commento newCommento = commentoService.creaNewCommento(commento);
+            commento.creazione();
             return new ResponseEntity<>(newCommento, HttpStatus.CREATED);
         } catch (ResourceAlreadyExistsException | IOException e) {
             return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);

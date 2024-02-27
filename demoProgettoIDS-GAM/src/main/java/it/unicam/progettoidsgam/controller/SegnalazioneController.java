@@ -1,5 +1,6 @@
 package it.unicam.progettoidsgam.controller;
 
+import it.unicam.progettoidsgam.modelli.Elemento;
 import it.unicam.progettoidsgam.service.SegnalazioneService;
 import it.unicam.progettoidsgam.eccezioni.ResourceAlreadyExistsException;
 import it.unicam.progettoidsgam.modelli.Segnalazione;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 
 @CrossOrigin(origins="http://localhost:63342")
 @RestController
@@ -45,9 +47,13 @@ public class SegnalazioneController {
         return segnalazioneService.getSegnalazione(idSegnalazione);
     }
 
-    /*@GetMapping("/elimina/{id}")
-    public String eliminaSegnalazione(@PathVariable String id) {
-        segnalazioneService.eliminaSegnalazione(id);
-        return "redirect:/pagina-successo"; // Reindirizza a una pagina di successo o altrove
-    }*/
+    @GetMapping("/elementiSegnalazione/{idSegnalazione}")
+    public ResponseEntity<Object> getElementiSegnalazione(@PathParam("idSegnalazione") String idSegnalazione) {
+        List<Elemento> elementi = segnalazioneService.getElementiSegnalazione(idSegnalazione);
+        if (elementi != null) {
+            return new ResponseEntity<>(elementi, HttpStatus.OK);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

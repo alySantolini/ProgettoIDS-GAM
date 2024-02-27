@@ -37,6 +37,13 @@ public class Contest {
 
     public Contest(){}
 
+  /*  @Override
+    public void creazione() {
+        System.out.println("Creato");
+    }
+
+   */
+
     public String getTitolo() {
         return titolo;
     }

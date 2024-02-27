@@ -53,6 +53,13 @@
     <button type="button" onclick="autorizzaElemento()">Autorizza</button>
 </form>
 
+<h1>Ottieni elementi segnalazione</h1>
+<label for="segnalazioneId">id Segnalazione</label>
+<input type="text" id="segnalazioneId">
+<button onclick="getElementiSegnalazione()">ottieni lista elementi segnalazione</button>
+<h2>lista </h2>
+<ul id="elementiSegnalazione"></ul>
+
 <script>
     if (!sessionStorage.getItem('isAuthenticated')) {
         window.location.href = '/login.html';
@@ -230,7 +237,7 @@
     }
 
     function getElementiSegnalazione() {
-        const idS=document.getElementById('idSegnalazione1').value;
+        const idS=document.getElementById('segnalazioneId').value;
 
         fetch(`${baseUrl}/elementiSegnalazione/idSegnalazione?idSegnalazione=${encodeURIComponent(idS)}`)
             .then(response => {
@@ -255,6 +262,7 @@
                 alert('Si è verificato un errore durante il recupero delle segnalazioni.');
             });
     }
+
 </script>
 </body>
 </html>

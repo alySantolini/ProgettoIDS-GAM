@@ -56,7 +56,7 @@ public abstract class Elemento {
     public void setIdElemento(String prefix , int idPrecedente) {
         this.idElemento = prefix+idPrecedente;
     }
-   // public abstract void visualizza() throws IOException;
+    public abstract void creazione();
 }
 
 
