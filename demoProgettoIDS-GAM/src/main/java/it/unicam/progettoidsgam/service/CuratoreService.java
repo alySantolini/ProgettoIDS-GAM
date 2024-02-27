@@ -3,9 +3,11 @@ package it.unicam.progettoidsgam.service;
 import it.unicam.progettoidsgam.*;
 import it.unicam.progettoidsgam.modelli.Curatore;
 import it.unicam.progettoidsgam.modelli.Elemento;
+import it.unicam.progettoidsgam.modelli.PI;
 import it.unicam.progettoidsgam.modelli.Segnalazione;
 import it.unicam.progettoidsgam.repository.CuratoreRepository;
 import it.unicam.progettoidsgam.repository.ElementiRepository;
+import it.unicam.progettoidsgam.repository.PIRepository;
 import it.unicam.progettoidsgam.repository.SegnalazioneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,7 +36,7 @@ public class CuratoreService {
     }
 
     public void salva() {
-        Curatore curatore = new Curatore("Nome", "Cognome", "nickname" ) ;
+        Curatore curatore = new Curatore("Nome", "Cognome", "curatore" ) ;
         // Imposta altri attributi se necessario
         curatore.setIdCuratore();
         curatoreRepository.save(curatore);
@@ -48,10 +50,6 @@ public class CuratoreService {
             }
         }
         return false;
-    }
-
-    public ResponseEntity<Object> getSegnalazioni() {
-        return new ResponseEntity<>(segnalazioneRepository.findAll(), HttpStatus.OK);
     }
 
     public ResponseEntity<Object> getLista() {

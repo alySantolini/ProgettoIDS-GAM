@@ -1,4 +1,4 @@
-package it.unicam.progettoidsgam;
+package it.unicam.progettoidsgam.modelli;
 
 
 import it.unicam.progettoidsgam.enumerazioni.TipologiaPI;

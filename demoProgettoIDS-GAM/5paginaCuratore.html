@@ -13,24 +13,24 @@
     <button type="button" onclick="autorizza()">Autorizza</button>
 </form>
 
-<h2>Get Segnalazione</h2>
+<h2>ottieni Segnalazione</h2>
 <label for="idSegnalazione">id Segnalazione:</label>
 <input type="text" id="idSegnalazione">
-<button onclick="getSegnalazione()">Get Segnalazione</button>
+<button onclick="getSegnalazione()">ottieni Segnalazione</button>
 <div id="segnalazioneResult"></div>
 
 <h1>Ottieni segnalazioni</h1>
-<button onclick="getSegnalazioni()">Get segnalazioni</button>
+<button onclick="getSegnalazioni()">ottieni segnalazioni</button>
 <h2>Segnalazioni List</h2>
 <ul id="segnalazioniList"></ul>
 
 <h1>Ottieni lista elementi da autorizzare</h1>
-<button onclick="getLista()">Get lista</button>
+<button onclick="getLista()">ottieni lista</button>
 <h2>lista </h2>
 <ul id="listaList"></ul>
 
 <h1>Ottieni lista pi da autorizzare</h1>
-<button onclick="getPI()">Get lista pi</button>
+<button onclick="getPI()">ottieni lista pi</button>
 <h2>lista </h2>
 <ul id="piList"></ul>
 
@@ -38,6 +38,13 @@
 <p>Inserisci l'ID della segnalazione che desideri gestire:</p>
 <input type="text" id="idS" placeholder="idS">
 <button onclick="gestisciSegnalazione()">Gestisci</button>
+
+<h1>Ottieni elementi segnalazione</h1>
+<label for="idSegnalazione1">id Segnalazione</label>
+<input type="text" id="idSegnalazione1">
+<button onclick="getElementiSegnalazione()">ottieni lista elementi segnalazione</button>
+<h2>lista </h2>
+<ul id="elementiList"></ul>
 
 <h1>Autorizza elemento</h1>
 <form id="autorizzaForm1">
@@ -219,6 +226,33 @@
             .catch(error => {
                 console.error('Errore:', error);
                 alert('Segnalazione non gestita!');
+            });
+    }
+
+    function getElementiSegnalazione() {
+        const idS=document.getElementById('idSegnalazione1').value;
+
+        fetch(`${baseUrl}/elementiSegnalazione/idSegnalazione?idSegnalazione=${encodeURIComponent(idS)}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Errore nella richiesta.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const elementiList = document.getElementById('elementiList');
+                elementiList.innerHTML = ''; // Pulisci la lista precedente
+
+                data.forEach(elemento => {
+                    const listItem = document.createElement('li');
+                    //costruisce la nuova lista
+                    listItem.textContent = `ID: ${elemento.idElemento},Titolo: ${elemento.titolo}, Descrizione: ${elemento.descrizione}`;
+                    elementiList.appendChild(listItem);
+                });
+            })
+            .catch(error => {
+                console.error('Errore:', error);
+                alert('Si è verificato un errore durante il recupero delle segnalazioni.');
             });
     }
 </script>

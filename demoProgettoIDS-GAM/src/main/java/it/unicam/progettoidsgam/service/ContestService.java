@@ -1,8 +1,8 @@
 package it.unicam.progettoidsgam.service;
 
 import it.unicam.progettoidsgam.modelli.Elemento;
-import it.unicam.progettoidsgam.PI;
-import it.unicam.progettoidsgam.PIRepository;
+import it.unicam.progettoidsgam.modelli.PI;
+import it.unicam.progettoidsgam.repository.PIRepository;
 import it.unicam.progettoidsgam.modelli.Contest;
 import it.unicam.progettoidsgam.eccezioni.ResourceAlreadyExistsException;
 import it.unicam.progettoidsgam.repository.ContestRepository;

@@ -24,7 +24,7 @@ public class AnimatoreService {
         this.utentiRepository= utentiRepository;
     }
    public void salvaAnimatoreIniziale() {
-        Animatore animatore = new Animatore("Nome","Cognome","nickname2");
+        Animatore animatore = new Animatore("Nome","Cognome","animatore");
         utentiRepository.save(animatore);
     }
 

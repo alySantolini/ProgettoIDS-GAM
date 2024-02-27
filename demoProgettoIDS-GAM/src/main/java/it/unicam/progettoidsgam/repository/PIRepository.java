@@ -1,6 +1,6 @@
-package it.unicam.progettoidsgam;
+package it.unicam.progettoidsgam.repository;
 
-import it.unicam.progettoidsgam.PI;
+import it.unicam.progettoidsgam.modelli.PI;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

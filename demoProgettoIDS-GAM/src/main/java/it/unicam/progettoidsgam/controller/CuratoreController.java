@@ -2,7 +2,7 @@ package it.unicam.progettoidsgam.controller;
 
 import it.unicam.progettoidsgam.service.CuratoreService;
 import it.unicam.progettoidsgam.modelli.Elemento;
-import it.unicam.progettoidsgam.PI;
+import it.unicam.progettoidsgam.modelli.PI;
 import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

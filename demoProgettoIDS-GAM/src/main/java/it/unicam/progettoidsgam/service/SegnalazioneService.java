@@ -48,8 +48,4 @@ public class SegnalazioneService {
         }
     }
 
-    public Segnalazione findById(String id) {
-        return segnalazioneRepository.findById(id).orElse(null);
-    }
-
 }

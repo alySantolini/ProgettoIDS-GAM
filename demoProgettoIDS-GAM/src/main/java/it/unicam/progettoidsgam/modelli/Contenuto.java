@@ -1,6 +1,7 @@
 package it.unicam.progettoidsgam.modelli;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Lob;
 
 import java.io.File;
 
@@ -9,13 +10,13 @@ import java.io.File;
 public class Contenuto extends Elemento {
 
     private String tipologia;
-    private File immagine;
+    @Lob
+    private byte[] immagine;
     private static int idCOPrecedente;
 
-    public Contenuto(File immagine, String titolo, String descrizione, String tipologia, String piRiferimento) {
+    public Contenuto(byte[] immagine, String titolo, String descrizione, String piRiferimento) {
         super(descrizione,titolo,piRiferimento);
         this.immagine=immagine;
-        this.tipologia=tipologia;
         setIdContenuto();
     }
 
@@ -25,17 +26,16 @@ public class Contenuto extends Elemento {
         return super.getIdElemento();
     }
 
+    public void setIdContenuto() {
+        super.setIdElemento("CO",idCOPrecedente);
+        idCOPrecedente +=1;
+    }
     public String getTipologia() {
         return tipologia;
     }
 
     public void setTipologia(String tipologia) {
         this.tipologia = tipologia;
-    }
-
-    public void setIdContenuto() {
-        super.setIdElemento("CO",idCOPrecedente);
-        idCOPrecedente +=1;
     }
 
 
@@ -58,6 +58,13 @@ public class Contenuto extends Elemento {
         System.out.println(this.getIdElemento() + this.getTitolo() + this.getDescrizione() + this.getTipologia());
         }*/
 
+    public byte[] getImmagine() {
+        return immagine;
+    }
+
+    public void setImmagine(byte[] immagine) {
+        this.immagine = immagine;
+    }
 }
 
 

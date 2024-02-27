@@ -2,8 +2,8 @@ package it.unicam.progettoidsgam.service;
 
 import it.unicam.progettoidsgam.repository.ElementiRepository;
 import it.unicam.progettoidsgam.modelli.Elemento;
-import it.unicam.progettoidsgam.PI;
-import it.unicam.progettoidsgam.PIRepository;
+import it.unicam.progettoidsgam.modelli.PI;
+import it.unicam.progettoidsgam.repository.PIRepository;
 import it.unicam.progettoidsgam.modelli.Contenuto;
 import it.unicam.progettoidsgam.eccezioni.ResourceAlreadyExistsException;
 import it.unicam.progettoidsgam.repository.ContenutoRepository;
@@ -11,10 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import static it.unicam.progettoidsgam.modelli.Contest.elementiContest;
 import static it.unicam.progettoidsgam.modelli.Curatore.elementiCuratore;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Optional;
 
@@ -63,6 +66,29 @@ public class ContenutoService {
         co.setIdContenuto();
         elementiCuratore.add(co);
         return co;
+    }
+    public Contenuto addContenutoMultimediale(String titolo, String descrizione, String piRiferimento, MultipartFile file) throws IOException {
+        File newFile = new File("/C:/Users/Alice/IdeaProjects/unicam/src/main/resources"+file.getOriginalFilename());
+        newFile.createNewFile();
+        FileOutputStream fileOut=new FileOutputStream(newFile);
+        fileOut.write(file.getBytes());
+        fileOut.close();
+        Contenuto contenuto = new Contenuto(file.getBytes(), titolo, descrizione, piRiferimento);
+        contenuto.setImmagine(file.getBytes());
+        contenuto.setTipologia("MULTIMEDIALE");
+        return contenutoRepository.save(contenuto);
+    }
+    public Contenuto creaContenutoMultimediale(String titolo, String descrizione, String piRiferimento,MultipartFile file) throws IOException {
+        File newFile = new File("/C:/Users/Alice/IdeaProjects/unicam/src/main/resources"+file.getOriginalFilename());
+        newFile.createNewFile();
+        FileOutputStream fileOut=new FileOutputStream(newFile);
+        fileOut.write(file.getBytes());
+        fileOut.close();
+        Contenuto contenuto = new Contenuto(file.getBytes(), titolo, descrizione, piRiferimento);
+        contenuto.setImmagine(file.getBytes());
+        contenuto.setTipologia("MULTIMEDIALE");
+        elementiCuratore.add(contenuto);
+        return contenuto;
     }
     public ResponseEntity<Object> getContenutoByTitolo(String titolo) {
         Optional<Contenuto> contenuto = contenutoRepository.findByTitolo(titolo);

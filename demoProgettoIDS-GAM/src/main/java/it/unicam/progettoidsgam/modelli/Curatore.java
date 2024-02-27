@@ -1,7 +1,7 @@
 package it.unicam.progettoidsgam.modelli;
 
 
-import it.unicam.progettoidsgam.PI;
+import it.unicam.progettoidsgam.modelli.PI;
 import jakarta.persistence.Entity;
 
 import java.util.ArrayList;

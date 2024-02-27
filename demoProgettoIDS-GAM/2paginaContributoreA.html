@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Mappa di Fano</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-    <style>
+ <style>
         #map {
             height: 400px;
             width: 100%;
@@ -21,6 +21,26 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
             z-index: 1000;
         }
+        .modal {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.7);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 9999;
+            }
+
+            .modal img {
+                max-width: 90%;
+                max-height: 90%;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+
     </style>
 </head>
 <body>
@@ -78,7 +98,7 @@
 <div id="popup" class="popup-container">
     <h2>Vuoi aggiungere il tuo contenuto al contest?</h2>
     <button onclick="showPopup1(),hidePopup()">Aggiungi al contest</button>
-    <button onclick="hidePopup()">Non aggiungere al contest</button>
+   <button onclick="hidePopup()">Non aggiungere al contest</button>
 </div>
 
 <div id="popup1" class="popup-container">
@@ -88,7 +108,24 @@
     <button onclick="hidePopup1(),showPopup()">Indietro</button>
 </div>
 
-<h2>Create Contenuto</h2>
+<h2>Crea Contenuto con immagine</h2>
+<form id="contenutoForm1">
+    <label for="contenutoId1">contenuto id:</label>
+    <input type="text" id="contenutoId1" name="contenutoId" disabled><br><br>
+    <label for="contenutoTitolo1">Contenuto Titolo:</label>
+    <input type="text" id="contenutoTitolo1" name="contenutoTitolo" required><br><br>
+    <label for="contenutoDescrizione1">contenuto Descrizione:</label>
+    <input type="text" id="contenutoDescrizione1" name="contenutoDescrizione" required><br><br>
+    <label for="piRiferimento1">Titolo PI Riferimento:</label>
+    <input type="text" id="piRiferimento1" name="piRiferimento" required><br><br>
+    <div id="fileInputContainer">
+        <input type="file" id="fileInput">
+    </div>
+    <button type="button" onclick="creaContenutoMultimediale(),showPopup()">Crea Contenuto</button>
+
+</form>
+
+<h2>Create Commento</h2>
 <form id="contenutoForm">
     <label for="contenutoId">contenuto id:</label>
     <input type="text" id="contenutoId" name="contenutoId" disabled><br><br>
@@ -100,9 +137,7 @@
     <input type="text" id="contenutoDescrizione" name="contenutoDescrizione" required><br><br>
     <label for="piRiferimento">Titolo PI Riferimento:</label>
     <input type="text" id="piRiferimento" name="piRiferimento" required><br><br>
-    <input type="file" id="fileInput">
-    <button type="button" onclick="createContenuto(),showPopup()">Crea Contenuto</button>
-
+    <button type="button" onclick="createCommento()">Crea Commento</button>
 </form>
 
 <h2>Create Esperienza</h2>
@@ -319,10 +354,36 @@
             })
             .then(contenuto => {
                 const contenutoResult = document.getElementById('contenutoResult');
-                if (contenuto!=null) {
-                    contenutoResult.textContent = `ID: ${contenuto.idElemento}, Descrizione: ${contenuto.descrizione}, Titolo: ${contenuto.titolo},PI Riferimento: ${contenuto.piRiferimento},Immagine: ${contenuto.immagine}`;
+                if (contenuto != null) {
+                    contenutoResult.innerHTML = `ID: ${contenuto.idElemento}, Descrizione: ${contenuto.descrizione}, Titolo: ${contenuto.titolo}, PI Riferimento: ${contenuto.piRiferimento}`;
+
+                    if (contenuto.immagine) {
+                        const byteCharacters = atob(contenuto.immagine); // Converti i byte in una stringa base64
+                        const byteNumbers = new Array(byteCharacters.length);
+                        for (let i = 0; i < byteCharacters.length; i++) {
+                            byteNumbers[i] = byteCharacters.charCodeAt(i);
+                        }
+                        const byteArray = new Uint8Array(byteNumbers);
+
+                        // Crea un oggetto Blob dai dati dell'immagine
+                        const blob = new Blob([byteArray], { type: 'image/jpeg' }); // Sostituisci 'image/jpeg' con il tipo MIME corretto dell'immagine
+
+                        // Crea un URL oggetto dal Blob
+                        const url = URL.createObjectURL(blob);
+
+                        // Continua come prima con l'utilizzo dell'URL nell'elemento img
+                        var modal = document.createElement('div');
+                        modal.classList.add('modal');
+                        var img = document.createElement('img');
+                        img.src = url;
+                        modal.appendChild(img);
+                        document.body.appendChild(modal);
+                        modal.addEventListener('click', function() {
+                            modal.remove();
+                        });
+                    }
                 } else {
-                    contenutoResult.textContent = `contenuto non trovato.`;
+                    contenutoResult.textContent = `Contenuto non trovato.`;
                 }
             })
             .catch(error => console.error('Errore:', error));
@@ -343,7 +404,7 @@
         // Mostra il pop-up impostando lo stile "display" a "block"
         document.getElementById('popup1').style.display = 'block';
     }
-    function createContenuto() {
+    function createCommento() {
         const contenutoId=document.getElementById('contenutoId').value;
         const contenutoTipologia = document.getElementById('contenutoTipologia').value;
         const contenutoTitolo = document.getElementById('contenutoTitolo').value;
@@ -393,6 +454,58 @@
                 alert('Si è verificato un errore durante l\'aggiunta del contenuto.');
             });
     }
+
+    function creaContenutoMultimediale() {
+        const contenutoId = document.getElementById('contenutoId1').value;
+        const contenutoTitolo = document.getElementById('contenutoTitolo1').value;
+        const contenutoDescrizione = document.getElementById('contenutoDescrizione1').value;
+        const piRiferimento = document.getElementById('piRiferimento1').value;
+
+        const fileInput = document.getElementById('fileInput');
+        const file = fileInput.files[0];
+
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('idElemento', contenutoId);
+        formData.append('titolo', contenutoTitolo);
+        formData.append('descrizione', contenutoDescrizione);
+        formData.append('piRiferimento', piRiferimento);
+
+        fetch(`${baseUrl}/pubblicaContenutoMultimediale`, {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Errore nella richiesta.');
+                }
+                return response.blob();
+            })
+            .then(blob => {
+                var url = URL.createObjectURL(blob);
+
+                // Creazione della finestra modale
+                var modal = document.createElement('div');
+                modal.classList.add('modal');
+
+                // Creazione dell'elemento immagine
+                var img = document.createElement('img');
+                img.src = url;
+                modal.appendChild(img);
+
+                // Aggiunta della finestra modale al corpo del documento
+                document.body.appendChild(modal);
+
+                // Chiudi la finestra modale quando l'utente fa clic su di essa
+                modal.addEventListener('click', function() {
+                    modal.remove();
+                });
+
+                alert('Contenuto aggiunto con successo!');
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
     function partecipa() {
         const contestTitolo = document.getElementById('contestTitolo').value;
 
@@ -503,7 +616,7 @@
             .then(contest => {
                 const contestResult = document.getElementById('contestResult');
                 if (contest!=null) {
-                    contestResult.textContent = `ID: ${contest.idContest}, Descrizione: ${contest.descrizione}, Titolo: ${contest.titolo}, Tipologia: ${contest.tipologia}, PiRiferimento ${contest.piRiferimento}, DataFine ${contest.dataFine}, Animatore ${contest.creatore}`;
+                    contestResult.textContent = `ID: ${contest.idElemento}, Descrizione: ${contest.descrizione}, Titolo: ${contest.titolo}, Tipologia: ${contest.tipologia}, PiRiferimento ${contest.piRiferimento}, DataFine ${contest.dataFine}, Animatore ${contest.creatore}`;
                 } else {
                     contestResult.textContent = `contest non trovato.`;
                 }
@@ -525,7 +638,7 @@
                 data.forEach(contest => {
                     const listItem = document.createElement('li');
                     //costruisce la nuova lista
-                    listItem.textContent = `ID: ${contest.idContest}, Descrizione: ${contest.descrizione}, Titolo: ${contest.titolo}, Tipologia: ${contest.tipologia}, Animatore ${contest.creatore}, PiRiferimento ${contest.piRiferimento},DataFine ${contest.dataFine}`;
+                    listItem.textContent = `ID: ${contest.idElemento}, Descrizione: ${contest.descrizione}, Titolo: ${contest.titolo}, Tipologia: ${contest.tipologia}, Animatore ${contest.creatore}, PiRiferimento ${contest.piRiferimento},DataFine ${contest.dataFine}`;
                     contestList.appendChild(listItem);
                 });
             })
