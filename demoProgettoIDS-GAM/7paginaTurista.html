@@ -99,7 +99,6 @@
         maxZoom: 19,
     }).addTo(map);
 
-    // Puoi aggiungere marker o layer aggiuntivi qui, ad esempio:
     L.marker([43.8396, 13.0148]).addTo(map)
         .bindPopup('Fano, Italia')
         .openPopup();
@@ -116,11 +115,10 @@
             })
             .then(data => {
                 const piList = document.getElementById('piList');
-                piList.innerHTML = ''; // Pulisci la lista precedente
+                piList.innerHTML = '';
 
                 data.forEach(pi => {
                     const listItem = document.createElement('li');
-                    //costruisce la nuova lista
                     listItem.textContent = `ID: ${pi.idPI}, Descrizione: ${pi.descrizione}, Titolo: ${pi.titolo}, Tipologia: ${pi.tipologia}, Latitudine: ${pi.latitudine}, Longitudine: ${pi.longitudine}`;
                     piList.appendChild(listItem);
                 });
@@ -143,11 +141,10 @@
             })
             .then(data => {
                 const elementiList = document.getElementById('elementiList');
-                elementiList.innerHTML = ''; // Pulisci la lista precedente
+                elementiList.innerHTML = ''
 
                 data.forEach(elemento => {
                     const listItem = document.createElement('li');
-                    //costruisce la nuova lista
                     listItem.textContent = `ID: ${elemento.idElemento}, Descrizione: ${elemento.descrizione}, Titolo: ${elemento.titolo}, Tipologia: ${elemento.tipologia}`;
                     elementiList.appendChild(listItem);
                 });
@@ -185,13 +182,11 @@
             })
             .then(data => {
                 const contenutoList = document.getElementById('contenutoList');
-                contenutoList.innerHTML = ''; // Pulisci la lista precedente
+                contenutoList.innerHTML = '';
 
                 data.forEach(contenuto => {
                     const listItem = document.createElement('li');
-                    //costruisce la nuova lista
-                    listItem.textContent = `ID: ${contenuto.idElemento}, Descrizione: ${contenuto.descrizione}, Titolo: ${contenuto.titolo}, PI Riferimento: ${contenuto.piRiferimento}
-                Immagine: ${contenuto.immagine}`;
+                    listItem.textContent = `ID: ${contenuto.idElemento}, Descrizione: ${contenuto.descrizione}, Titolo: ${contenuto.titolo}, PI Riferimento: ${contenuto.piRiferimento}`;
                     contenutoList.appendChild(listItem);
                 });
             })
@@ -211,18 +206,17 @@
             })
             .then(data => {
                 const commentiList = document.getElementById('commentiList');
-                commentiList.innerHTML = ''; // Pulisci la lista precedente
+                commentiList.innerHTML = '';
 
                 data.forEach(commento => {
                     const listItem = document.createElement('li');
-                    //costruisce la nuova lista
-                    listItem.textContent = `ID: ${commento.idElemento}, Descrizione: ${commento.descrizione}, Titolo: ${commento.titolo}, Tipologia: ${commento.tipologia}`;
+                    listItem.textContent = `ID: ${commento.idElemento}, Descrizione: ${commento.descrizione}, Titolo: ${commento.titolo}, Tipologia: ${commento.tipologia},PiRiferimento: ${commento.piRiferimento}`;
                     commentiList.appendChild(listItem);
                 });
             })
             .catch(error => {
                 console.error('Errore:', error);
-                alert('Si è verificato un errore durante il recupero dei POI.');
+                alert('Si è verificato un errore durante il recupero dei commenti.');
             });
     }
 
@@ -242,20 +236,18 @@
                     contenutoResult.innerHTML = `ID: ${contenuto.idElemento}, Descrizione: ${contenuto.descrizione}, Titolo: ${contenuto.titolo}, PI Riferimento: ${contenuto.piRiferimento}`;
 
                     if (contenuto.immagine) {
-                        const byteCharacters = atob(contenuto.immagine); // Converti i byte in una stringa base64
+                        const byteCharacters = atob(contenuto.immagine);
                         const byteNumbers = new Array(byteCharacters.length);
                         for (let i = 0; i < byteCharacters.length; i++) {
                             byteNumbers[i] = byteCharacters.charCodeAt(i);
                         }
                         const byteArray = new Uint8Array(byteNumbers);
 
-                        // Crea un oggetto Blob dai dati dell'immagine
-                        const blob = new Blob([byteArray], { type: 'image/jpeg' }); // Sostituisci 'image/jpeg' con il tipo MIME corretto dell'immagine
 
-                        // Crea un URL oggetto dal Blob
+                        const blob = new Blob([byteArray], { type: 'image/jpeg' });
+
                         const url = URL.createObjectURL(blob);
 
-                        // Continua come prima con l'utilizzo dell'URL nell'elemento img
                         var modal = document.createElement('div');
                         modal.classList.add('modal');
                         var img = document.createElement('img');
@@ -285,7 +277,7 @@
             .then(commento => {
                 const commentoResult = document.getElementById('commentoResult');
                 if (commento!=null) {
-                    commentoResult.textContent = `ID: ${commento.idElemento}, Descrizione: ${commento.descrizione}, Titolo: ${commento.titolo}, Tipologia: ${commento.tipologia}`;
+                    commentoResult.textContent = `ID: ${commento.idElemento}, Descrizione: ${commento.descrizione}, Titolo: ${commento.titolo}, Tipologia: ${commento.tipologia},PiRiferimento: ${commento.piRiferimento}`;
                 } else {
                     commentoResult.textContent = `Commento non trovato.`;
                 }
@@ -302,12 +294,11 @@
                 return response.json();
             })
             .then(data => {
-                const esperienzaList = document.getElementById('ta precesperienzaList');
-                esperienzaList.innerHTML = ''; // Pulisci la lisedente
+                const esperienzaList = document.getElementById('esperienzaList');
+                esperienzaList.innerHTML = '';
 
                 data.forEach(esperienza => {
                     const listItem = document.createElement('li');
-                    //costruisce la nuova lista
                     listItem.textContent = `ID: ${esperienza.idElemento}, Descrizione: ${esperienza.descrizione}, Titolo: ${esperienza.titolo}, Tipologia: ${esperienza.tipologia}, ListaPI: ${esperienza.listaPI}, PiRiferimento: ${esperienza.piRiferimento}`;
                     esperienzaList.appendChild(listItem);
                 });
@@ -363,12 +354,10 @@
                 }
             })
             .then(data => {
-                // Gestisci la risposta del server, ad esempio mostra un messaggio di successo
                 console.log('Segnalazione aggiunta con successo:', data);
                 alert('Segnalazione generata con successo');
             })
             .catch(error => {
-                // Gestisci gli errori, ad esempio mostra un messaggio di errore
                 console.error('Errore:', error);
                 alert('Errore');
             });

@@ -1,6 +1,6 @@
 package it.unicam.progettoidsgam.controller;
 
-import it.unicam.progettoidsgam.modelli.Elemento;
+
 import it.unicam.progettoidsgam.service.SegnalazioneService;
 import it.unicam.progettoidsgam.eccezioni.ResourceAlreadyExistsException;
 import it.unicam.progettoidsgam.modelli.Segnalazione;
@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.List;
+
 
 @CrossOrigin(origins="http://localhost:63342")
 @RestController
@@ -19,7 +19,6 @@ public class SegnalazioneController {
 
 
     private SegnalazioneService segnalazioneService;
-   // private final SegnalazioneRepository segnalazioneRepository;
 
     @Autowired
     public SegnalazioneController(SegnalazioneService segnalazioneService) {
@@ -29,7 +28,7 @@ public class SegnalazioneController {
     @PostMapping("/pubblicaSegnalazione")
     public ResponseEntity<Object> addSegnalazione(@RequestBody Segnalazione segnalazione) {
         try {
-            // Aggiungi il contenuto nel database
+            // Aggiungi la segnalazione nel database
             Segnalazione newSegnalazione = segnalazioneService.addNewSegnalazione(segnalazione);
          return new ResponseEntity<>(newSegnalazione, HttpStatus.CREATED);
         } catch (ResourceAlreadyExistsException | IOException e) {
@@ -47,13 +46,5 @@ public class SegnalazioneController {
         return segnalazioneService.getSegnalazione(idSegnalazione);
     }
 
-    @GetMapping("/elementiSegnalazione/{idSegnalazione}")
-    public ResponseEntity<Object> getElementiSegnalazione(@PathParam("idSegnalazione") String idSegnalazione) {
-        List<Elemento> elementi = segnalazioneService.getElementiSegnalazione(idSegnalazione);
-        if (elementi != null) {
-            return new ResponseEntity<>(elementi, HttpStatus.OK);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
+
 }

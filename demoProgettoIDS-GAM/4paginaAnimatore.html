@@ -73,9 +73,8 @@
                 return response.json();
             })
             .then(data => {
-                console.log('Dati ricevuti:', data); // Controlla i dati ricevuti nella console
+                console.log('Dati ricevuti:', data);
                 alert('Contest aggiunto con successo!');
-                // Esegui eventuali azioni aggiuntive dopo l'aggiunta del contest
             })
             .catch(error => {
                 console.error('Errore:', error);
@@ -95,7 +94,7 @@
             })
             .then(data => {
                 const elementiList = document.getElementById('elementiList');
-                elementiList.innerHTML = ''; // Pulisci la lista precedente
+                elementiList.innerHTML = '';
 
                 data.forEach(elemento => {
                     const listItem = document.createElement('li');

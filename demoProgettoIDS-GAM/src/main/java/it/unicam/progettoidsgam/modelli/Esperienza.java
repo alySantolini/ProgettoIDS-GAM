@@ -1,12 +1,10 @@
 package it.unicam.progettoidsgam.modelli;
 
-import it.unicam.progettoidsgam.modelli.Elemento;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 
 import java.util.List;
 
-//DA SISTEMARE
 @Entity
 public class Esperienza extends Elemento {
 

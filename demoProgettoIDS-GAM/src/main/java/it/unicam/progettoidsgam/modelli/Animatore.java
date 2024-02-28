@@ -3,7 +3,6 @@ package it.unicam.progettoidsgam.modelli;
 
 import jakarta.persistence.Entity;
 
-//DA SISTEMARE
 @Entity
 public class Animatore extends Utente {
 
@@ -52,41 +51,3 @@ public class Animatore extends Utente {
         return idAPrecedente;
     }
 }
-/*
-    public Contest creaContest(PI pi, String tipologia, String titolo, String descrizione, Animatore animatore, Duration durata){
-        return new Contest (descrizione, titolo, tipologia, pi, this,durata);
-    }
-    public List<Contributore> creaLista(/*DU){
-
-        /*ipotetico database utenti chiamato DU
-        List<Contributore> destinatari = new ArrayList<>;
-        for(Utente u: DU){
-            if(u.instanceOf(Contributore)){
-                if(u.getAutorizzato){
-                destinatari.add(u);
-                }
-            }
-        }
-        if(destinatari.isEmpty()){
-            System.out.println("la lista è vuota");
-            return null;
-        }else{
-        return destinatari;
-
-
-        return null;
-    }
-    public Invito creaInvito(String descrizione, List<Contributore> destinatari, String idContest){
-        return new Invito(descrizione, destinatari, idContest);
-    }
-    public Contest creaContestconInvito(PI pi, String tipologia, String titolo, String descrizione, Animatore animatore, Invito invito,ListaCondivisaNotifiche lcN,Duration durata){
-        return new Contest (descrizione, titolo, tipologia, pi, this, invito,durata);
-    }
-
-    public void pubblicaContest(ListaCondivisaElementoPubblicato lCeP,String titolo, String descrizione,String tipologia, PI piRiferimento, Duration durata){
-        Contest contest = creaContest(piRiferimento,tipologia,titolo,descrizione,this,durata);
-        lCeP.aggiungiElemento(contest,null,this,null);
-        System.out.println("il contest "+contest.getTitolo()+"è stato pubblicato");
-    }
-}
-*/

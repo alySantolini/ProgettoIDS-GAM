@@ -1,11 +1,8 @@
 package it.unicam.progettoidsgam.service;
 
-import it.unicam.progettoidsgam.repository.ElementiRepository;
-import it.unicam.progettoidsgam.modelli.Elemento;
-import it.unicam.progettoidsgam.modelli.PI;
-import it.unicam.progettoidsgam.repository.PIRepository;
+import it.unicam.progettoidsgam.modelli.Contest;
+import it.unicam.progettoidsgam.repository.ContestRepository;
 import it.unicam.progettoidsgam.modelli.Contenuto;
-import it.unicam.progettoidsgam.eccezioni.ResourceAlreadyExistsException;
 import it.unicam.progettoidsgam.repository.ContenutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,14 +23,12 @@ public class ContenutoService {
 
 
     private final ContenutoRepository contenutoRepository;
-    private final PIRepository piRepository;
-    private final ElementiRepository<Elemento> elementiRepository;
+    private final ContestRepository contestRepository;
 
     @Autowired
-    public ContenutoService(ContenutoRepository contenutoRepository, PIRepository piRepository, ElementiRepository<Elemento> elementiRepository) throws IOException {
+    public ContenutoService(ContestRepository contestRepository,ContenutoRepository contenutoRepository) throws IOException {
         this.contenutoRepository =contenutoRepository;
-        this.piRepository=piRepository;
-        this.elementiRepository = elementiRepository;
+        this.contestRepository=contestRepository;
     }
 
 
@@ -42,7 +37,7 @@ public class ContenutoService {
     }
 
     public Contenuto addContenutoMultimediale(String titolo, String descrizione, String piRiferimento, MultipartFile file) throws IOException {
-        File newFile = new File("/C:/Users/Alice/IdeaProjects/unicam/src/main/resources"+file.getOriginalFilename());
+        File newFile = new File("/C:/Users/Alice/IdeaProjects/unicam/src/main/resources"+file.getOriginalFilename()); //cambiare il pathname per visualizzare le immagini
         newFile.createNewFile();
         FileOutputStream fileOut=new FileOutputStream(newFile);
         fileOut.write(file.getBytes());
@@ -73,7 +68,7 @@ public class ContenutoService {
         }
     }
     public ResponseEntity<Object> partecipa(String titolo) {
-        Optional<Elemento> contest = elementiRepository.findByTitolo(titolo);
+        Optional<Contest> contest = contestRepository.findByTitolo(titolo);
         if(contest.isPresent()){
             Contenuto contenuto=getUltimoContenuto();
             elementiContest.add(contenuto);

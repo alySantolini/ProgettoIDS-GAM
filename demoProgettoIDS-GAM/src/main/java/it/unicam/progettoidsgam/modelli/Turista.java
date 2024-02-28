@@ -5,7 +5,6 @@ import jakarta.persistence.Entity;
 @Entity
 public class Turista extends Utente {
 
-    private String nickname;
     private static int idTUPrecedente;
     private boolean autenticato;
     public Turista(String nickname,boolean autenticato) {
@@ -32,16 +31,4 @@ public class Turista extends Utente {
         return idTUPrecedente;
     }
 
-   /* public void creaSegnalazione( Contenuto e,String descrizione){
-        Segnalazione segnalazione= new Segnalazione(e.getIdContenuto(),descrizione);
-
-    }
-    public void creaCommento( String descrizione, String titolo, String tipologia, String piRiferimento){
-
-        Commento commento=new Commento(descrizione ,titolo,"commento",piRiferimento);
-        pubblicazioneCommento(commento);
-    }
-    public void pubblicazioneCommento(Commento commento){
-        System.out.println("Il commento "+commento.getTitolo()+" è stato pubblicato");
-    }*/
 }

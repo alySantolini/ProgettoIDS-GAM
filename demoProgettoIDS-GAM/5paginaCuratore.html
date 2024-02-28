@@ -39,12 +39,6 @@
 <input type="text" id="idS" placeholder="idS">
 <button onclick="gestisciSegnalazione()">Gestisci</button>
 
-<h1>Ottieni elementi segnalazione</h1>
-<label for="idSegnalazione1">id Segnalazione</label>
-<input type="text" id="idSegnalazione1">
-<button onclick="getElementiSegnalazione()">ottieni lista elementi segnalazione</button>
-<h2>lista </h2>
-<ul id="elementiList"></ul>
 
 <h1>Autorizza elemento</h1>
 <form id="autorizzaForm1">
@@ -52,13 +46,6 @@
     <input type="text" id="idElemento" name="idElemento">
     <button type="button" onclick="autorizzaElemento()">Autorizza</button>
 </form>
-
-<h1>Ottieni elementi segnalazione</h1>
-<label for="segnalazioneId">id Segnalazione</label>
-<input type="text" id="segnalazioneId">
-<button onclick="getElementiSegnalazione()">ottieni lista elementi segnalazione</button>
-<h2>lista </h2>
-<ul id="elementiSegnalazione"></ul>
 
 <script>
     if (!sessionStorage.getItem('isAuthenticated')) {
@@ -90,7 +77,6 @@
             .catch((error) => {
                 console.error('Error:', error);
                 alert('Error', error);
-                // Gestisci eventuali errori
             });
     }
     function autorizzaElemento() {
@@ -110,12 +96,10 @@
             .then(data => {
                 console.log('Success:', data);
                 alert('autorizzato',data.idElemento);
-                // Aggiorna la pagina o esegui altre azioni necessarie dopo l'autorizzazione
             })
             .catch((error) => {
                 console.error('Error:', error);
                 alert('errore')
-                // Gestisci eventuali errori
             });
     }
     function getSegnalazioni() {
@@ -128,11 +112,10 @@
             })
             .then(data => {
                 const segnalazioniList = document.getElementById('segnalazioniList');
-                segnalazioniList.innerHTML = ''; // Pulisci la lista precedente
+                segnalazioniList.innerHTML = ''
 
                 data.forEach(segnalazione => {
                     const listItem = document.createElement('li');
-                    //costruisce la nuova lista
                     listItem.textContent = `ID: ${segnalazione.idSegnalazione}, Descrizione: ${segnalazione.descrizione}`;
                     segnalazioniList.appendChild(listItem);
                 });
@@ -152,11 +135,10 @@
             })
             .then(data => {
                 const listaList = document.getElementById('listaList');
-                listaList.innerHTML = ''; // Pulisci la lista precedente
+                listaList.innerHTML = '';
 
                 data.forEach(elemento => {
                     const listItem = document.createElement('li');
-                    //costruisce la nuova lista
                     listItem.textContent = `ID: ${elemento.idElemento},Titolo: ${elemento.titolo}, Descrizione: ${elemento.descrizione}`;
                     listaList.appendChild(listItem);
                 });
@@ -176,11 +158,9 @@
             })
             .then(data => {
                 const piList = document.getElementById('piList');
-                piList.innerHTML = ''; // Pulisci la lista precedente
-
+                piList.innerHTML = '';
                 data.forEach(pi => {
                     const listItem = document.createElement('li');
-                    //costruisce la nuova lista
                     listItem.textContent = `ID: ${pi.idPI},Titolo: ${pi.titolo}, Descrizione: ${pi.descrizione}`;
                     piList.appendChild(listItem);
                 });
@@ -224,7 +204,6 @@
                 if (response.ok) {
                     console.log('Segnalazione gestita con successo');
                     alert('Segnalazione gestita  con successo!');
-                    // Aggiungi qui eventuali azioni da eseguire dopo aver gestito la segnalazione
                 } else {
                     console.error('Errore durante la gestione della segnalazione');
                     alert('Errore durante la gestione della segnalazione')
@@ -236,32 +215,6 @@
             });
     }
 
-    function getElementiSegnalazione() {
-        const idS=document.getElementById('segnalazioneId').value;
-
-        fetch(`${baseUrl}/elementiSegnalazione/idSegnalazione?idSegnalazione=${encodeURIComponent(idS)}`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Errore nella richiesta.');
-                }
-                return response.json();
-            })
-            .then(data => {
-                const elementiList = document.getElementById('elementiList');
-                elementiList.innerHTML = ''; // Pulisci la lista precedente
-
-                data.forEach(elemento => {
-                    const listItem = document.createElement('li');
-                    //costruisce la nuova lista
-                    listItem.textContent = `ID: ${elemento.idElemento},Titolo: ${elemento.titolo}, Descrizione: ${elemento.descrizione}`;
-                    elementiList.appendChild(listItem);
-                });
-            })
-            .catch(error => {
-                console.error('Errore:', error);
-                alert('Si è verificato un errore durante il recupero delle segnalazioni.');
-            });
-    }
 
 </script>
 </body>

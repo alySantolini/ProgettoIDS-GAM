@@ -1,26 +1,16 @@
 package it.unicam.progettoidsgam.modelli;
 
-import it.unicam.progettoidsgam.modelli.Elemento;
 import jakarta.persistence.Entity;
-
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
-import java.io.IOException;
-
-//DA SISTEMARE
 @Entity
 public class Commento extends Elemento {
 
     private String tipologia;
-    private String titolo;
-    private String descrizione;
     private static int idCOMPrecedente;
 
 
-    public Commento(String descrizione,String titolo,String tipologia,String piRiferimento) {
+    public Commento(String descrizione,String titolo,String piRiferimento) {
         super(descrizione,titolo,piRiferimento);
-        this.tipologia=tipologia;
+        this.tipologia="TESTUALE";
         setIdCommento();
     }
 
@@ -29,7 +19,7 @@ public class Commento extends Elemento {
 
     @Override
     public void creazione() {
-        System.out.println("Creato");
+        System.out.println("Commento creato");
     }
 
     public String getIdCommento() {

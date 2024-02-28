@@ -38,6 +38,7 @@ public class AnimatoreService {
         }
         return false;
     }
+
     public Animatore addNewAnimatore(Animatore animatore) throws IOException {
         Optional<Animatore> animatore1=animatoreRepository.findById(animatore.getIdAnimatore());
         Optional<Animatore> animatore2=animatoreRepository.findByNickname(animatore.getNickname());

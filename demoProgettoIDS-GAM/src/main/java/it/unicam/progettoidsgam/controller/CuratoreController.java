@@ -25,24 +25,12 @@ public class CuratoreController {
         this.curatoreService = curatoreService;
         salvaCuratore();
     }
-/*
-    @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestParam String username, @RequestParam String password) {
-        boolean authenticated = contributoreService.authenticate(username, password);
-        if (authenticated) {
-            return new ResponseEntity<>("Login effettuato con successo", HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("Credenziali non valide", HttpStatus.UNAUTHORIZED);
-        }
-    }
-    */
 
     @PostMapping("/salva-curatore")
     public ResponseEntity<String> salvaCuratore() {
         curatoreService.salva();
         return ResponseEntity.ok("Contributore salvato con successo!");
     }
-
 
     @PutMapping("/gestisci/{idSegnalazione}")
     public ResponseEntity<Object> gestisciSegnalazione(@PathParam("idSegnalazione")String idSegnalazione){

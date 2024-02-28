@@ -1,14 +1,7 @@
 package it.unicam.progettoidsgam.service;
 
-import it.unicam.progettoidsgam.*;
-import it.unicam.progettoidsgam.modelli.Curatore;
-import it.unicam.progettoidsgam.modelli.Elemento;
-import it.unicam.progettoidsgam.modelli.PI;
-import it.unicam.progettoidsgam.modelli.Segnalazione;
-import it.unicam.progettoidsgam.repository.CuratoreRepository;
-import it.unicam.progettoidsgam.repository.ElementiRepository;
-import it.unicam.progettoidsgam.repository.PIRepository;
-import it.unicam.progettoidsgam.repository.SegnalazioneRepository;
+import it.unicam.progettoidsgam.modelli.*;
+import it.unicam.progettoidsgam.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,13 +19,16 @@ public class CuratoreService {
 
     private final SegnalazioneRepository segnalazioneRepository;
     private final PIRepository piRepository;
-    private ElementiRepository<Elemento> elementiRepository;
+    private final ElementiRepository<Elemento> elementiRepository;
+
+    private final ContestRepository contestRepository;
     @Autowired
-    public CuratoreService(ElementiRepository<Elemento> elementiRepository, CuratoreRepository curatoreRepository, SegnalazioneRepository segnalazioneRepository, PIRepository piRepository) {
+    public CuratoreService(ElementiRepository<Elemento> elementiRepository, CuratoreRepository curatoreRepository, SegnalazioneRepository segnalazioneRepository, PIRepository piRepository,ContestRepository contestRepository) {
         this.elementiRepository = elementiRepository;
         this.curatoreRepository =curatoreRepository;
         this.segnalazioneRepository=segnalazioneRepository;
         this.piRepository=piRepository;
+        this.contestRepository = contestRepository;
     }
 
     public void salva() {
@@ -77,11 +73,13 @@ public class CuratoreService {
     }
     public void eliminaElementoAssociato(Segnalazione segnalazione) {
         String idElementoAssociato = segnalazione.getIdElemento();
-
         if(piRepository.existsById(idElementoAssociato)){
+            eliminaElementi(idElementoAssociato);
             piRepository.deleteById(idElementoAssociato);
-        }else{
+        }if(elementiRepository.existsById(idElementoAssociato)){
             elementiRepository.deleteById(idElementoAssociato);
+        }else{contestRepository.deleteById(idElementoAssociato);
+
         }
     }
 
@@ -96,5 +94,18 @@ public class CuratoreService {
     public ResponseEntity<Object> autorizzaElemento(Elemento e) {
         elementiRepository.save(e);
         return new ResponseEntity<>(e,HttpStatus.OK);
+    }
+    public void eliminaElementi(String idPi){
+        String titolo = piRepository.findById(idPi).get().getTitolo();
+        for (Elemento e: elementiRepository.findAll()) {
+            if(e.getPiRiferimento().equals(titolo)){
+                elementiRepository.delete(e);
+            }
+        }
+        for(Contest c : contestRepository.findAll()){
+            if(c.getPiRiferimento().equals(titolo)){
+                contestRepository.delete(c);
+            }
+        }
     }
 }

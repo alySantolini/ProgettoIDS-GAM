@@ -26,7 +26,7 @@ public class ContributoreService {
 
     public void salvaContributoreIniziale() {
         Contributore contributore = new Contributore("Nome", "Cognome", "contributoreA", true);
-        Contributore contributore1=new Contributore("ali","santolini","contributore",false);
+        Contributore contributore1=new Contributore("Nome","Cognome","contributore",false);
         utentiRepository.save(contributore);
         utentiRepository.save(contributore1);
     }

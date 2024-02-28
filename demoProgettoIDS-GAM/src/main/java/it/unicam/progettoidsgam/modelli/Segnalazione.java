@@ -3,7 +3,6 @@ package it.unicam.progettoidsgam.modelli;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
-//DA SISTEMARE
 @Entity
 public class Segnalazione{
 @Id

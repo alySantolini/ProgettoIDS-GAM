@@ -21,18 +21,6 @@ public class ContributoreController {
         this.contributoreService = contributoreService;
         salvaContributore();
     }
-
-  /* @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestParam String username, @RequestParam String password) {
-        boolean authenticated = contributoreService.authenticate(username, password);
-        if (authenticated) {
-            return new ResponseEntity<>("Login effettuato con successo", HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("Credenziali non valide", HttpStatus.UNAUTHORIZED);
-        }
-    }*/
-
-
     @PostMapping("/salva-contributore")
     public ResponseEntity<String> salvaContributore() {
         contributoreService.salvaContributoreIniziale();
@@ -59,8 +47,4 @@ public class ContributoreController {
     public ResponseEntity<Object> cancellaAnimatore(@PathParam("idUtente") String idUtente) {
         return contributoreService.cancellaContributore(idUtente);
     }
-   /* @PostMapping("/partecipa/{titoloContestInvito}")
-    public ResponseEntity<Object> partecipaInvito(@PathParam("titoloContestInvito") String titoloContestInvito,String idContributore) {
-        return contributoreService.partecipa(titoloContestInvito,idContributore);
-    }*/
 }

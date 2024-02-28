@@ -1,9 +1,13 @@
 package it.unicam.progettoidsgam.service;
 
+import it.unicam.progettoidsgam.modelli.Contest;
 import it.unicam.progettoidsgam.modelli.Elemento;
+import it.unicam.progettoidsgam.modelli.PI;
 import it.unicam.progettoidsgam.modelli.Segnalazione;
+import it.unicam.progettoidsgam.repository.ContestRepository;
 import it.unicam.progettoidsgam.repository.ElementiRepository;
 import it.unicam.progettoidsgam.eccezioni.ResourceAlreadyExistsException;
+import it.unicam.progettoidsgam.repository.PIRepository;
 import it.unicam.progettoidsgam.repository.SegnalazioneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,10 +25,15 @@ public class SegnalazioneService {
 
     private ElementiRepository<Elemento> elementiRepository;
 
+    private PIRepository piRepository;
+    private ContestRepository contestRepository;
+
 
     @Autowired
-    public SegnalazioneService(SegnalazioneRepository segnalazioneRepository, ElementiRepository<Elemento> elementiRepository) throws IOException {
+    public SegnalazioneService(SegnalazioneRepository segnalazioneRepository, ElementiRepository<Elemento> elementiRepository,PIRepository piRepository, ContestRepository contestRepository) throws IOException {
         this.segnalazioneRepository = segnalazioneRepository;
+        this.piRepository = piRepository;
+        this.contestRepository=contestRepository;
         this.elementiRepository=elementiRepository;
     }
 
@@ -54,19 +63,5 @@ public class SegnalazioneService {
         }
     }
 
-    public List<Elemento> getElementiSegnalazione(String idSegnalazione) {
-        Optional<Segnalazione> segnalazione = segnalazioneRepository.findById(idSegnalazione);
-        List<Elemento> listaElementi=new ArrayList<>();
-        if (segnalazione != null) {
-            for (Elemento e : elementiRepository.findAll()) {
-                if(e.getIdElemento().equals(segnalazione.get().getIdElemento())){
-                    listaElementi.add(e);
-                }
-            }
-            return listaElementi;
-        } else {
-            return null;
-        }
-    }
-
 }
+

@@ -6,12 +6,10 @@ import jakarta.persistence.*;
 
 import java.io.IOException;
 
-//DA SISTEMARE
 @Entity
 public class PI {
     @Id
     private String idPI;
-    //private static List<Elemento> lCPI=new ArrayList<>();
     @Enumerated(EnumType.STRING)
     private TipologiaPI tipologia;
     private double longitudine;
@@ -84,17 +82,6 @@ public class PI {
         return idPI;
     }
 
-    /*  public void aggiungi(Elemento e){
-          lCPI.add(e);
-      }
-      public List<Elemento> getLista(){
-          return this.lCPI;
-      }
-      public void visualizzaLista() throws IOException {
-          for(Elemento e : lCPI){
-              e.visualizza();
-          }
-      }*/
     public void visualizza() throws IOException {
         if (this.getIdPI()!=null){
             System.out.println(this.getTitolo()+this.getDescrizione()+this.longitudine+this.latitudine);

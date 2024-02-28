@@ -9,5 +9,4 @@ public interface CommentoRepository extends JpaRepository<Commento, String>{
 
     Optional<Commento> findByTitolo(String titolo);
 
-    Optional<Commento> findFirstByOrderByIdElementoDesc();
 }

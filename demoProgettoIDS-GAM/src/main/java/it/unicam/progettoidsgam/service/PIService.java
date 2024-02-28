@@ -15,6 +15,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Scanner;
+
 import static it.unicam.progettoidsgam.modelli.Curatore.piCuratore;
 
 @Service
@@ -25,9 +27,9 @@ public class PIService {
     private static final double MIN_LONGITUDINE = 13.0148;
     private static final double MAX_LONGITUDINE = 13.0767;
     private final PIRepository piRepository;
-    private final ElementiRepository elementiRepository;
+    private final ElementiRepository<Elemento> elementiRepository;
     @Autowired
-    public PIService(PIRepository piRepository,ElementiRepository elementiRepository){
+    public PIService(PIRepository piRepository,ElementiRepository<Elemento> elementiRepository){
         this.piRepository=piRepository;
         this.elementiRepository=elementiRepository;
     }
@@ -77,8 +79,9 @@ public class PIService {
            List<Elemento> lista= elementiRepository.findAll();
             List<Elemento> lista1=new ArrayList<>();
            for (Elemento e : lista){
-               e.getPiRiferimento().equals(titolo);
-               lista1.add(e);
+               if(e.getPiRiferimento().equals(titolo)){
+                   lista1.add(e);
+               }
             }
             return new ResponseEntity<>(lista1,HttpStatus.OK);
         }

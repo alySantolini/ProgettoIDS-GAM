@@ -37,13 +37,6 @@ public class Contest {
 
     public Contest(){}
 
-  /*  @Override
-    public void creazione() {
-        System.out.println("Creato");
-    }
-
-   */
-
     public String getTitolo() {
         return titolo;
     }
@@ -113,28 +106,3 @@ public class Contest {
         return creatore;
     }
 }
-/*
-    public void terminaEvento(ListaCondivisaElementoPubblicato lista,Contest c){
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                lista.rimuoviEC(c);
-                try {
-                    lista.visualizza();
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
-                timer.cancel();
-            }
-        },this.getDurata().toMillis());
-    }
-    public void visualizza(){
-        if (idContest!=null){
-            System.out.println(this.titolo+this.descrizione);
-        }else{
-            System.out.println("Il contest non esiste");
-        }
-    }
-}*/
-
