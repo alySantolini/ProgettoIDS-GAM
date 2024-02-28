@@ -23,7 +23,6 @@ import java.io.IOException;
 public class ElementoController {
     private ContenutoService contenutoService;
     private EsperienzaService esperienzaService;
-
     private CommentoService commentoService;
 
     @Autowired
@@ -72,7 +71,17 @@ public class ElementoController {
             return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
         }
     }
-
+    @PostMapping(value="/pubblicaCommento")
+    public ResponseEntity<Object> addCommento(@RequestBody Commento commento) {
+        try {
+            // Aggiungi il commento nel database
+            Commento newCommento = commentoService.addNewCommento(commento);
+            commento.creazione();
+            return new ResponseEntity<>(newCommento, HttpStatus.CREATED);
+        } catch (ResourceAlreadyExistsException | IOException e) {
+            return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
+        }
+    }
     @PostMapping("/creaCommento")
     public ResponseEntity<Object> creaCommento(@RequestBody Commento commento) {
         try {

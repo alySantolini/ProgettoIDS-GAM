@@ -10,12 +10,11 @@ public class Contributore extends Utente {
     private String cognome;
     private String nickname;
     private static int idCPrecedente;
-
     private boolean autorizzato;
 
 
-    public Contributore(String nome, String cognome, String nickname, boolean autorizzato/*ListaCondivisaNotifiche listaPersonale*/) {
-        super(nickname/*listaPersonale*/);
+    public Contributore(String nome, String cognome, String nickname, boolean autorizzato) {
+        super(nickname);
         this.autorizzato = autorizzato;
         this.nome = nome;
         this.cognome = cognome;
@@ -23,7 +22,6 @@ public class Contributore extends Utente {
     }
 
     public Contributore() {
-
     }
 
     public String getIdContributore() {

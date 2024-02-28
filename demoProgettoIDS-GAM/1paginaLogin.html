@@ -43,15 +43,22 @@
                     if (firstLetter === 'C' && secondLetter==="A") {
                         window.location.href = '2paginaContributoreA.html';
                     }
-                    if(firstLetter==='A'){
-                        window.location.href='4paginaAnimatore.html';
-                    }
                     if(firstLetter==='C' && !isNaN(parseInt(secondLetter)) ){
                         window.location.href='3paginaContributore.html';
+                    }
+                    if(firstLetter==='A'){
+                        window.location.href='4paginaAnimatore.html';
                     }
                     if (firstLetter === 'C' && secondLetter==="U") {
                         window.location.href = '5paginaCuratore.html';
                     }
+                    if (firstLetter === 'T' && secondLetter==="A") {
+                        window.location.href = '6paginaTuristaA.html';
+                    }
+                    if(firstLetter==='T' && !isNaN(parseInt(secondLetter)) ){
+                        window.location.href='7paginaTurista.html';
+                    }
+
                 } else {
                     // Gestisci eventuali errori di autenticazione
                     alert('Credenziali non valide');

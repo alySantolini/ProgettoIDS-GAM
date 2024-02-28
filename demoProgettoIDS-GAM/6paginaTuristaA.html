@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Mappa di Fano</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
- <style>
+    <style>
         #map {
             height: 400px;
             width: 100%;
@@ -21,27 +21,7 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
             z-index: 1000;
         }
-        .modal {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(0, 0, 0, 0.7);
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                z-index: 9999;
-            }
-
-            .modal img {
-                max-width: 90%;
-                max-height: 90%;
-                border-radius: 5px;
-                cursor: pointer;
-            }
-
-    </style>
+        </style>
 </head>
 <body>
 <div id="map"></div>
@@ -49,28 +29,10 @@
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
 
-
 <h1>Ottieni PI</h1>
 <button onclick="getPI()">Get PI</button>
 <h2>PI List</h2>
 <ul id="piList"></ul>
-
-<h2>Create PI</h2>
-<form id="piForm">
-    <label for="piId" >PI id</label>
-    <input type="text" id="piId" name="piId" disabled><br><br>
-    <label for="piLongitudine">PI Longitudine:</label>
-    <input type="text" id="piLongitudine" name="piLongitudine" required><br><br>
-    <label for="piLatitudine">PI Latitudine:</label>
-    <input type="text" id="piLatitudine" name="piLatitudine" required><br><br>
-    <label for="piTipologia" >PI tipologia:</label>
-    <input type="text" id="piTipologia" name="piTipologia" onclick="showAlert()" required><br><br>
-    <label for="piTitolo">PI Titolo:</label>
-    <input type="text" id="piTitolo" name="piTitolo" required><br><br>
-    <label for="piDescrizione">PI Descrizione:</label>
-    <input type="text" id="piDescrizione" name="piDescrizione" required><br><br>
-    <button type="button" onclick="createPI()">Create PI</button>
-</form>
 
 <h2>Get PI by Titolo</h2>
 <label for="getTitolo">PI Titolo:</label>
@@ -84,41 +46,23 @@
 <button onclick="getElementiPI()">Get Elementi</button>
 <ul id="elementiList"></ul>
 
-
-<h2>Crea Contenuto con immagine</h2>
-<form id="contenutoForm1">
-    <label for="contenutoId1">contenuto id:</label>
-    <input type="text" id="contenutoId1" name="contenutoId" disabled><br><br>
-    <label for="contenutoTitolo1">Contenuto Titolo:</label>
-    <input type="text" id="contenutoTitolo1" name="contenutoTitolo" required><br><br>
-    <label for="contenutoDescrizione1">contenuto Descrizione:</label>
-    <input type="text" id="contenutoDescrizione1" name="contenutoDescrizione" required><br><br>
-    <label for="piRiferimento1">Titolo PI Riferimento:</label>
-    <input type="text" id="piRiferimento1" name="piRiferimento" required><br><br>
-    <div id="fileInputContainer">
-        <input type="file" id="fileInput">
-    </div>
-    <button type="button" onclick="creaContenutoMultimediale(),showPopup()">Crea Contenuto</button>
-
-</form>
-
 <h2>Create Commento</h2>
-<form id="commentoForm">
-    <label for="commentoId">commento id:</label>
-    <input type="text" id="commentoId" name="commentoId" disabled><br><br>
-    <label for="commentoTipologia">commento tipologia:</label>
-    <input type="text" id="commentoTipologia" name="commentoTipologia" required><br><br>
-    <label for="commentoTitolo">commento titolo:</label>
-    <input type="text" id="commentoTitolo" name="commentoTitolo" required><br><br>
-    <label for="commentoDescrizione">commento Descrizione:</label>
-    <input type="text" id="commentoDescrizione" name="commentoDescrizione" required><br><br>
+<form id="contenutoForm">
+    <label for="contenutoId">contenuto id:</label>
+    <input type="text" id="contenutoId" name="contenutoId" disabled><br><br>
+    <label for="contenutoTipologia">contenuto tipologia:</label>
+    <input type="text" id="contenutoTipologia" name="contenutoTipologia" required><br><br>
+    <label for="contenutoTitolo">Contenuto Titolo:</label>
+    <input type="text" id="contenutoTitolo" name="contenutoTitolo" required><br><br>
+    <label for="contenutoDescrizione">contenuto Descrizione:</label>
+    <input type="text" id="contenutoDescrizione" name="contenutoDescrizione" required><br><br>
     <label for="piRiferimento">Titolo PI Riferimento:</label>
     <input type="text" id="piRiferimento" name="piRiferimento" required><br><br>
     <button type="button" onclick="createCommento()">Crea Commento</button>
 </form>
 
-<h1>Ottieni Contenuti</h1>
-<button onclick="getContenuto()">Get Contenuti</button>
+<h1>Ottieni Contenuto</h1>
+<button onclick="getContenuto()">Get Contenuto</button>
 <h2>contenuto List</h2>
 <ul id="contenutoList"></ul>
 
@@ -139,34 +83,6 @@
 <button onclick="getCommentoByTitle()">Get commento</button>
 <div id="commentoResult"></div>
 
-<div id="popup" class="popup-container">
-    <h2>Vuoi aggiungere il tuo contenuto al contest?</h2>
-    <button onclick="showPopup1(),hidePopup()">Aggiungi al contest</button>
-    <button onclick="hidePopup()">Non aggiungere al contest</button>
-</div>
-
-<div id="popup1" class="popup-container">
-    <label for="contestTitolo">titolo contest</label>
-    <input type="text" id="contestTitolo">
-    <button onclick="partecipa(),hidePopup1()">Partecipa al contest</button>
-    <button onclick="hidePopup1(),showPopup()">Indietro</button>
-</div>
-
-<h2>Create Esperienza</h2>
-<form id="esperienzaForm">
-    <label for="esperienzaId">esperienza id:</label>
-    <input type="text" id="esperienzaId" name="esperienzaId" disabled><br><br>
-    <label for="esperienzaTipologia">esperienza tipologia:</label>
-    <input type="text" id="esperienzaTipologia" name="esperienzaTipologia" required><br><br>
-    <label for="esperienzaTitolo">esperienza Titolo:</label>
-    <input type="text" id="esperienzaTitolo" name="esperienzaTitolo" required><br><br>
-    <label for="esperienzaDescrizione">esperienza Descrizione:</label>
-    <input type="text" id="esperienzaDescrizione" name="esperienzaDescrizione" required><br><br>
-    <label for="multiValues">Inserisci valori separati da virgole:</label>
-    <input type="text" id="multiValues" name="multiValues">
-    <button type="button" onclick="createEsperienza()">Create Esperienza</button>
-</form>
-
 <h1>Ottieni Esperienze</h1>
 <button onclick="getEsperienze()">Ottieni Esperienza</button>
 <h2>esperienza List</h2>
@@ -177,18 +93,6 @@
 <input type="text" id="titolo">
 <button onclick="getEsperienzaByTitle()">Get esperienza</button>
 <div id="esperienzaResult"></div>
-
-<h2>Get contest by titolo</h2>
-<label for="titoloContest">contest Titolo:</label>
-<input type="text" id="titoloContest">
-<button onclick="getContestByTitle()">Get contest</button>
-<div id="contestResult"></div>
-
-
-<h1>Ottieni contest</h1>
-<button onclick="getContest()">Get Contest</button>
-<h2>contest List</h2>
-<ul id="contestList"></ul>
 
 <h1>Aggiungi Segnalazione</h1>
 <form id="aggiungiSegnalazioneForm">
@@ -217,7 +121,6 @@
 
     const baseUrl = 'http://localhost:8080';
 
-
     function getPI() {
         fetch(`${baseUrl}/AllPI`)
             .then(response => {
@@ -242,53 +145,7 @@
                 alert('Si è verificato un errore durante il recupero dei POI.');
             });
     }
-    function showAlert() {
-        alert("Inserire tutti i caratteri maiuscoli e attaccati");
-    }
-    function createPI() {
-        const piId = document.getElementById('piId').value;
-        const piLongitudine = document.getElementById('piLongitudine').value;
-        const piLatitudine = document.getElementById('piLatitudine').value;
-        const piTipologia = document.getElementById('piTipologia').value;
-        const piTitolo = document.getElementById('piTitolo').value;
-        const piDescrizione = document.getElementById('piDescrizione').value;
 
-        const pi = {
-            idPI: piId,
-            longitudine: piLongitudine,
-            latitudine: piLatitudine,
-            tipologia: piTipologia,
-            descrizione: piDescrizione,
-            titolo: piTitolo
-        };
-
-        fetch(`${baseUrl}/pubblicaPI`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(pi)
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Errore nella richiesta.');
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log('Dati ricevuti:', data); // Controlla i dati ricevuti nella console
-                alert('PI aggiunto con successo!');
-
-                // Aggiungi un marker sulla mappa per il nuovo POI
-                L.marker([piLatitudine, piLongitudine]).addTo(map)
-                    .bindPopup(`<b>${piTitolo}</b><br>${piDescrizione}`)
-                    .openPopup();
-            })
-            .catch(error => {
-                console.error('Errore:', error);
-                alert('Si è verificato un errore durante l\'aggiunta del PI.');
-            });
-    }
     function getElementiPI() {
         const titoloPI = document.getElementById('titoloPI').value;
 
@@ -374,13 +231,13 @@
                 data.forEach(commento => {
                     const listItem = document.createElement('li');
                     //costruisce la nuova lista
-                    listItem.textContent = `ID: ${commento.idElemento}, Descrizione: ${commento.descrizione}, Titolo: ${commento.titolo}, Tipologia: ${commento.tipologia}, PIRiferimento: ${commento.piRiferimento}`;
+                    listItem.textContent = `ID: ${commento.idElemento}, Descrizione: ${commento.descrizione}, Titolo: ${commento.titolo}, Tipologia: ${commento.tipologia}`;
                     commentiList.appendChild(listItem);
                 });
             })
             .catch(error => {
                 console.error('Errore:', error);
-                alert('Si è verificato un errore durante il recupero dei Commenti.');
+                alert('Si è verificato un errore durante il recupero dei POI.');
             });
     }
 
@@ -451,25 +308,9 @@
             .catch(error => console.error('Errore:', error));
     }
 
-    function hidePopup() {
-        // Nasconde il pop-up impostando lo stile "display" a "none"
-        document.getElementById('popup').style.display = 'none';
-    }
-    function hidePopup1() {
-        // Nasconde il pop-up impostando lo stile "display" a "none"
-        document.getElementById('popup1').style.display = 'none';
-    }
-    function showPopup() {
-        // Mostra il pop-up impostando lo stile "display" a "block"
-        document.getElementById('popup').style.display = 'block';
-    }
-    function showPopup1() {
-        // Mostra il pop-up impostando lo stile "display" a "block"
-        document.getElementById('popup1').style.display = 'block';
-    }
-   function createCommento() {
+    function createCommento() {
         const commentoId=document.getElementById('commentoId').value;
-       const commentoTipologia = document.getElementById('commentoTipologia').value;
+        const commentoTipologia = document.getElementById('commentoTipologia').value;
         const commentoTitolo = document.getElementById('commentoTitolo').value;
         const commentoDescrizione = document.getElementById('commentoDescrizione').value;
         const piRiferimento = document.getElementById('piRiferimento').value;
@@ -481,7 +322,7 @@
             piRiferimento: piRiferimento,
         };
 
-        fetch(`${baseUrl}/pubblicaCommento`, {
+        fetch(`${baseUrl}/creaCommento`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -502,114 +343,6 @@
             .catch(error => {
                 console.error('Errore:', error);
                 alert('Si è verificato un errore durante l\'aggiunta del commento.');
-            });
-    }
-
-    function creaContenutoMultimediale() {
-        const contenutoId = document.getElementById('contenutoId1').value;
-        const contenutoTitolo = document.getElementById('contenutoTitolo1').value;
-        const contenutoDescrizione = document.getElementById('contenutoDescrizione1').value;
-        const piRiferimento = document.getElementById('piRiferimento1').value;
-
-        const fileInput = document.getElementById('fileInput');
-        const file = fileInput.files[0];
-
-        const formData = new FormData();
-        formData.append('file', file);
-        formData.append('idElemento', contenutoId);
-        formData.append('titolo', contenutoTitolo);
-        formData.append('descrizione', contenutoDescrizione);
-        formData.append('piRiferimento', piRiferimento);
-
-        fetch(`${baseUrl}/pubblicaContenutoMultimediale`, {
-            method: 'POST',
-            body: formData,
-        })
-            .then(data => {
-                console.log('Dati ricevuti:', data); // Controlla i dati ricevuti nella console
-                alert('Contenuto aggiunto!');
-            })
-            .catch(error => {
-                console.error('Errore:', error);
-                alert('Si è verificato un errore durante l\'aggiunta del contenuto.');
-            })
-            .catch(error => console.error('Error:', error));
-    }
-
-    function partecipa() {
-        const contestTitolo = document.getElementById('contestTitolo').value;
-
-        const data = {
-            contest: contestTitolo
-        };
-        fetch(`${baseUrl}/partecipa/contest?contest=${encodeURIComponent(contestTitolo)}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            // Convertire l'oggetto dei dati in JSON e inviarlo come corpo della richiesta
-            body: JSON.stringify(data)
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Errore nella richiesta.');
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log('Success:', data);
-                alert('Contenuto aggiunto al contest');
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-                alert('Error: ' + error.message);
-            });
-    }
-
-    function createEsperienza() {
-        const esperienzaId = document.getElementById('esperienzaId').value;
-        const esperienzaTipologia = document.getElementById('esperienzaTipologia').value;
-        const esperienzaTitolo = document.getElementById('esperienzaTitolo').value;
-        const esperienzaDescrizione = document.getElementById('esperienzaDescrizione').value;
-        const multiValues = document.getElementById('multiValues').value;
-        var valoriSeparati = multiValues.split(',');
-
-
-        // Crea una lista e aggiungi gli elementi
-        var listaPI = [];
-        for (var i = 0; i < valoriSeparati.length; i++) {
-            listaPI.push(valoriSeparati[i].trim());
-        }
-
-        const esperienza = {
-            idElemento: esperienzaId,
-            tipologia: esperienzaTipologia,
-            descrizione: esperienzaDescrizione,
-            titolo: esperienzaTitolo,
-            listaPI: listaPI,  // Assegna l'array di valori separati
-            piRiferimento: listaPI.at(0)
-        };
-        fetch(`${baseUrl}/pubblicaEsperienza`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(esperienza)
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Errore nella richiesta.');
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log('Dati ricevuti:', data); // Controlla i dati ricevuti nella console
-                alert('Esperienza aggiunta con successo!');
-
-            })
-            .catch(error => {
-                console.error('Errore:', error);
-                alert('Si è verificato un errore durante l\'aggiunta dell\'esperienza');
             });
     }
 
@@ -658,50 +391,7 @@
             })
             .catch(error => console.error('Errore:', error));
     }
-    function getContestByTitle() {
-        const titoloContest = document.getElementById('titoloContest').value;
 
-        fetch(`${baseUrl}/contest/titolo?titolo=${encodeURIComponent(titoloContest)}`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Errore nella richiesta.');
-                }
-                return response.json();
-            })
-            .then(contest => {
-                const contestResult = document.getElementById('contestResult');
-                if (contest!=null) {
-                    contestResult.textContent = `ID: ${contest.idContest}, Descrizione: ${contest.descrizione}, Titolo: ${contest.titolo}, Tipologia: ${contest.tipologia}, PiRiferimento ${contest.piRiferimento}, DataFine ${contest.dataFine}, Animatore ${contest.creatore}`;
-                } else {
-                    contestResult.textContent = `contest non trovato.`;
-                }
-            })
-            .catch(error => console.error('Errore:', error));
-    }
-    function getContest() {
-        fetch(`${baseUrl}/AllContest`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Errore nella richiesta.');
-                }
-                return response.json();
-            })
-            .then(data => {
-                const contestList = document.getElementById('contestList');
-                contestList.innerHTML = ''; // Pulisci la lista precedente
-
-                data.forEach(contest => {
-                    const listItem = document.createElement('li');
-                    //costruisce la nuova lista
-                    listItem.textContent = `ID: ${contest.idContest}, Descrizione: ${contest.descrizione}, Titolo: ${contest.titolo}, Tipologia: ${contest.tipologia}, Animatore ${contest.creatore}, PiRiferimento ${contest.piRiferimento},DataFine ${contest.dataFine}`;
-                    contestList.appendChild(listItem);
-                });
-            })
-            .catch(error => {
-                console.error('Errore:', error);
-                alert('Si è verificato un errore durante il recupero dei POI.');
-            });
-    }
     function inviaSegnalazione() {
         var idSegnalazione = document.getElementById('idSegnalazione').value;
         var idElemento = document.getElementById('idElemento').value;

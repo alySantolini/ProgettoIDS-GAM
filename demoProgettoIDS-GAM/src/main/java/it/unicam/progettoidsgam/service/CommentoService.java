@@ -36,9 +36,20 @@ public class CommentoService {
         return new ResponseEntity<>(commentoRepository.findAll(), HttpStatus.OK);
     }
 
-
-    public Commento creaNewCommento(Commento co) throws IOException {
-        Optional<Commento> co1= commentoRepository.findById(co.getIdCommento());
+    public Commento addNewCommento(Commento co) throws IOException {
+        Optional<Commento> co1= commentoRepository.findByTitolo(co.getTitolo());
+        Optional<PI> piOptional = piRepository.findByTitolo(co.getPiRiferimento());
+        if (piOptional.isEmpty()) {
+            throw new ResourceAlreadyExistsException("PI con ID " + co.getPiRiferimento() + " non trovato.");
+        }
+        if(co1.isPresent()){
+            throw new ResourceAlreadyExistsException("CO: " +co.getTitolo()+co.getDescrizione()+co.getPiRiferimento()+" esiste già");
+        }
+        co.setIdCommento();
+        return commentoRepository.save(co);
+    }
+   public Commento creaNewCommento(Commento co) throws IOException {
+        Optional<Commento> co1= commentoRepository.findById(co.getTitolo());
         Optional<PI> piOptional = piRepository.findByTitolo(co.getPiRiferimento());
         if (piOptional.isEmpty()) {
             throw new ResourceAlreadyExistsException("PI con ID " + co.getPiRiferimento() + " non trovato.");

@@ -12,10 +12,9 @@ import java.io.IOException;
 @Entity
 public class Commento extends Elemento {
 
-    private String idCommento;
     private String tipologia;
     private String titolo;
-    private String testo;
+    private String descrizione;
     private static int idCOMPrecedente;
 
 
@@ -34,7 +33,7 @@ public class Commento extends Elemento {
     }
 
     public String getIdCommento() {
-        return idCommento;
+        return super.getIdElemento();
     }
 
     public void setIdCommento(){

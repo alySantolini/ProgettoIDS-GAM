@@ -83,18 +83,18 @@
 <ul id="piLista"></ul>
 
 <h2>Crea commento</h2>
-<form id="contenutoForm1">
-    <label for="contenutoId">contenuto id:</label>
-    <input type="text" id="contenutoId" name="contenutoId" disabled><br><br>
-    <label for="contenutoTipologia">contenuto tipologia:</label>
-    <input type="text" id="contenutoTipologia" name="contenutoTipologia" required><br><br>
-    <label for="contenutoTitolo">Contenuto Titolo:</label>
-    <input type="text" id="contenutoTitolo" name="contenutoTitolo" required><br><br>
-    <label for="contenutoDescrizione">contenuto Descrizione:</label>
-    <input type="text" id="contenutoDescrizione" name="contenutoDescrizione" required><br><br>
+<form id="commentoForm">
+    <label for="commentoId">Commento id:</label>
+    <input type="text" id="commentoId" name="commentoId" disabled><br><br>
+    <label for="commentoTipologia">Commento tipologia:</label>
+    <input type="text" id="commentoTipologia" name="commentoTipologia" required><br><br>
+    <label for="commentoTitolo">CommentoTitolo:</label>
+    <input type="text" id="commentoTitolo" name="commentoTitolo" required><br><br>
+    <label for="commentoDescrizione">commento Descrizione:</label>
+    <input type="text" id="commentoDescrizione" name="commentoDescrizione" required><br><br>
     <label for="piRiferimento">Titolo PI Riferimento:</label>
     <input type="text" id="piRiferimento" name="piRiferimento" required><br><br>
-    <button type="button" onclick="creaContenuto()">Crea Contenuto</button>
+    <button type="button" onclick="creaCommento()">Crea Commento</button>
 </form>
 
 
@@ -115,16 +115,29 @@
 
 </form>
 
-<h2>Ottieni contenuto by titolo</h2>
-<label for="titoloContenuto">contenuto Titolo:</label>
-<input type="text" id="titoloContenuto">
-<button onclick="getContenutoByTitle()">ottieni contenuto</button>
-<div id="contenutoResult"></div>
-
-<h1>Ottieni Contenuti</h1>
-<button onclick="getContenuto()">ottieni Contenuti</button>
+h1>Ottieni Contenuti</h1>
+<button onclick="getContenuto()">Ottieni Contenuti</button>
 <h2>contenuto List</h2>
 <ul id="contenutoList"></ul>
+
+<<h1>Ottieni Commenti</h1>
+<button onclick="getCommenti()">Ottieni Commenti</button>
+<h2>commenti List</h2>
+<ul id="commentiList"></ul>
+
+<h2>Get contenuto by titolo</h2>
+<label for="titoloContenuto">contenuto Titolo:</label>
+<input type="text" id="titoloContenuto">
+<button onclick="getContenutoByTitle()">Get contenuto</button>
+<div id="contenutoResult"></div>
+
+<h2>Get commento by titolo</h2>
+<label for="titoloCommento">commento Titolo:</label>
+<input type="text" id="titoloCommento">
+<button onclick="getCommentoByTitle()">Get commento</button>
+<div id="commentoResult"></div>
+
+<
 
 <h2>Crea Esperienza</h2>
 <form id="esperienzaForm1">
@@ -140,6 +153,11 @@
     <input type="text" id="multiValues" name="multiValues">
     <button type="button" onclick="creaEsperienza()">Crea Esperienza</button>
 </form>
+
+<h1>Ottieni Esperienze</h1>
+<button onclick="getEsperienze()">Ottieni Esperienza</button>
+<h2>esperienza List</h2>
+<ul id="esperienzaList"></ul>
 
 <h2>Ottieni esperienza by titolo</h2>
 <label for="esperienzaTitolo">esperienza Titolo:</label>
@@ -298,39 +316,27 @@
             })
             .catch(error => console.error('Errore:', error));
     }
-   /* function creaContenuto() {
-        const contenutoId=document.getElementById('contenutoId').value;
-        const contenutoTipologia = document.getElementById('contenutoTipologia').value;
-        const contenutoTitolo = document.getElementById('contenutoTitolo').value;
-        const contenutoDescrizione = document.getElementById('contenutoDescrizione').value;
+   function creaCommento() {
+        const commentoId=document.getElementById('commentoId').value;
+        const commentoTipologia = document.getElementById('commentoTipologia').value;
+        const commentoTitolo = document.getElementById('commentoTitolo').value;
+        const commentoDescrizione = document.getElementById('commentoDescrizione').value;
         const piRiferimento = document.getElementById('piRiferimento').value;
 
-        var fileInput = document.getElementById('fileInput');
-        var file = fileInput.files[0];
-        var filename=fileInput.value.toString();
-        var formData = new FormData();
-        //aggiungere il filename
-        formData.append('file', file);
-        formData.append('filename',filename);
-        // Se necessario, aggiungi il codice per recuperare l'immagine e convertirla in un formato utilizzabile
-
-        const contenuto = {
-            idElemento: contenutoId,
-            tipologia: contenutoTipologia,
-            titolo: contenutoTitolo,
-            descrizione: contenutoDescrizione,
+        const commento = {
+            idElemento: commentoId,
+            tipologia: commentoTipologia,
+            titolo: commentoTitolo,
+            descrizione: commentoDescrizione,
             piRiferimento: piRiferimento,
-            immagine: fileInput
-            // Aggiungi l'immagine se necessario
         };
 
-        fetch(`${baseUrl}/creaContenuto`, {
+        fetch(`${baseUrl}/creaCommento`, {
             method: 'POST',
-            body: formData,
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(contenuto),
+            body: JSON.stringify(commento),
         })
             .then(response => {
                 if (!response.ok) {
@@ -340,14 +346,14 @@
             })
             .then(data => {
                 console.log('Dati ricevuti:', data); // Controlla i dati ricevuti nella console
-                alert('Contenuto in attesa di autorizzazione!');
+                alert('commento in attesa di autorizzazione!');
                 // Esegui eventuali azioni aggiuntive dopo l'aggiunta del contenuto
             })
             .catch(error => {
                 console.error('Errore:', error);
                 alert('Si è verificato un errore durante l\'aggiunta del contenuto.');
             });
-    }*/
+    }
     function getContenuto() {
         fetch(`${baseUrl}/contenuti`)
             .then(response => {
@@ -371,6 +377,30 @@
             .catch(error => {
                 console.error('Errore:', error);
                 alert('Si è verificato un errore durante il recupero del contenuto.');
+            });
+    }
+    function getCommenti() {
+        fetch(`${baseUrl}/commenti`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Errore nella richiesta.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const commentiList = document.getElementById('commentiList');
+                commentiList.innerHTML = ''; // Pulisci la lista precedente
+
+                data.forEach(commento => {
+                    const listItem = document.createElement('li');
+                    //costruisce la nuova lista
+                    listItem.textContent = `ID: ${commento.idElemento}, Descrizione: ${commento.descrizione}, Titolo: ${commento.titolo}, Tipologia: ${commento.tipologia}`;
+                    commentiList.appendChild(listItem);
+                });
+            })
+            .catch(error => {
+                console.error('Errore:', error);
+                alert('Si è verificato un errore durante il recupero dei Commenti.');
             });
     }
     function getContenutoByTitle() {
@@ -415,6 +445,26 @@
                     }
                 } else {
                     contenutoResult.textContent = `Contenuto non trovato.`;
+                }
+            })
+            .catch(error => console.error('Errore:', error));
+    }
+    function getCommentoByTitle() {
+        const titoloCommento = document.getElementById('titoloCommento').value;
+
+        fetch(`${baseUrl}/commento/titolo?titolo=${encodeURIComponent(titoloCommento)}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Errore nella richiesta.');
+                }
+                return response.json();
+            })
+            .then(commento => {
+                const commentoResult = document.getElementById('commentoResult');
+                if (commento!=null) {
+                    commentoResult.textContent = `ID: ${commento.idElemento}, Descrizione: ${commento.descrizione}, Titolo: ${commento.titolo}, Tipologia: ${commento.tipologia}`;
+                } else {
+                    commentoResult.textContent = `Commento non trovato.`;
                 }
             })
             .catch(error => console.error('Errore:', error));
@@ -494,6 +544,31 @@
             .catch(error => {
                 console.error('Errore:', error);
                 alert('Si è verificato un errore durante l\'aggiunta dell\'esperienza');
+            });
+    }
+
+    function getEsperienze(){
+        fetch(`${baseUrl}/esperienze`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Errore nella richiesta.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const esperienzaList = document.getElementById('ta precesperienzaList');
+                esperienzaList.innerHTML = ''; // Pulisci la lisedente
+
+                data.forEach(esperienza => {
+                    const listItem = document.createElement('li');
+                    //costruisce la nuova lista
+                    listItem.textContent = `ID: ${esperienza.idElemento}, Descrizione: ${esperienza.descrizione}, Titolo: ${esperienza.titolo}, Tipologia: ${esperienza.tipologia}, ListaPI: ${esperienza.listaPI}, PiRiferimento: ${esperienza.piRiferimento}`;
+                    esperienzaList.appendChild(listItem);
+                });
+            })
+            .catch(error => {
+                console.error('Errore:', error);
+                alert('Si è verificato un errore durante il recupero delle Esperienze.');
             });
     }
 
@@ -593,7 +668,7 @@
             .then(contest => {
                 const contestResult = document.getElementById('contestResult');
                 if (contest!=null) {
-                    contestResult.textContent = `ID: ${contest.idElemento}, Descrizione: ${contest.descrizione}, Titolo: ${contest.titolo}, Tipologia: ${contest.tipologia}, PiRiferimento ${contest.piRiferimento}, DataFine ${contest.dataFine}, Animatore ${contest.creatore}`;
+                    contestResult.textContent = `ID: ${contest.idContest}, Descrizione: ${contest.descrizione}, Titolo: ${contest.titolo}, Tipologia: ${contest.tipologia}, PiRiferimento ${contest.piRiferimento}, DataFine ${contest.dataFine}, Animatore ${contest.creatore}`;
                 } else {
                     contestResult.textContent = `contest non trovato.`;
                 }

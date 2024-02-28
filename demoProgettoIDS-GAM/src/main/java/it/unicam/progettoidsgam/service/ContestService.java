@@ -22,14 +22,12 @@ import static it.unicam.progettoidsgam.modelli.Contest.elementiContest;
 public class ContestService {
 
     private final ContestRepository contestRepository;
-    //private final InvitoRepository invitoRepository;
     private final PIRepository piRepository;
 
     @Autowired
     public ContestService(ContestRepository contestRepository, PIRepository piRepository) throws IOException {
         this.contestRepository =contestRepository;
         this.piRepository=piRepository;
-      //  this.invitoRepository=invitoRepository;
     }
     public ResponseEntity<Object> getContest(){
         return new ResponseEntity<>(contestRepository.findAll(), HttpStatus.OK);
