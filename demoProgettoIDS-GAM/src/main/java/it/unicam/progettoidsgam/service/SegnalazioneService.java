@@ -23,18 +23,9 @@ import java.util.Optional;
 public class SegnalazioneService {
     private SegnalazioneRepository segnalazioneRepository;
 
-    private ElementiRepository<Elemento> elementiRepository;
-
-    private PIRepository piRepository;
-    private ContestRepository contestRepository;
-
-
     @Autowired
-    public SegnalazioneService(SegnalazioneRepository segnalazioneRepository, ElementiRepository<Elemento> elementiRepository,PIRepository piRepository, ContestRepository contestRepository) throws IOException {
+    public SegnalazioneService(SegnalazioneRepository segnalazioneRepository) {
         this.segnalazioneRepository = segnalazioneRepository;
-        this.piRepository = piRepository;
-        this.contestRepository=contestRepository;
-        this.elementiRepository=elementiRepository;
     }
 
     public Segnalazione addNewSegnalazione(Segnalazione segnalazione) throws IOException {

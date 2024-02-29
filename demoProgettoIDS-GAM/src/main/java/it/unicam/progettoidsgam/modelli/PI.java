@@ -82,13 +82,6 @@ public class PI {
         return idPI;
     }
 
-    public void visualizza() throws IOException {
-        if (this.getIdPI()!=null){
-            System.out.println(this.getTitolo()+this.getDescrizione()+this.longitudine+this.latitudine);
-        }else{
-            System.out.println("Il PI non esiste");
-        }
-    }
 
 }
 

@@ -23,15 +23,6 @@ public class AnimatoreController {
         salvaAnimatore();
     }
 
-  /*  @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestParam String username, @RequestParam String password) {
-        boolean authenticated = animatoreService.authenticate(username, password);
-        if (authenticated) {
-            return new ResponseEntity<>("Login effettuato con successo", HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("Credenziali non valide", HttpStatus.UNAUTHORIZED);
-        }
-    }*/
 
     @GetMapping("/allAnimatore")
     public ResponseEntity<Object> getAnimatori() {

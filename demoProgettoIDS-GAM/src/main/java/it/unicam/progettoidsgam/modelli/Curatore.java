@@ -7,7 +7,6 @@ import jakarta.persistence.Entity;
 import java.util.ArrayList;
 import java.util.List;
 
-//DA SISTEMARE
 @Entity
 public class Curatore extends Contributore {
     private String idCuratore;
